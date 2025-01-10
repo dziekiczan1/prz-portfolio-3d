@@ -16,7 +16,7 @@ export default function Experience() {
       <ambientLight intensity={1.5} />
 
       <color args={["#bdedfc"]} attach="background" />
-      <mesh position-x={2}>
+      <mesh>
         <boxGeometry />
         <meshStandardMaterial color="mediumpurple" />
       </mesh>
