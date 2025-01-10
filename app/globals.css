@@ -17,5 +17,21 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Geist;
+  font-family: Roboto;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+html,
+body,
+#root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

@@ -1,7 +1,19 @@
+"use client";
+import { Canvas } from "@react-three/fiber";
+import Experience from "./components/sections/experience";
+
 export default function Home() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      Piotr Rzadkowolski
-    </div>
+    <Canvas
+      shadows
+      camera={{
+        fov: 45,
+        near: 0.1,
+        far: 200,
+        position: [2.5, 4, 6],
+      }}
+    >
+      <Experience />
+    </Canvas>
   );
 }
