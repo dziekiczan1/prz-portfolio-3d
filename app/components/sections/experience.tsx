@@ -1,5 +1,5 @@
 "use client";
-import {Environment, OrbitControls, PerspectiveCamera, useHelper} from "@react-three/drei";
+import {Environment, OrbitControls, useHelper} from "@react-three/drei";
 import {useControls} from "leva";
 import {Perf} from "r3f-perf";
 import * as THREE from "three";
@@ -8,7 +8,7 @@ import wobbleFragmentShader from "../../shaders/wobble/fragment.glsl";
 import {mergeVertices} from "three/addons/utils/BufferGeometryUtils.js";
 import CustomShaderMaterial from "three-custom-shader-material";
 import {useEffect, useRef} from "react";
-import {CameraHelper, DirectionalLight, DirectionalLightHelper, Mesh} from "three";
+import {DirectionalLight, DirectionalLightHelper, Mesh} from "three";
 import {useFrame} from "@react-three/fiber";
 
 export default function Experience() {
@@ -29,10 +29,11 @@ export default function Experience() {
     };
 
     const meshRef = useRef<Mesh>(null);
+
     useEffect(() => {
-        let geometry = meshRef.current?.geometry;
-console.log(meshRef.current?.material);
-        if (geometry) {
+        const mesh = meshRef.current;
+        if (mesh) {
+            let geometry = mesh.geometry;
             geometry = mergeVertices(geometry);
             geometry.computeTangents();
         }
@@ -40,31 +41,21 @@ console.log(meshRef.current?.material);
 
     useFrame((state) => {
         const elapsedTime = state.clock.getElapsedTime();
-        // uniforms.uTime.value = elapsedTime;
-
-        if(meshRef.current) {
-            const material = meshRef.current.material as THREE.ShaderMaterial;
-            if (material.uniforms) {
-                material.uniforms.uTime.value = elapsedTime;
-            }
-        }
+        uniforms.uTime.value = elapsedTime;
     });
 
     const lightRef = useRef<DirectionalLight>(null);
-    const cameraRef = useRef<THREE.PerspectiveCamera>(null);
-    useHelper(cameraRef as React.MutableRefObject<THREE.Object3D>, CameraHelper);
     useHelper(lightRef as React.MutableRefObject<DirectionalLight>, DirectionalLightHelper, 1, "red");
 
     return (
         <>
             {perfVisible && <Perf position="top-left"/>}
-
             <OrbitControls makeDefault/>
 
             <directionalLight
                 ref={lightRef}
                 color={'#ffffff'}
-                position={[0.25, 2, 2.25]}
+                position={[0.25, 2, -2.25]}
                 intensity={3}
                 castShadow
                 shadow-mapSize-width={1024}
@@ -72,8 +63,6 @@ console.log(meshRef.current?.material);
                 shadow-camera-far={15}
                 shadow-normalBias={0.05}
             />
-
-            <PerspectiveCamera ref={cameraRef} near={0.1} far={100} position={[0, 0, 15]} fov={45}></PerspectiveCamera>
             <Environment
                 background
                 files="./urban_alley_01_1k.hdr"
@@ -81,8 +70,8 @@ console.log(meshRef.current?.material);
             </Environment>
 
             <color args={["#bdedfc"]} attach="background"/>
-            <mesh ref={meshRef} scale={0.5} castShadow receiveShadow>
-                <icosahedronGeometry args={[2.5, 50]} />
+            <mesh ref={meshRef} castShadow receiveShadow>
+                <icosahedronGeometry args={[2.5, 50]}/>
                 <CustomShaderMaterial
                     baseMaterial={THREE.MeshPhysicalMaterial}
                     vertexShader={wobbleVertexShader}
@@ -108,7 +97,7 @@ console.log(meshRef.current?.material);
 
             <mesh
                 rotation={[0, Math.PI, 0]}
-                position={[0, -5, -5]}
+                position={[0, -5, 5]}
                 receiveShadow
             >
                 <planeGeometry args={[15, 15, 15]}/>
