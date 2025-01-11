@@ -1,3 +1,4 @@
+"use client";
 import {Environment, OrbitControls, PerspectiveCamera, useHelper} from "@react-three/drei";
 import {useControls} from "leva";
 import {Perf} from "r3f-perf";
@@ -30,7 +31,7 @@ export default function Experience() {
     const meshRef = useRef<Mesh>(null);
     useEffect(() => {
         let geometry = meshRef.current?.geometry;
-
+console.log(meshRef.current?.material);
         if (geometry) {
             geometry = mergeVertices(geometry);
             geometry.computeTangents();
@@ -72,7 +73,7 @@ export default function Experience() {
                 shadow-normalBias={0.05}
             />
 
-            <PerspectiveCamera ref={cameraRef} near={0.1} far={200} position={[0, 0, 15]} fov={45}></PerspectiveCamera>
+            <PerspectiveCamera ref={cameraRef} near={0.1} far={100} position={[0, 0, 15]} fov={45}></PerspectiveCamera>
             <Environment
                 background
                 files="./urban_alley_01_1k.hdr"
@@ -81,7 +82,7 @@ export default function Experience() {
 
             <color args={["#bdedfc"]} attach="background"/>
             <mesh ref={meshRef} scale={0.5} castShadow receiveShadow>
-                <icosahedronGeometry args={[2.5, 50]}/>
+                <icosahedronGeometry args={[2.5, 50]} />
                 <CustomShaderMaterial
                     baseMaterial={THREE.MeshPhysicalMaterial}
                     vertexShader={wobbleVertexShader}
@@ -101,7 +102,7 @@ export default function Experience() {
                     vertexShader={wobbleVertexShader}
                     uniforms={uniforms}
                     depthPacking={THREE.RGBADepthPacking}
-                    attach="depthMaterial"
+                    attach="customDepthMaterial"
                 />
             </mesh>
 
