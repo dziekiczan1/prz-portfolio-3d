@@ -140,7 +140,7 @@ void main()
     // Compute normal
     vec3 toA = normalize(positionA - csm_Position);
     vec3 toB = normalize(positionB - csm_Position);
-    csm_Normal = normal;
+    csm_Normal = cross(toA, toB);
 
     // Varying
     vWobble = wobble / uStrength;

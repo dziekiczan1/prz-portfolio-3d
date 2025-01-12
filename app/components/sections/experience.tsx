@@ -1,5 +1,5 @@
 "use client";
-import {Environment, OrbitControls, useHelper} from "@react-three/drei";
+import {OrbitControls, useHelper} from "@react-three/drei";
 import {useControls} from "leva";
 import {Perf} from "r3f-perf";
 import * as THREE from "three";
@@ -7,37 +7,48 @@ import wobbleVertexShader from "../../shaders/wobble/vertex.glsl";
 import wobbleFragmentShader from "../../shaders/wobble/fragment.glsl";
 import {mergeVertices} from "three/addons/utils/BufferGeometryUtils.js";
 import CustomShaderMaterial from "three-custom-shader-material";
-import {useEffect, useRef} from "react";
-import {DirectionalLight, DirectionalLightHelper, Mesh} from "three";
+import {useEffect, useMemo, useRef} from "react";
+import {DirectionalLight, DirectionalLightHelper} from "three";
 import {useFrame} from "@react-three/fiber";
 
 export default function Experience() {
-    const {perfVisible} = useControls("debug", {
+    const {perfVisible} = useControls('performance', {
         perfVisible: false,
     });
 
-    const uniforms = {
-        uTime: new THREE.Uniform(0),
-        uPositionFrequency: new THREE.Uniform(0.5),
-        uTimeFrequency: new THREE.Uniform(0.4),
-        uStrength: new THREE.Uniform(0.3),
-        uWarpPositionFrequency: new THREE.Uniform(0.38),
-        uWarpTimeFrequency: new THREE.Uniform(0.12),
-        uWarpStrength: new THREE.Uniform(1.7),
-        uColorA: new THREE.Uniform(new THREE.Color("#0000ff")),
-        uColorB: new THREE.Uniform(new THREE.Color("#ff0000")),
-    };
+    const icosahedronGeometry = useMemo(() => {
+        const icosahedronGeometry = new THREE.IcosahedronGeometry(2.5, 50);
+        const mergedIcosahedronGeometry = mergeVertices(icosahedronGeometry);
+        mergedIcosahedronGeometry.computeTangents();
+        return mergedIcosahedronGeometry;
+    }, []);
 
-    const meshRef = useRef<Mesh>(null);
-
-    useEffect(() => {
-        const mesh = meshRef.current;
-        if (mesh) {
-            let geometry = mesh.geometry;
-            geometry = mergeVertices(geometry);
-            geometry.computeTangents();
+    const options = useMemo(() => {
+        return {
+            positionFrequency: {value: 0.5, min: 0, max: 2, step: 0.01},
+            timeFrequency: {value: 0.4, min: 0, max: 2, step: 0.01},
+            strength: {value: 0.3, min: 0, max: 1, step: 0.01},
+            warpPositionFrequency: {value: 0.38, min: 0, max: 2, step: 0.01},
+            warpTimeFrequency: {value: 0.12, min: 0, max: 2, step: 0.01},
+            warpStrength: {value: 1.7, min: 0, max: 5, step: 0.01},
+            colorA: { value: '#0000ff' },
+            colorB: { value: '#ff0000' },
         }
     }, []);
+
+    const {positionFrequency, timeFrequency, strength, warpPositionFrequency, warpTimeFrequency, warpStrength, colorA, colorB} = useControls('sphere', options);
+
+    const uniforms = useMemo(() => ({
+        uTime: new THREE.Uniform(0),
+        uPositionFrequency: new THREE.Uniform(positionFrequency),
+        uTimeFrequency: new THREE.Uniform(timeFrequency),
+        uStrength: new THREE.Uniform(strength),
+        uWarpPositionFrequency: new THREE.Uniform(warpPositionFrequency),
+        uWarpTimeFrequency: new THREE.Uniform(warpTimeFrequency),
+        uWarpStrength: new THREE.Uniform(warpStrength),
+        uColorA: new THREE.Uniform(new THREE.Color(colorA)),
+        uColorB: new THREE.Uniform(new THREE.Color(colorB)),
+    }), [positionFrequency, timeFrequency, strength, warpPositionFrequency, warpTimeFrequency, warpStrength, colorA, colorB]);
 
     useFrame((state) => {
         const elapsedTime = state.clock.getElapsedTime();
@@ -63,15 +74,8 @@ export default function Experience() {
                 shadow-camera-far={15}
                 shadow-normalBias={0.05}
             />
-            <Environment
-                background
-                files="./urban_alley_01_1k.hdr"
-            >
-            </Environment>
-
             <color args={["#bdedfc"]} attach="background"/>
-            <mesh ref={meshRef} castShadow receiveShadow>
-                <icosahedronGeometry args={[2.5, 50]}/>
+            <mesh geometry={icosahedronGeometry} castShadow receiveShadow>
                 <CustomShaderMaterial
                     baseMaterial={THREE.MeshPhysicalMaterial}
                     vertexShader={wobbleVertexShader}
@@ -93,15 +97,6 @@ export default function Experience() {
                     depthPacking={THREE.RGBADepthPacking}
                     attach="customDepthMaterial"
                 />
-            </mesh>
-
-            <mesh
-                rotation={[0, Math.PI, 0]}
-                position={[0, -5, 5]}
-                receiveShadow
-            >
-                <planeGeometry args={[15, 15, 15]}/>
-                <meshStandardMaterial side={THREE.DoubleSide}/>
             </mesh>
         </>
     );

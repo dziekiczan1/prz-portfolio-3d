@@ -8,6 +8,11 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "overrides": {
+    "leva": {
+      "@radix-ui/react-portal": "1.0.2"
+    }
+  },
   "dependencies": {
     "@react-three/drei": "^9.120.6",
     "@react-three/fiber": "^8.17.12",
