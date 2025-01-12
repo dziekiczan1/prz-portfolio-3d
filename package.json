@@ -18,6 +18,7 @@
     "@react-three/fiber": "^8.17.12",
     "@types/three": "^0.172.0",
     "glslify-loader": "^2.0.0",
+    "gsap": "^3.12.5",
     "leva": "^0.9.35",
     "next": "14.2.23",
     "r3f-perf": "^7.2.3",
