@@ -4,9 +4,16 @@
 
 html,
 body {
-  @apply fixed inset-0 w-full h-full bg-slate-300;
+    @apply w-full h-full;
 }
 
-canvas {
-  @apply w-full h-full;
+html {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }

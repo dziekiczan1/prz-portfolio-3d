@@ -14,19 +14,15 @@ export const metadata: Metadata = {
     description: "Piotr Rzadkowolski Portfolio",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en">
-        <body className={`${roboto.variable} antialiased`}>
-        <Navbar />
-        <main>
-            {children}
-        </main>
-        </body>
+            <body className={`${roboto.variable} antialiased`}>
+                <Navbar />
+                <main>
+                    {children}
+                </main>
+            </body>
         </html>
     );
 }

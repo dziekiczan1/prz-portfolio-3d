@@ -1,5 +1,5 @@
 "use client";
-import {OrbitControls, useHelper} from "@react-three/drei";
+import {Decal, OrbitControls, useHelper, useTexture} from "@react-three/drei";
 import {useControls} from "leva";
 import {Perf} from "r3f-perf";
 import * as THREE from "three";
@@ -7,7 +7,7 @@ import wobbleVertexShader from "../../shaders/wobble/vertex.glsl";
 import wobbleFragmentShader from "../../shaders/wobble/fragment.glsl";
 import {mergeVertices} from "three/addons/utils/BufferGeometryUtils.js";
 import CustomShaderMaterial from "three-custom-shader-material";
-import {useEffect, useMemo, useRef} from "react";
+import {useMemo, useRef} from "react";
 import {DirectionalLight, DirectionalLightHelper} from "three";
 import {useFrame} from "@react-three/fiber";
 
@@ -15,6 +15,7 @@ export default function Experience() {
     const {perfVisible} = useControls('performance', {
         perfVisible: false,
     });
+    const magentoTexture = useTexture('./magento.svg');
 
     const icosahedronGeometry = useMemo(() => {
         const icosahedronGeometry = new THREE.IcosahedronGeometry(2.5, 50);
@@ -61,12 +62,12 @@ export default function Experience() {
     return (
         <>
             {perfVisible && <Perf position="top-left"/>}
-            <OrbitControls makeDefault/>
+            {/*<OrbitControls makeDefault/>*/}
 
             <directionalLight
                 ref={lightRef}
                 color={'#ffffff'}
-                position={[0.25, 2, -2.25]}
+                position={[0, 0, 10]}
                 intensity={3}
                 castShadow
                 shadow-mapSize-width={1024}
@@ -75,28 +76,52 @@ export default function Experience() {
                 shadow-normalBias={0.05}
             />
             <color args={["#bdedfc"]} attach="background"/>
-            <mesh geometry={icosahedronGeometry} castShadow receiveShadow>
-                <CustomShaderMaterial
-                    baseMaterial={THREE.MeshPhysicalMaterial}
-                    vertexShader={wobbleVertexShader}
-                    fragmentShader={wobbleFragmentShader}
-                    uniforms={uniforms}
-                    wireframe={false}
-                    metalness={0}
-                    roughness={0.5}
-                    color={"#ffffff"}
-                    transmission={0}
-                    ior={1.5}
-                    thickness={1.5}
-                    transparent={true}
-                />
-                <CustomShaderMaterial
-                    baseMaterial={THREE.MeshDepthMaterial}
-                    vertexShader={wobbleVertexShader}
-                    uniforms={uniforms}
-                    depthPacking={THREE.RGBADepthPacking}
-                    attach="customDepthMaterial"
-                />
+            {/*<mesh geometry={icosahedronGeometry} castShadow receiveShadow>*/}
+            {/*    <CustomShaderMaterial*/}
+            {/*        baseMaterial={THREE.MeshPhysicalMaterial}*/}
+            {/*        vertexShader={wobbleVertexShader}*/}
+            {/*        fragmentShader={wobbleFragmentShader}*/}
+            {/*        uniforms={uniforms}*/}
+            {/*        wireframe={false}*/}
+            {/*        metalness={0}*/}
+            {/*        roughness={0.5}*/}
+            {/*        color={"#ffffff"}*/}
+            {/*        transmission={0}*/}
+            {/*        ior={1.5}*/}
+            {/*        thickness={1.5}*/}
+            {/*        transparent={true}*/}
+            {/*    />*/}
+            {/*    <CustomShaderMaterial*/}
+            {/*        baseMaterial={THREE.MeshDepthMaterial}*/}
+            {/*        vertexShader={wobbleVertexShader}*/}
+            {/*        uniforms={uniforms}*/}
+            {/*        depthPacking={THREE.RGBADepthPacking}*/}
+            {/*        attach="customDepthMaterial"*/}
+            {/*    />*/}
+            {/*</mesh>*/}
+            <mesh>
+                <sphereGeometry args={[1, 50, 50]}/>
+                {/*<meshStandardMaterial color="white" polygonOffset polygonOffsetFactor={-1} />*/}
+                {/*<Decal*/}
+                {/*    map={magentoTexture}*/}
+                {/*    position={[0, 0, 1.5]}*/}
+                {/*    rotation={[0, 0, 0]}*/}
+                {/*    scale={1.5}*/}
+                {/*/>*/}
+
+                <meshStandardMaterial color="white"/>
+                <Decal
+                    position={[0, 0, 1]}
+                    rotation={[0, 0, 0]}
+                    scale={1.5}
+                >
+                    <meshBasicMaterial
+                        map={magentoTexture}
+                        transparent={true}
+                        polygonOffset
+                        polygonOffsetFactor={-1}
+                    />
+                </Decal>
             </mesh>
         </>
     );
