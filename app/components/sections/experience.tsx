@@ -33,7 +33,7 @@ export default function Experience({currentSection}: {currentSection: string | n
             <ambientLight intensity={0.5}/>
             <color args={["#0F172A"]} attach="background"/>
             <Wobble currentSection={currentSection}/>
-            <Technology/>
+            <Technology visible={currentSection === "about"} />
         </>
     );
 }
