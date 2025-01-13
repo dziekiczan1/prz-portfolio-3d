@@ -4,16 +4,21 @@
 
 html,
 body {
-    @apply w-full h-full bg-[#121212] text-white;
+    @apply w-full h-full bg-slate-900 text-gray-100;
 }
 
 html {
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    font-family: 'Roboto Thin';
 }
 
 html::-webkit-scrollbar {
     width: 0;
     height: 0;
+}
+
+#leva__root {
+    @apply hidden;
 }

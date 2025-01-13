@@ -1,5 +1,5 @@
 "use client";
-import {Decal, useHelper, useTexture} from "@react-three/drei";
+import {useHelper} from "@react-three/drei";
 import {useControls} from "leva";
 import {Perf} from "r3f-perf";
 import {useRef} from "react";
@@ -13,7 +13,7 @@ export default function Experience({currentSection}: {currentSection: string | n
     });
 
     const lightRef = useRef<DirectionalLight>(null);
-    useHelper(lightRef as React.MutableRefObject<DirectionalLight>, DirectionalLightHelper, 1, "red");
+    // useHelper(lightRef as React.MutableRefObject<DirectionalLight>, DirectionalLightHelper, 1, "red");
 
     return (
         <>
@@ -22,7 +22,7 @@ export default function Experience({currentSection}: {currentSection: string | n
             <directionalLight
                 ref={lightRef}
                 color={'#ffffff'}
-                position={[0, 0, 10]}
+                position={[-1, 2, 2]}
                 intensity={3}
                 castShadow
                 shadow-mapSize-width={1024}
@@ -30,9 +30,10 @@ export default function Experience({currentSection}: {currentSection: string | n
                 shadow-camera-far={15}
                 shadow-normalBias={0.05}
             />
-            <color args={["#121212"]} attach="background"/>
-            <Wobble currentSection={currentSection} />
-            <Technology />
+            <ambientLight intensity={0.5}/>
+            <color args={["#0F172A"]} attach="background"/>
+            <Wobble currentSection={currentSection}/>
+            <Technology/>
         </>
     );
 }

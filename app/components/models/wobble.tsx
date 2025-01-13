@@ -26,29 +26,15 @@ export default function Wobble({currentSection}: { currentSection: string | null
                 if (icosahedronRef.current) {
                     gsap.to(icosahedronRef.current.position, {x: 0, y: 0, z: 0, duration: 1, ease: "power2.inOut"});
                     gsap.to(icosahedronRef.current.rotation, {x: 0, y: 0, z: 0, duration: 1, ease: "power2.inOut"});
-                    gsap.to(icosahedronRef.current.scale, {
-                        x: 1,
-                        y: 1,
-                        z: 1,
-                        duration: 1,
-                        ease: "power2.inOut"
-                    });
                 }
             },
             about: () => {
                 if (icosahedronRef.current) {
-                    gsap.to(icosahedronRef.current.position, {x: 2, y: -1, z: 0, duration: 1, ease: "power2.inOut"});
+                    gsap.to(icosahedronRef.current.position, {x: 1.3, y: -1, z: 0.8, duration: 1, ease: "power2.inOut"});
                     gsap.to(icosahedronRef.current.rotation, {
                         x: 0,
                         y: Math.PI / 2,
                         z: 0,
-                        duration: 1,
-                        ease: "power2.inOut"
-                    });
-                    gsap.to(icosahedronRef.current.scale, {
-                        x: 0.5,
-                        y: 0.5,
-                        z: 0.5,
                         duration: 1,
                         ease: "power2.inOut"
                     });
@@ -113,7 +99,7 @@ export default function Wobble({currentSection}: { currentSection: string | null
     });
 
     return (
-        <mesh ref={icosahedronRef} geometry={icosahedronGeometry} castShadow receiveShadow>
+        <mesh scale={0.5} ref={icosahedronRef} geometry={icosahedronGeometry} castShadow receiveShadow>
             <CustomShaderMaterial
                 baseMaterial={THREE.MeshPhysicalMaterial}
                 vertexShader={wobbleVertexShader}

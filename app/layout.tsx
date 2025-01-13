@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "@/app/components/navbar";
 
 const roboto = Roboto({
-    variable: "--font-roboto",
     weight: "400",
     subsets: ["latin"],
 });
@@ -17,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en">
-            <body className={`${roboto.variable} antialiased`}>
+            <body className={`${roboto.className} antialiased`}>
                 <Navbar />
                 <main>
                     {children}

@@ -1,17 +1,17 @@
 uniform vec3 uColorA;
 uniform vec3 uColorB;
-
+uniform float uTime;
+uniform float uStrength;
 varying float vWobble;
 
-void main()
-{
-    float colorMix = smoothstep(- 1.0, 1.0, vWobble);
-    csm_DiffuseColor.rgb = mix(uColorA, uColorB, colorMix);
+void main() {
+    float glowFactor = smoothstep(-1.0, 1.0, vWobble) * 2.0;
+    vec3 glowColor = mix(uColorA, uColorB, glowFactor);
 
-     // Mirror step
-//     csm_Metalness = step(0.25, vWobble);
-//     csm_Roughness = 1.0 - csm_Metalness;
+    float glowTimeEffect = sin(uTime * 0.5) * 0.5 + 0.5;
+    glowColor = mix(glowColor, glowColor * glowTimeEffect, 0.5);
 
-    // Shinny tip
-    csm_Roughness = 1.0 - colorMix;
+    csm_DiffuseColor.rgb = glowColor;
+    csm_Roughness = 5.0 - glowFactor;
+    csm_Roughness = 0.1 - glowFactor;
 }

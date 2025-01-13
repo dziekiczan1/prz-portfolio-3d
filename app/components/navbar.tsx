@@ -1,19 +1,43 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
     return (
-        <header className="flex items-center fixed z-20 top-0 left-0 max-w-screen-2xl w-full left-1/2 transform -translate-x-1/2">
+        <header className="flex items-center justify-between fixed z-20 max-w-screen-xl w-full left-1/2 transform -translate-x-1/2 py-4">
             <Link
                 href="/"
-                className="w-10 h-10 rounded-lg bg-white items-center justify-center flex font-bold shadow-md"
+                className="flex items-center justify-center font-bold gap-4"
             >
-                PRZ
+                <div className="flex items-center justify-center border border-fuchsia-500 w-10 h-10 rounded-lg">
+                    <Image
+                        src={`/erzet.webp`}
+                        width={20}
+                        height={20}
+                        alt="eRZet Piotr Rzadkowolski"
+                    />
+                </div>
+                <p className="uppercase">Piotr Rzadkowolski</p>
             </Link>
-            <nav className="flex text-lg gap-7 font-medium">
+            <nav className="flex gap-8">
                 <Link
                     href="/"
                 >
-                    Home
+                    About
+                </Link>
+                <Link
+                    href="/"
+                >
+                    Projects
+                </Link>
+                <Link
+                    href="/"
+                >
+                    Resume
+                </Link>
+                <Link
+                    href="/"
+                >
+                    Contact
                 </Link>
             </nav>
         </header>

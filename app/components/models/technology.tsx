@@ -3,10 +3,10 @@ import {Decal, useTexture} from "@react-three/drei";
 export default function Technology() {
     const magentoTexture = useTexture('./magento.svg');
 
-    return (
-        <mesh>
+    return (<>
+        <mesh castShadow>
             <sphereGeometry args={[1, 50, 50]}/>
-            <meshStandardMaterial color="white"/>
+            <meshStandardMaterial color="white" emissive="white" emissiveIntensity={0.2} toneMapped={false}/>
             <Decal
                 position={[0, 0, 1]}
                 rotation={[0, 0, 0]}
@@ -20,5 +20,6 @@ export default function Technology() {
                 />
             </Decal>
         </mesh>
+        </>
     );
 }

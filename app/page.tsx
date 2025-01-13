@@ -66,7 +66,7 @@ export default function Home() {
                             fov: 75,
                             near: 0.1,
                             far: 200,
-                            position: [-1.25, 0, 5]
+                            position: [0, 0, 5]
                         }}
                     >
                         <Experience currentSection={currentSection}/>
