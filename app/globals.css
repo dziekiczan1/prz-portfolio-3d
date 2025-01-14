@@ -14,11 +14,15 @@ html {
     font-family: 'Roboto Thin';
 }
 
-html::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
 
 #leva__root {
     @apply hidden;
+}
+
+canvas {
+    @apply w-screen h-screen;
 }

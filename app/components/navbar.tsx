@@ -11,9 +11,10 @@ export default function Navbar() {
                 <div className="flex items-center justify-center border border-fuchsia-500 w-10 h-10 rounded-lg">
                     <Image
                         src={`/erzet.webp`}
-                        width={20}
-                        height={20}
+                        width={32}
+                        height={34}
                         alt="eRZet Piotr Rzadkowolski"
+                        className="h-3/5 w-auto"
                     />
                 </div>
                 <p className="uppercase">Piotr Rzadkowolski</p>

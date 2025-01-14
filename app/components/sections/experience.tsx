@@ -1,17 +1,20 @@
 "use client";
-import {useHelper} from "@react-three/drei";
-import {useControls} from "leva";
 import {Perf} from "r3f-perf";
 import {useRef} from "react";
-import {DirectionalLight, DirectionalLightHelper} from "three";
+import {useControls} from "leva";
+import {DirectionalLight} from "three";
+
 import Wobble from "@/app/components/models/wobble";
 import Technology from "@/app/components/models/technology";
 
-export default function Experience({currentSection}: {currentSection: string | null}) {
+export default function Experience() {
+
+    // Performance monitor
     const {perfVisible} = useControls('performance', {
         perfVisible: false,
     });
 
+    // Light helper
     const lightRef = useRef<DirectionalLight>(null);
     // useHelper(lightRef as React.MutableRefObject<DirectionalLight>, DirectionalLightHelper, 1, "red");
 
@@ -32,8 +35,8 @@ export default function Experience({currentSection}: {currentSection: string | n
             />
             <ambientLight intensity={0.5}/>
             <color args={["#0F172A"]} attach="background"/>
-            <Wobble currentSection={currentSection}/>
-            <Technology visible={currentSection === "about"} />
+            <Wobble/>
+            <Technology/>
         </>
     );
 }

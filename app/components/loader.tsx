@@ -7,7 +7,7 @@ export default function Loader() {
     return (
         <div className="absolute top-0 left-0 w-full h-screen flex flex-col justify-center items-center z-50">
             <div
-                className="w-20 h-20 border-2 border-opacity-20 border-blue-500 border-t-blue-500 rounded-full animate-spin"/>
+                className="w-20 h-20 border-2 border-opacity-20 border-white border-t-white rounded-full animate-spin"/>
             <div className="mt-4 text-white">{Math.round(progress)}%</div>
         </div>
     );

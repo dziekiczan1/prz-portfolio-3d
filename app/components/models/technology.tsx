@@ -1,24 +1,27 @@
-import { Decal, useTexture } from "@react-three/drei";
-import { useEffect, useMemo, useRef } from "react";
+import { Decal, useScroll, useTexture } from "@react-three/drei";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
-import gsap from "gsap";
+import { useFrame } from "@react-three/fiber";
 
-export default function Technology({ visible }: { visible: boolean }) {
-    const magentoTexture = useTexture('./magento.svg');
-
-    // Sphere data
+export default function Technology() {
     const sphereData: {
         originPosition: [number, number, number];
         finalPosition: [number, number, number];
         scale: number;
         rotation: [number, number, number];
+        texturePath: string;
     }[] = [
-        { originPosition: [-5, 0, 0], finalPosition: [0, 0, 0], scale: 1, rotation: [0, 0, 0] },
-        { originPosition: [5, -2, 0], finalPosition: [2, 0, 0], scale: 1, rotation: [0.3, 0.2, 0] },
-        { originPosition: [0, 5, -2], finalPosition: [-2, 0, 0], scale: 1, rotation: [0, Math.PI / 4, 0] },
+        { originPosition: [-15, 0, 0], finalPosition: [0, 0, 0], scale: 1, rotation: [0, 0, 0], texturePath: './magento.svg' },
+        { originPosition: [15, -2, 0], finalPosition: [3, 0, 0], scale: 1, rotation: [0.3, 0.2, 0], texturePath: './magento.svg'  },
+        { originPosition: [0, 15, -2], finalPosition: [-3, 0, 0], scale: 1, rotation: [0, Math.PI / 4, 0], texturePath: './magento.svg'  },
     ];
 
-    // Create geometry and material once
+    // Load textures
+    const textures = useTexture(
+        sphereData.map((data) => data.texturePath)
+    );
+
+    // Create sphere geometry and material
     const { geometry, material } = useMemo(() => {
         const geometry = new THREE.SphereGeometry(1, 50, 50);
         const material = new THREE.MeshStandardMaterial({
@@ -27,51 +30,58 @@ export default function Technology({ visible }: { visible: boolean }) {
             emissiveIntensity: 0.2,
             toneMapped: false,
             transparent: true,
-            opacity: 0, // Start invisible
+            opacity: 0,
         });
         return { geometry, material };
     }, []);
 
-    // References to sphere meshes
+    // Refs for spheres and decal materials
     const sphereRefs = useRef<(THREE.Mesh | null)[]>([]);
     const decalMaterialRefs = useRef<(THREE.MeshBasicMaterial | null)[]>([]);
 
-    // Animate on `visible` change
-    useEffect(() => {
-        if (!sphereRefs.current || !decalMaterialRefs.current) return;
+    // Scroll animation
+    const scroll = useScroll();
+    useFrame(() => {
+        const { offset } = scroll;
 
         sphereRefs.current.forEach((mesh, index) => {
             const decalMaterial = decalMaterialRefs.current[index];
+            const { originPosition, finalPosition } = sphereData[index];
 
             if (mesh && decalMaterial) {
-                const { originPosition, finalPosition } = sphereData[index];
+                const scrollStart = 0.10; // Sphere start appearing
+                const scrollEndAppear = 0.25; // Sphere start disappearing
+                const scrollEndDisappear = 0.35; // Sphere fully disappeared
 
-                if (visible) {
-                    // Animate to final position, scale up, and fade in
-                    gsap.fromTo(
-                        mesh.position,
-                        { x: originPosition[0], y: originPosition[1], z: originPosition[2] },
-                        { x: finalPosition[0], y: finalPosition[1], z: finalPosition[2], duration: 1.5, ease: "power2.out" }
-                    );
-                    gsap.to(mesh.scale, { x: 1, y: 1, z: 1, duration: 1.5, ease: "power2.out" });  // Scale up
-                    gsap.to(mesh.material, { opacity: 1, duration: 1, ease: "power2.out" });
-                    gsap.to(decalMaterial, { opacity: 1, duration: 1, ease: "power2.out" });
+                let normalizedOffset;
+
+                if (offset < scrollStart) {
+                    normalizedOffset = 0;
+                } else if (offset >= scrollStart && offset <= scrollEndAppear) {
+                    normalizedOffset = (offset - scrollStart) / (scrollEndAppear - scrollStart);
+                } else if (offset > scrollEndAppear && offset <= scrollEndDisappear) {
+                    normalizedOffset = 1;
                 } else {
-                    // Animate back to origin position, scale down, and fade out
-                    gsap.to(mesh.position, {
-                        x: originPosition[0],
-                        y: originPosition[1],
-                        z: originPosition[2],
-                        duration: 1.5,
-                        ease: "power2.in",
-                    });
-                    gsap.to(mesh.scale, { x: 0, y: 0, z: 0, duration: 1.5, ease: "power2.in" });  // Scale down
-                    gsap.to(mesh.material, { opacity: 0, duration: 1.5, ease: "power2.in" });
-                    gsap.to(decalMaterial, { opacity: 0, duration: 1.5, ease: "power2.in" });
+                    normalizedOffset = 1 - (offset - scrollEndDisappear) / (1 - scrollEndDisappear);
                 }
+
+                normalizedOffset = Math.max(0, Math.min(1, normalizedOffset));
+
+                // Animate position, scale and opacity
+                mesh.position.lerp(
+                    new THREE.Vector3(
+                        originPosition[0] + (finalPosition[0] - originPosition[0]) * normalizedOffset,
+                        originPosition[1] + (finalPosition[1] - originPosition[1]) * normalizedOffset,
+                        originPosition[2] + (finalPosition[2] - originPosition[2]) * normalizedOffset
+                    ),
+                    0.1
+                );
+                mesh.scale.lerp(new THREE.Vector3(normalizedOffset, normalizedOffset, normalizedOffset), 0.1);
+                (mesh.material as THREE.MeshStandardMaterial).opacity = normalizedOffset;
+                decalMaterial.opacity = normalizedOffset;
             }
         });
-    }, [visible]);
+    });
 
     return (
         <>
@@ -79,11 +89,11 @@ export default function Technology({ visible }: { visible: boolean }) {
                 <mesh
                     key={index}
                     ref={(el) => {
-                        (sphereRefs.current[index] = el as THREE.Mesh | null);
+                        sphereRefs.current[index] = el as THREE.Mesh | null;
                     }}
                     geometry={geometry}
                     material={material}
-                    position={data.finalPosition}
+                    position={data.originPosition}
                     castShadow
                     scale={data.scale}
                     rotation={data.rotation}
@@ -95,11 +105,11 @@ export default function Technology({ visible }: { visible: boolean }) {
                     >
                         <meshBasicMaterial
                             ref={(el) => {
-                                (decalMaterialRefs.current[index] = el as THREE.MeshBasicMaterial | null);
+                                decalMaterialRefs.current[index] = el as THREE.MeshBasicMaterial | null;
                             }}
-                            map={magentoTexture}
+                            map={textures[index]}
                             transparent={true}
-                            opacity={0} // Start invisible
+                            opacity={0}
                             polygonOffset
                             polygonOffsetFactor={-1}
                         />

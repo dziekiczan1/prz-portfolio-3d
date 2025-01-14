@@ -1,16 +1,18 @@
-import {useEffect, useMemo, useRef} from "react";
-import {useControls} from "leva";
-import {useFrame} from "@react-three/fiber";
+import { useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import {mergeVertices} from "three/addons/utils/BufferGeometryUtils.js";
+import { mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
 import CustomShaderMaterial from "three-custom-shader-material";
-import gsap from "gsap";
+import { useScroll } from "@react-three/drei";
 
 import wobbleVertexShader from "@/app/shaders/wobble/vertex.glsl";
 import wobbleFragmentShader from "@/app/shaders/wobble/fragment.glsl";
 
-export default function Wobble({currentSection}: { currentSection: string | null }) {
-    const icosahedronRef = useRef<THREE.Mesh>(null);
+export default function Wobble() {
+    const scroll = useScroll();
+    const wobbleRef = useRef<THREE.Mesh>(null);
+
+    // Create icosahedron geometry
     const icosahedronGeometry = useMemo(() => {
         const icosahedronGeometry = new THREE.IcosahedronGeometry(2.5, 50);
         const mergedIcosahedronGeometry = mergeVertices(icosahedronGeometry);
@@ -18,88 +20,75 @@ export default function Wobble({currentSection}: { currentSection: string | null
         return mergedIcosahedronGeometry;
     }, []);
 
-    useEffect(() => {
-        if (!icosahedronRef.current) return;
-
-        const animations: Record<string, () => void> = {
-            hero: () => {
-                if (icosahedronRef.current) {
-                    gsap.to(icosahedronRef.current.position, {x: 0, y: 0, z: 0, duration: 1, ease: "power2.inOut"});
-                    gsap.to(icosahedronRef.current.rotation, {x: 0, y: 0, z: 0, duration: 1, ease: "power2.inOut"});
-                }
-            },
-            about: () => {
-                if (icosahedronRef.current) {
-                    gsap.to(icosahedronRef.current.position, {x: 1.3, y: -1, z: 0.8, duration: 1, ease: "power2.inOut"});
-                    gsap.to(icosahedronRef.current.rotation, {
-                        x: 0,
-                        y: Math.PI / 2,
-                        z: 0,
-                        duration: 1,
-                        ease: "power2.inOut"
-                    });
-                }
-            },
-            projects: () => {
-                if (icosahedronRef.current) {
-                    gsap.to(icosahedronRef.current.position, {x: -2, y: 0, z: 0, duration: 1, ease: "power2.inOut"});
-                }
-            },
-            contact: () => {
-                if (icosahedronRef.current) {
-                    gsap.to(icosahedronRef.current.position, {x: 2, y: 0, z: 0, duration: 1, ease: "power2.inOut"});
-                }
-            },
-        };
-
-        if (currentSection && animations[currentSection]) {
-            animations[currentSection]();
-        }
-    }, [currentSection]);
-
-    const options = useMemo(() => {
-        return {
-            positionFrequency: {value: 0.5, min: 0, max: 2, step: 0.01},
-            timeFrequency: {value: 0.4, min: 0, max: 2, step: 0.01},
-            strength: {value: 0.3, min: 0, max: 1, step: 0.01},
-            warpPositionFrequency: {value: 0.38, min: 0, max: 2, step: 0.01},
-            warpTimeFrequency: {value: 0.12, min: 0, max: 2, step: 0.01},
-            warpStrength: {value: 1.7, min: 0, max: 5, step: 0.01},
-            colorA: {value: '#844adb'},
-            colorB: {value: '#4b0079'},
-        }
-    }, []);
-
-    const {
-        positionFrequency,
-        timeFrequency,
-        strength,
-        warpPositionFrequency,
-        warpTimeFrequency,
-        warpStrength,
-        colorA,
-        colorB
-    } = useControls('sphere', options);
-
+    // Shader uniforms
     const uniforms = useMemo(() => ({
         uTime: new THREE.Uniform(0),
-        uPositionFrequency: new THREE.Uniform(positionFrequency),
-        uTimeFrequency: new THREE.Uniform(timeFrequency),
-        uStrength: new THREE.Uniform(strength),
-        uWarpPositionFrequency: new THREE.Uniform(warpPositionFrequency),
-        uWarpTimeFrequency: new THREE.Uniform(warpTimeFrequency),
-        uWarpStrength: new THREE.Uniform(warpStrength),
-        uColorA: new THREE.Uniform(new THREE.Color(colorA)),
-        uColorB: new THREE.Uniform(new THREE.Color(colorB)),
-    }), [positionFrequency, timeFrequency, strength, warpPositionFrequency, warpTimeFrequency, warpStrength, colorA, colorB]);
+        uPositionFrequency: new THREE.Uniform(0.5),
+        uTimeFrequency: new THREE.Uniform(0.4),
+        uStrength: new THREE.Uniform(0.3),
+        uWarpPositionFrequency: new THREE.Uniform(0.38),
+        uWarpTimeFrequency: new THREE.Uniform(0.12),
+        uWarpStrength: new THREE.Uniform(1.7),
+        uColorA: new THREE.Uniform(new THREE.Color("#844adb")),
+        uColorB: new THREE.Uniform(new THREE.Color("#4b0079")),
+    }), []);
 
     useFrame((state) => {
+        const { offset } = scroll;
         const elapsedTime = state.clock.getElapsedTime();
+
+        // Time uniform update
         uniforms.uTime.value = elapsedTime;
+
+        if (wobbleRef.current) {
+            // Wobble section positions
+            const sections = [
+                { start: 0, end: 0.25, position: new THREE.Vector3(0, 0, 0), scale: 1 }, // Hero section
+                { start: 0.25, end: 0.5, position: new THREE.Vector3(-8, 0, 0), scale: 0.8 }, // About section
+                { start: 0.5, end: 0.75, position: new THREE.Vector3(5, 3, 0), scale: 0.4 }, // Projects section
+                { start: 0.75, end: 1, position: new THREE.Vector3(0, 0, 0), scale: 1 }, // Contact section
+            ];
+
+            // Find current and next section
+            let currentSection = sections[0];
+            let nextSection = sections[0];
+
+            for (let i = 0; i < sections.length; i++) {
+                if (offset >= sections[i].start && offset <= sections[i].end) {
+                    currentSection = sections[i];
+                    nextSection = sections[i + 1] || currentSection;
+                    break;
+                }
+            }
+
+            // Calculate normalized offset
+            const sectionRange = currentSection.end - currentSection.start;
+            const normalizedOffset = (offset - currentSection.start) / sectionRange;
+
+            // Interpolate position and scale
+            const targetPosition = new THREE.Vector3().lerpVectors(
+                currentSection.position,
+                nextSection.position,
+                normalizedOffset
+            );
+
+            const targetScale = THREE.MathUtils.lerp(
+                currentSection.scale,
+                nextSection.scale,
+                normalizedOffset
+            );
+
+            // Smoothly animate position and scale
+            wobbleRef.current.position.lerp(targetPosition, 0.1);
+            wobbleRef.current.scale.lerp(
+                new THREE.Vector3(targetScale, targetScale, targetScale),
+                0.1
+            );
+        }
     });
 
     return (
-        <mesh scale={0.5} ref={icosahedronRef} geometry={icosahedronGeometry} castShadow receiveShadow>
+        <mesh ref={wobbleRef} geometry={icosahedronGeometry} castShadow receiveShadow>
             <CustomShaderMaterial
                 baseMaterial={THREE.MeshPhysicalMaterial}
                 vertexShader={wobbleVertexShader}
@@ -112,7 +101,6 @@ export default function Wobble({currentSection}: { currentSection: string | null
                 transmission={0}
                 ior={1.5}
                 thickness={1.5}
-                transparent={true}
                 silent={true}
             />
             <CustomShaderMaterial
