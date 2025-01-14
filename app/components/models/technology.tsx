@@ -2,23 +2,12 @@ import { Decal, useScroll, useTexture } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
+import {technologyData} from "@/constants/technology";
 
 export default function Technology() {
-    const sphereData: {
-        originPosition: [number, number, number];
-        finalPosition: [number, number, number];
-        scale: number;
-        rotation: [number, number, number];
-        texturePath: string;
-    }[] = [
-        { originPosition: [-15, 0, 0], finalPosition: [0, 0, 0], scale: 1, rotation: [0, 0, 0], texturePath: './magento.svg' },
-        { originPosition: [15, -2, 0], finalPosition: [3, 0, 0], scale: 1, rotation: [0.3, 0.2, 0], texturePath: './magento.svg'  },
-        { originPosition: [0, 15, -2], finalPosition: [-3, 0, 0], scale: 1, rotation: [0, Math.PI / 4, 0], texturePath: './magento.svg'  },
-    ];
-
     // Load textures
     const textures = useTexture(
-        sphereData.map((data) => data.texturePath)
+        technologyData.map((data) => data.texturePath)
     );
 
     // Create sphere geometry and material
@@ -46,7 +35,7 @@ export default function Technology() {
 
         sphereRefs.current.forEach((mesh, index) => {
             const decalMaterial = decalMaterialRefs.current[index];
-            const { originPosition, finalPosition } = sphereData[index];
+            const { originPosition, finalPosition } = technologyData[index];
 
             if (mesh && decalMaterial) {
                 const scrollStart = 0.10; // Sphere start appearing
@@ -85,7 +74,7 @@ export default function Technology() {
 
     return (
         <>
-            {sphereData.map((data, index) => (
+            {technologyData.map((data, index) => (
                 <mesh
                     key={index}
                     ref={(el) => {
