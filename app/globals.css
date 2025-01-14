@@ -8,10 +8,10 @@ body {
 }
 
 html {
-    overflow-y: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
     font-family: 'Roboto Thin';
+    scrollbar-width: none;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
 }
 
 ::-webkit-scrollbar {

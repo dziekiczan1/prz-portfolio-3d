@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import {HoverBorderGradient} from "@/components/ui/button";
 
 export default function Navbar() {
     return (
@@ -8,7 +9,7 @@ export default function Navbar() {
                 href="/"
                 className="flex items-center justify-center font-bold gap-4"
             >
-                <div className="flex items-center justify-center border border-fuchsia-500 w-10 h-10 rounded-lg">
+                <div className="flex items-center justify-center border border-fuchsia-800 border-2 w-10 h-10 rounded-lg">
                     <Image
                         src={`/erzet.webp`}
                         width={32}
@@ -19,7 +20,7 @@ export default function Navbar() {
                 </div>
                 <p className="uppercase">Piotr Rzadkowolski</p>
             </Link>
-            <nav className="flex gap-8">
+            <nav className="flex items-center gap-8">
                 <Link
                     href="/"
                 >
@@ -35,11 +36,13 @@ export default function Navbar() {
                 >
                     Resume
                 </Link>
-                <Link
-                    href="/"
+                <HoverBorderGradient
+                    containerClassName="rounded-full"
+                    as="button"
+                    className="px-8 py-2 text-m font-medium"
                 >
                     Contact
-                </Link>
+                </HoverBorderGradient>
             </nav>
         </header>
     );
