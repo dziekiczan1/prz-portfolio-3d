@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
 import CustomShaderMaterial from "three-custom-shader-material";
-import { useScroll } from "@react-three/drei";
+import {useScroll} from "@react-three/drei";
 
 import wobbleVertexShader from "@/app/shaders/wobble/vertex.glsl";
 import wobbleFragmentShader from "@/app/shaders/wobble/fragment.glsl";

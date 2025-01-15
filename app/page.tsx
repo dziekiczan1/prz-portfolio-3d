@@ -28,7 +28,9 @@ export default function Home() {
                             near: 0.1,
                             far: 200,
                             position: [0, 0, 5],
+                            zoom: 110
                         }}
+                        orthographic
                     >
                         <ScrollControls pages={4}>
                             <Experience/>

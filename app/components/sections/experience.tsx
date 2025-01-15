@@ -6,6 +6,7 @@ import {DirectionalLight} from "three";
 
 import Wobble from "@/app/components/models/wobble";
 import Technology from "@/app/components/models/technology";
+import Developer from "@/app/components/models/developer";
 
 export default function Experience() {
 
@@ -21,7 +22,6 @@ export default function Experience() {
     return (
         <>
             {perfVisible && <Perf position="top-left"/>}
-
             <directionalLight
                 ref={lightRef}
                 color={'#ffffff'}
@@ -36,6 +36,7 @@ export default function Experience() {
             <ambientLight intensity={0.5}/>
             <color args={["#0F172A"]} attach="background"/>
             <Wobble/>
+            <Developer animationName={'phone'} rotation={[-Math.PI / 2, 0, 0]} scale={2}/>
             <Technology/>
         </>
     );
