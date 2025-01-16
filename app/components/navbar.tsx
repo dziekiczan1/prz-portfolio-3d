@@ -4,7 +4,7 @@ import {HoverBorderGradient} from "@/components/ui/button";
 
 export default function Navbar() {
     return (
-        <header className="flex items-center justify-between fixed z-20 max-w-screen-xl w-full left-1/2 transform -translate-x-1/2 py-4">
+        <header className="flex items-center justify-between fixed z-20 w-full py-4 px-8">
             <Link
                 href="/"
                 className="flex items-center justify-center font-bold gap-4"
@@ -18,7 +18,7 @@ export default function Navbar() {
                         className="h-3/5 w-auto"
                     />
                 </div>
-                <p className="uppercase">Piotr Rzadkowolski</p>
+                <p className="uppercase font-orbitron text-sm">Piotr<br /> Rzadkowolski</p>
             </Link>
             <nav className="flex items-center gap-8">
                 <Link

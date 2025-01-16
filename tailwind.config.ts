@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+          fontFamily: {
+              roboto: ["var(--font-roboto)", "sans-serif"],
+              orbitron: ["var(--font-orbitron)", "sans-serif"],
+          }
   	}
   },
   plugins: [],

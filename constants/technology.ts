@@ -10,12 +10,12 @@ export const technologyData: {
 }[] = [
     {
         name: 'Asana',
-        originPosition: [-15, -15, -17],
-        mobileOriginPosition: [0, 0, -17],
-        finalPosition: [-4, -4, -3],
-        mobileFinalPosition: [4, 4, -3],
-        scale: 0.4,
-        rotation: [0.2, 0.5, 0],
+        originPosition: [-1.5, -1.5, -1.7],
+        mobileOriginPosition: [0, 0, -1.7],
+        finalPosition: [-0.4, -0.4, 3],
+        mobileFinalPosition: [0.4, 0.4, -0.3],
+        scale: 0.1,
+        rotation: [0, 0.3, 0],
         texturePath: './technologies/asana.svg'
     },
     {

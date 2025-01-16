@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+import {useEffect, useRef} from 'react';
 import { useAnimations, useFBX, useGLTF } from '@react-three/drei';
-import { GroupProps } from '@react-three/fiber';
+import {GroupProps, useLoader} from '@react-three/fiber';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 
@@ -38,7 +38,7 @@ export default function Developer(props: GroupProps & { animationName?: string }
 
     const { animations: phoneAnimation } = useFBX('./models/phone.fbx');
     const { animations: wavingAnimation } = useFBX('./models/waving.fbx');
-    const { animations: sittingAnimation } = useFBX('./models/sitting.fbx');
+    const { animations: sittingAnimation } = useFBX('./models/sitting2.fbx');
     phoneAnimation[0].name = 'phone';
     wavingAnimation[0].name = 'waving';
     sittingAnimation[0].name = 'sitting';
@@ -48,7 +48,7 @@ export default function Developer(props: GroupProps & { animationName?: string }
     useEffect(() => {
         const action = actions[animationName];
         if (action) {
-            action.reset().fadeIn(0.5).play();
+            action.reset().play();
             return () => {
                 action.fadeOut(0.5);
             };
@@ -56,7 +56,7 @@ export default function Developer(props: GroupProps & { animationName?: string }
     }, [animationName, actions]);
 
     return (
-        <group {...restProps} dispose={null} ref={group}>
+        <group {...restProps} ref={group} position={[0.5, -0.1, 1]} rotation={[-Math.PI / 2, 0, 0]}>
             <primitive object={nodes.Hips} />
             <skinnedMesh
                 name="EyeLeft"

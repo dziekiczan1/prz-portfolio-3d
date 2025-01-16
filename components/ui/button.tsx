@@ -24,6 +24,7 @@ export function HoverBorderGradient({
 >) {
     const [hovered, setHovered] = useState<boolean>(false);
     const [direction, setDirection] = useState<Direction>("TOP");
+    const [gradientAngle, setGradientAngle] = useState<number>(45); // Initial gradient angle
 
     const rotateDirection = (currentDirection: Direction): Direction => {
         const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
@@ -55,12 +56,23 @@ export function HoverBorderGradient({
         }
     }, [hovered, duration]);
 
+    useEffect(() => {
+        if (hovered) {
+            const interval = setInterval(() => {
+                setGradientAngle((prevAngle) => (prevAngle + 1) % 360);
+            }, 20);
+            return () => clearInterval(interval);
+        } else {
+            setGradientAngle(45);
+        }
+    }, [hovered]);
+
     return (
         <Tag
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             className={cn(
-                "relative flex rounded-full border border-2 border-fuchsia-800 content-center bg-slate-900 " +
+                "relative flex rounded-full border border-2 border-fuchsia-800 content-center " +
                 "hover:bg-slate-800 transition duration-500 items-center flex-col flex-nowrap gap-10 h-min " +
                 "justify-center overflow-visible p-px decoration-clone w-fit",
                 containerClassName
@@ -84,22 +96,24 @@ export function HoverBorderGradient({
                     width: "100%",
                     height: "100%",
                 }}
-                initial={{background: movingMap[direction]}}
+                initial={{ background: movingMap[direction] }}
                 animate={{
                     background: hovered
                         ? [movingMap[direction], highlight]
                         : movingMap[direction],
                 }}
-                transition={{ease: "linear", duration: duration ?? 1}}
+                transition={{ ease: "linear", duration: duration ?? 1 }}
             />
 
             <motion.div
                 className="absolute inset-0 z-1 rounded-[inherit]"
-                initial={{backgroundColor: "hsl(222, 47%, 11%)"}} // bg-slate-900
-                animate={{
-                    backgroundColor: hovered ? "hsl(292, 84%, 20%)" : "hsl(222, 47%, 11%)",
+                initial={{
+                    background: "linear-gradient(45deg, hsl(215, 16%, 35%), hsl(222, 47%, 11%))",
                 }}
-                transition={{ease: "linear", duration: 0.5}}
+                animate={{
+                    background: `linear-gradient(${gradientAngle}deg, hsl(215, 16%, 35%), hsl(222, 47%, 11%))`,
+                }}
+                transition={{ ease: "linear", duration: 0.5 }}
             />
         </Tag>
     );

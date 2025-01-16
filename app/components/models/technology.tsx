@@ -83,7 +83,7 @@ export default function Technology() {
     return (
         <>
             {technologyData.map((data, index) => (
-                <Float key={index} rotationIntensity={0.5} floatIntensity={0.5}>
+                <Float key={index} rotationIntensity={0.15} floatIntensity={0.002} floatingRange={[-0.002,0.002]}>
                     <mesh
                         ref={(el) => {
                             sphereRefs.current[index] = el as THREE.Mesh | null;

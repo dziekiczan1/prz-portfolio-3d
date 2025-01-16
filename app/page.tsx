@@ -1,40 +1,62 @@
-"use client";
-import {Canvas} from "@react-three/fiber";
-import {Suspense} from "react";
-import {Scroll, ScrollControls} from "@react-three/drei";
+'use client';
+import {lazy, Suspense, useEffect, useState} from "react";
+import {Canvas, useThree} from "@react-three/fiber";
+import {Scroll, ScrollControls, useProgress} from "@react-three/drei";
+import * as THREE from "three";
+import Preloader from "@/components/ui/preloader";
 
-import Loader from "@/app/components/loader";
-import Hero from "@/app/components/sections/hero";
-import About from "@/app/components/sections/about";
-import Experience from "./components/sections/experience";
-import Projects from "@/app/components/sections/projects";
-import Contact from "@/app/components/sections/contact";
+const Hero = lazy(() => import("@/app/components/sections/hero"));
+const About = lazy(() => import("@/app/components/sections/about"));
+const Experience = lazy(() => import("@/app/components/sections/experience"));
+const Projects = lazy(() => import("@/app/components/sections/projects"));
+const Contact = lazy(() => import("@/app/components/sections/contact"));
+
+const TOTAL_ASSETS = 39;
+
+function CameraSetup() {
+    const {size, camera} = useThree();
+    const aspect = size.width / size.height;
+
+    useEffect(() => {
+        if (camera instanceof THREE.OrthographicCamera) {
+            camera.left = -1 * aspect;
+            camera.right = 1 * aspect;
+            camera.bottom = -1;
+            camera.top = 1;
+            camera.updateProjectionMatrix();
+        }
+    }, [size, camera, aspect]);
+
+    return null;
+}
 
 export default function Home() {
+    const [showPreloader, setShowPreloader] = useState(true);
 
-    // Scroll container styles
-    const scrollContainerStyles: React.CSSProperties = {
-        width: '100%',
-        overflow: 'hidden',
-    }
+    const {loaded, total} = useProgress();
+    const progress = total > 0 ? (loaded / TOTAL_ASSETS) * 100 : 0;
+
     return (
         <div className="relative w-full h-screen">
+            {showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress}/>}
+
             <div className="fixed inset-0 z-0">
-                <Suspense fallback={<Loader/>}>
+                <Suspense fallback={null}>
                     <Canvas
                         shadows
                         camera={{
-                            fov: 75,
                             near: 0.1,
                             far: 200,
                             position: [0, 0, 5],
-                            zoom: 110
+                            zoom: 1,
                         }}
+                        dpr={[1, 2]}
                         orthographic
                     >
+                        <CameraSetup/>
                         <ScrollControls pages={4}>
                             <Experience/>
-                            <Scroll html style={scrollContainerStyles}>
+                            <Scroll html style={{width: '100%', overflow: 'hidden'}}>
                                 <div className="scroll-container">
                                     <Hero/>
                                     <About/>
