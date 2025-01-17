@@ -74,7 +74,7 @@ export default function Experience() {
             <ambientLight intensity={0.5}/>
             <GradientBackground />
             <Wobble/>
-            <Developer animationName={'sitting'} />
+            <Developer />
             <Technology/>
         </>
     );

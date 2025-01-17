@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { useAnimations, useFBX, useGLTF, useScroll } from '@react-three/drei';
-import { GroupProps, useFrame } from '@react-three/fiber';
+import {useEffect, useRef} from 'react';
+import {useAnimations, useFBX, useGLTF, useScroll} from '@react-three/drei';
+import {GroupProps, useFrame} from '@react-three/fiber';
 import * as THREE from 'three';
-import { GLTF } from 'three-stdlib';
+import {GLTF} from 'three-stdlib';
 import {off} from "next/dist/client/components/react-dev-overlay/pages/bus";
 
 interface CustomGLTF extends GLTF {
@@ -32,88 +32,64 @@ interface CustomGLTF extends GLTF {
     };
 }
 
-export default function Developer(props: GroupProps & { animationName?: string }) {
+export default function Developer(props: GroupProps) {
     const group = useRef<THREE.Group>(null);
-    const { animationName = 'sitting', ...restProps } = props;
-    const { nodes, materials } = useGLTF('./models/developer.glb') as CustomGLTF;
+    const {...restProps} = props;
+    const {nodes, materials} = useGLTF('./models/developer.glb') as CustomGLTF;
 
-    const { animations: phoneAnimation } = useFBX('./models/phone.fbx');
-    const { animations: wavingAnimation } = useFBX('./models/waving.fbx');
-    const { animations: walkingAnimation } = useFBX('./models/walking.fbx');
-    const { animations: standingAnimation } = useFBX('./models/standing.fbx');
-    const { animations: sittingAnimation } = useFBX('./models/sitting.fbx');
-    const { animations: pointingAnimation } = useFBX('./models/pointing.fbx');
+    const {animations: phoneAnimation} = useFBX('./models/phone.fbx');
+    const {animations: sittingAnimation} = useFBX('./models/sitting.fbx');
+    const {animations: pointingAnimation} = useFBX('./models/pointing.fbx');
     phoneAnimation[0].name = 'phone';
-    wavingAnimation[0].name = 'waving';
     sittingAnimation[0].name = 'sitting';
     pointingAnimation[0].name = 'pointing';
-    walkingAnimation[0].name = 'walking';
-    standingAnimation[0].name = 'standing';
 
-    const { actions } = useAnimations(
-        [phoneAnimation[0], wavingAnimation[0], sittingAnimation[0], pointingAnimation[0], walkingAnimation[0], standingAnimation[0]],
+    const {actions} = useAnimations(
+        [phoneAnimation[0], sittingAnimation[0], pointingAnimation[0]],
         group
     );
 
     const scroll = useScroll();
     useFrame(() => {
-        const { offset } = scroll;
+        const {offset} = scroll;
 
-        const scrollStartFade = 0.01;
-        const scrollEndFade = 0.1;
-        const scrollWaveStart = 0.1; // Start waving at offset 0.1
-        const scrollPointStart = 0.5; // Start pointing at offset 0.5
-        const scrollPhoneStart = 0.85; // Start phone animation at offset 0.75
+        const scrollStartFade = 0.01; // Model is visible from offset 0.01
+        const scrollShowStart = 0.45; // Model reappears at offset 0.45
+        const scrollShowEnd = 0.55; // Model is fully visible by offset 0.55
+        const scrollPointStart = 0.45; // Start pointing animation at offset 0.45
+        const scrollPhoneStart = 0.75; // Start phone animation at offset 0.75
 
-        let positionY = -0.075;
+        let positionY = -0.1; // Initial Y position
         let positionX = 0.5; // Initial X position
         let positionZ = -4; // Initial Z position
         let animationProgress = 0;
         let scale = 1; // Initial scale
+        let opacity = 1; // Initial opacity
 
-        // Handle Y position and scale based on scroll offset
-        if (offset >= scrollStartFade && offset <= scrollEndFade) {
-            // Calculate progress between scrollStartFade and scrollEndFade
-            animationProgress = (offset - scrollStartFade) / (scrollEndFade - scrollStartFade);
-            positionY = -0.075 + animationProgress * (-1 - -0.075); // Move Y position to -1
-            scale = 1 - animationProgress * 0.4; // Scale down to 0.6
-        } else if (offset > scrollEndFade) {
-            // Fully transitioned
-            animationProgress = 1;
+        // Handle visibility, scale, and opacity based on scroll offset
+        if (offset >= scrollStartFade && offset < scrollShowStart) {
+            opacity = 0;
+            scale = 0;
+        } else if (offset >= scrollShowStart && offset <= scrollShowEnd) {
+            // Model reappears between 0.45 and 0.55
+            animationProgress = (offset - scrollShowStart) / (scrollShowEnd - scrollShowStart);
             positionY = -1; // Final Y position
-            scale = 0.6; // Final scale
-        }
-
-        // Move model to x: 1.5 by offset 0.1
-        if (offset >= scrollWaveStart) {
-            positionX = 1.5; // Move X position to 1.5
+            positionX = 1.5; // Final X position
+            positionZ = 2; // Final Z position
+            scale = lerp(0, 0.6, animationProgress); // Scale up from 0 to 0.6
+            opacity = lerp(0, 1, animationProgress); // Fade in from 0 to 1
+        } else if (offset > scrollShowEnd) {
+            // Model is fully visible after 0.55
+            scale = 0.6;
+            opacity = 1;
+            positionY = -1;
+            positionX = 1.5;
             positionZ = 2;
         }
 
-        // Smoothly transition between animations
-        if (actions.sitting && actions.standing) {
-            actions.sitting.weight = 1 - animationProgress; // Fade out sitting animation
-            actions.standing.weight = animationProgress; // Fade in standing animation
-            actions.standing.play(); // Ensure standing animation is playing
-        }
-
-        // Switch to walking animation when Y position reaches -1
-        if (positionY === -1 && actions.walking && actions.standing) {
-            actions.standing.stop(); // Stop standing animation
-            actions.walking.play(); // Start walking animation
-            actions.walking.weight = 1; // Fully transition to walking animation
-        }
-
-        // Start waving animation at offset 0.1
-        if (offset >= scrollWaveStart && actions.waving && actions.walking) {
-            actions.walking.stop(); // Stop walking animation
-            actions.waving.play(); // Start waving animation
-            actions.waving.weight = 1; // Fully transition to waving animation
-        }
-
-        // Switch to pointing animation at offset 0.5
-        if (offset >= scrollPointStart && actions.pointing && actions.waving) {
-            actions.waving.stop(); // Stop waving animation
+        // Smoothly transition to pointing animation at offset 0.45
+        if (offset >= scrollPointStart && actions.pointing && actions.sitting) {
+            actions.sitting.stop(); // Stop sitting animation
             actions.pointing.play(); // Start pointing animation
             actions.pointing.weight = 1; // Fully transition to pointing animation
         }
@@ -132,52 +108,51 @@ export default function Developer(props: GroupProps & { animationName?: string }
             actions.pointing.weight = 1; // Fully transition to pointing animation
         }
 
-        if (offset < scrollPointStart && actions.waving && actions.pointing) {
+        if (offset < scrollPointStart && actions.sitting && actions.pointing) {
             actions.pointing.stop(); // Stop pointing animation
-            actions.waving.play(); // Resume waving animation
-            actions.waving.weight = 1; // Fully transition to waving animation
-        }
-
-        if (offset < scrollWaveStart && actions.walking && actions.waving) {
-            actions.waving.stop(); // Stop waving animation
-            actions.walking.play(); // Resume walking animation
-            actions.walking.weight = 1; // Fully transition to walking animation
-        }
-
-        if (offset < scrollEndFade && actions.standing && actions.walking) {
-            actions.walking.stop(); // Stop walking animation
-            actions.standing.play(); // Resume standing animation
-            actions.standing.weight = 1; // Fully transition to standing animation
-        }
-
-        if (offset <= scrollStartFade && actions.sitting && actions.standing) {
-            actions.standing.stop(); // Stop standing animation
             actions.sitting.play(); // Resume sitting animation
             actions.sitting.weight = 1; // Fully transition to sitting animation
         }
 
-        // Apply position, scale, and animations to the model
+        // Apply position, scale, and opacity to the model
         if (group.current) {
+            group.current.scale.set(scale, scale, scale);
             group.current.position.y = positionY;
             group.current.position.x = positionX;
             group.current.position.z = positionZ;
-            group.current.scale.set(scale, scale, scale);
+
+            // Traverse the group and apply opacity to all meshes
+            group.current.traverse((child) => {
+                if ((child as THREE.Mesh).isMesh && (child as THREE.Mesh).material) {
+                    const mesh = child as THREE.Mesh;
+                    if (Array.isArray(mesh.material)) {
+                        // Handle case where material is an array
+                        mesh.material.forEach((material) => {
+                            if ((material as THREE.Material).opacity !== undefined) {
+                                (material as THREE.Material).opacity = opacity;
+                                (material as THREE.Material).transparent = true;
+                            }
+                        });
+                    } else {
+                        // Handle case where material is a single material
+                        if ((mesh.material as THREE.Material).opacity !== undefined) {
+                            (mesh.material as THREE.Material).opacity = opacity;
+                            (mesh.material as THREE.Material).transparent = true;
+                        }
+                    }
+                }
+            });
         }
     });
 
-    useEffect(() => {
-        const action = actions[animationName];
-        if (action) {
-            action.reset().play();
-            return () => {
-                action.fadeOut(0.5);
-            };
-        }
-    }, [animationName, actions]);
+    // Linear interpolation function
+    function lerp(start: number, end: number, t: number) {
+        return start * (1 - t) + end * t;
+    }
 
     return (
         <group {...restProps} ref={group} position={[0.5, -0.1, 8]} rotation={[-Math.PI / 2, 0, 0]}>
-            <primitive object={nodes.Hips} />
+            <primitive object={nodes.Hips}/>
             <skinnedMesh
                 name="EyeLeft"
                 geometry={nodes.EyeLeft.geometry}
