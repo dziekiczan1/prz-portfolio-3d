@@ -14,8 +14,8 @@ export default function Technology() {
     const {geometry, material} = useMemo(() => {
         const geometry = new THREE.SphereGeometry(1, 50, 50);
         const material = new THREE.MeshStandardMaterial({
-            color: "white",
-            // emissive: "white",
+            color: "#e281ec",
+            emissive: "#3b0147",
             emissiveIntensity: 0.2,
             toneMapped: false,
             transparent: true,

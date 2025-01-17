@@ -12,7 +12,7 @@ export const technologyData: {
         name: 'Asana',
         originPosition: [-1.5, -1.5, -1.7],
         mobileOriginPosition: [0, 0, -1.7],
-        finalPosition: [-0.4, -0.4, 3],
+        finalPosition: [-0.4, 0.4, 3],
         mobileFinalPosition: [0.4, 0.4, -0.3],
         scale: 0.1,
         rotation: [0, 0.3, 0],

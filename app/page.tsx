@@ -38,7 +38,7 @@ export default function Home() {
 
     return (
         <div className="relative w-full h-screen">
-            {showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress}/>}
+            {/*{showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress}/>}*/}
 
             <div className="fixed inset-0 z-0">
                 <Suspense fallback={null}>

@@ -43,10 +43,10 @@ export default function Wobble() {
         if (wobbleRef.current) {
             // Wobble section positions
             const sections = [
-                { start: 0, end: 0.25, position: new THREE.Vector3(-1, 0, 0), scale: 0.35 }, // Hero section
-                { start: 0.25, end: 0.5, position: new THREE.Vector3(-2.2, 0, 0), scale: 0.5 }, // About section
-                { start: 0.5, end: 0.75, position: new THREE.Vector3(5, 3, 0), scale: 0.4 }, // Projects section
-                { start: 0.75, end: 1, position: new THREE.Vector3(0, 0, 0), scale: 0.35 }, // Contact section
+                { start: 0, end: 0.01, position: new THREE.Vector3(-1, 0, 0), scale: 0.35 }, // Hero section
+                { start: 0.01, end: 0.35, position: new THREE.Vector3(0.2, 0, 0), scale: 0.8 }, // About section
+                { start: 0.35, end: 0.95, position: new THREE.Vector3(2, 1, 0), scale: 0.2 }, // Projects section
+                { start: 0.95, end: 1, position: new THREE.Vector3(0, 0, 0), scale: 0.35 }, // Contact section
             ];
 
             // Find current and next section
