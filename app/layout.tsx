@@ -1,10 +1,16 @@
 import type {Metadata} from "next";
-import {Roboto, Orbitron} from "next/font/google";
+import {Roboto, Orbitron, DM_Sans} from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/components/navbar";
 
 // Load the fonts
-const roboto = Roboto({
+// const roboto = Roboto({
+//     weight: "400",
+//     subsets: ["latin"],
+//     variable: "--font-roboto",
+// });
+
+const roboto = DM_Sans({
     weight: "400",
     subsets: ["latin"],
     variable: "--font-roboto",

@@ -18,6 +18,10 @@ html {
     height: 0;
 }
 
+p {
+    @apply text-lg leading-relaxed tracking-wider;
+}
+
 canvas {
     @apply w-screen h-screen;
 }
