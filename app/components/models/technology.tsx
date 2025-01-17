@@ -12,11 +12,11 @@ export default function Technology() {
 
     // Create sphere geometry and material
     const {geometry, material} = useMemo(() => {
-        const geometry = new THREE.SphereGeometry(1, 50, 50);
+        const geometry = new THREE.SphereGeometry(1, 20, 20);
         const material = new THREE.MeshStandardMaterial({
-            color: "#e281ec",
-            emissive: "#3b0147",
-            emissiveIntensity: 0.2,
+            color: "white",
+            emissive: "#3b51c1",
+            emissiveIntensity: 0.3,
             toneMapped: false,
             transparent: true,
             opacity: 0,
