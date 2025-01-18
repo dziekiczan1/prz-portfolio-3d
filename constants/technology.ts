@@ -6,6 +6,8 @@ export const technologyData: {
     mobileFinalPosition: [number, number, number];
     scale: number;
     rotation: [number, number, number];
+    decalScale?: number;
+    decalPosition?: [number, number, number];
     texturePath: string;
 }[] = [
     {
@@ -40,7 +42,7 @@ export const technologyData: {
     },
     {
         name: 'GIT',
-        originPosition: [-2.5, 0, -1.7],
+        originPosition: [-1, -1, -1.7],
         mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [-1.3, 0.12, -3],
         mobileFinalPosition: [-4, -4, -3],
@@ -55,7 +57,8 @@ export const technologyData: {
         finalPosition: [-0.65, 0.8, -3],
         mobileFinalPosition: [4, 0, -3],
         scale: 0.12,
-        rotation: [0.2, 0, 0],
+        rotation: [0.2, 0.1, 0],
+        decalScale: 1.2,
         texturePath: './technologies/javascript.svg'
     },
     {
@@ -75,7 +78,8 @@ export const technologyData: {
         finalPosition: [1.3, -0.65, -3],
         mobileFinalPosition: [0, 4, -3],
         scale: 0.15,
-        rotation: [-0.2, -0.2, 0],
+        rotation: [-0.1, -0.2, 0],
+        decalScale: 1.2,
         texturePath: './technologies/magento.svg'
     },
     {
@@ -116,6 +120,7 @@ export const technologyData: {
         mobileFinalPosition: [5, -5, -3],
         scale: 0.06,
         rotation: [0.2, -0.2, 0],
+        decalScale: 0.8,
         texturePath: './technologies/npm.svg'
     },
     {
@@ -126,6 +131,7 @@ export const technologyData: {
         mobileFinalPosition: [-5, -5, -3],
         scale: 0.15,
         rotation: [0, 0, 0],
+        decalScale: 1,
         texturePath: './technologies/react.svg'
     },
     {
@@ -156,6 +162,7 @@ export const technologyData: {
         mobileFinalPosition: [0, 5, -3],
         scale: 0.18,
         rotation: [0, -0.2, 0],
+        decalScale: 0.9,
         texturePath: './technologies/tailwind.svg'
     },
     {
@@ -186,6 +193,7 @@ export const technologyData: {
         mobileFinalPosition: [-6, 4, -3],
         scale: 0.1,
         rotation: [0.1, 0.3, 0],
+        decalScale: 1.2,
         texturePath: './technologies/vsc.svg'
     },
     {
@@ -195,7 +203,8 @@ export const technologyData: {
         finalPosition: [1.95, 0.1, -3],
         mobileFinalPosition: [6, -6, -3],
         scale: 0.09,
-        rotation: [0.4, -0.1, 0],
+        rotation: [0.2, -0.1, 0],
+        decalScale: 1,
         texturePath: './technologies/webstorm.svg'
     },
 ];

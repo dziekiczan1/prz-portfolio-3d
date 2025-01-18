@@ -1,6 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
-import {HoverBorderGradient} from "@/components/ui/button";
+'use client';
+import Link from 'next/link';
+import Image from 'next/image';
+import {HoverBorderGradient} from '@/components/ui/button';
 
 export default function Navbar() {
     return (
@@ -9,7 +10,8 @@ export default function Navbar() {
                 href="/"
                 className="flex items-center justify-center font-bold gap-4"
             >
-                <div className="flex items-center justify-center border border-fuchsia-800 border-2 w-10 h-10 rounded-lg">
+                <div
+                    className="flex items-center justify-center border border-fuchsia-800 border-2 w-10 h-10 rounded-lg">
                     <Image
                         src={`/erzet.webp`}
                         width={32}
@@ -18,22 +20,16 @@ export default function Navbar() {
                         className="h-3/5 w-auto"
                     />
                 </div>
-                <p className="uppercase font-orbitron text-sm">Piotr<br /> Rzadkowolski</p>
+                <p className="uppercase font-orbitron text-sm">Piotr<br/> Rzadkowolski</p>
             </Link>
             <nav className="flex items-center gap-8">
-                <Link
-                    href="/"
-                >
+                <Link href="#about">
                     About
                 </Link>
-                <Link
-                    href="/"
-                >
+                <Link href="/">
                     Projects
                 </Link>
-                <Link
-                    href="/"
-                >
+                <Link href="/">
                     Resume
                 </Link>
                 <HoverBorderGradient
@@ -41,7 +37,9 @@ export default function Navbar() {
                     as="button"
                     className="px-8 py-2 text-m font-medium"
                 >
-                    Contact
+                    <Link href="/">
+                        Contact
+                    </Link>
                 </HoverBorderGradient>
             </nav>
         </header>

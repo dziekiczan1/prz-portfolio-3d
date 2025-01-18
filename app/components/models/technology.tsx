@@ -96,9 +96,9 @@ export default function Technology() {
                         rotation={data.rotation}
                     >
                         <Decal
-                            position={[0, 0, 1]}
+                            position={data.decalPosition || [0, 0, 1]}
                             rotation={[0, 0, 0]}
-                            scale={1.5}
+                            scale={data.decalScale || 1.5}
                         >
                             <meshBasicMaterial
                                 ref={(el) => {

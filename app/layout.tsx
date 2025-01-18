@@ -1,19 +1,13 @@
 import type {Metadata} from "next";
-import {Roboto, Orbitron, DM_Sans} from "next/font/google";
+import {Orbitron, DM_Sans} from "next/font/google";
 import "./globals.css";
+
 import Navbar from "@/app/components/navbar";
 
-// Load the fonts
-// const roboto = Roboto({
-//     weight: "400",
-//     subsets: ["latin"],
-//     variable: "--font-roboto",
-// });
-
-const roboto = DM_Sans({
+const dmSans = DM_Sans({
     weight: "400",
     subsets: ["latin"],
-    variable: "--font-roboto",
+    variable: "--font-dmSans",
 });
 
 const orbitron = Orbitron({
@@ -30,12 +24,12 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en">
-            <body className={`${roboto.variable} ${roboto.className} ${orbitron.variable} antialiased`}>
-                <Navbar />
-                <main>
-                    {children}
-                </main>
-            </body>
+        <body className={`${dmSans.variable} ${dmSans.className} ${orbitron.variable} antialiased`}>
+            <Navbar/>
+            <main>
+                {children}
+            </main>
+        </body>
         </html>
     );
 }

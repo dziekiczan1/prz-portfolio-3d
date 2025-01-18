@@ -32,14 +32,12 @@ function CameraSetup() {
 
 export default function Home() {
     const [showPreloader, setShowPreloader] = useState(true);
-
     const {loaded, total} = useProgress();
     const progress = total > 0 ? (loaded / TOTAL_ASSETS) * 100 : 0;
 
     return (
         <div className="relative w-full h-screen">
             {/*{showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress}/>}*/}
-
             <div className="fixed inset-0 z-0">
                 <Suspense fallback={null}>
                     <Canvas
