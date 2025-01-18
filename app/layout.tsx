@@ -3,6 +3,7 @@ import {Orbitron, DM_Sans} from "next/font/google";
 import "./globals.css";
 
 import Navbar from "@/app/components/navbar";
+import SocialMedia from "@/app/components/social";
 
 const dmSans = DM_Sans({
     weight: "400",
@@ -29,6 +30,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
             <main>
                 {children}
             </main>
+            <SocialMedia/>
         </body>
         </html>
     );

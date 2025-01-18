@@ -37,7 +37,7 @@ export default function Navbar() {
                     as="button"
                     className="px-8 py-2 text-m font-medium"
                 >
-                    <Link href="/">
+                    <Link href="#contact">
                         Contact
                     </Link>
                 </HoverBorderGradient>

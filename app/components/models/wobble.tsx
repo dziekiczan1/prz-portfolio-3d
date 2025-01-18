@@ -3,13 +3,13 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
 import CustomShaderMaterial from "three-custom-shader-material";
-import {useScroll} from "@react-three/drei";
 
 import wobbleVertexShader from "@/app/shaders/wobble/vertex.glsl";
 import wobbleFragmentShader from "@/app/shaders/wobble/fragment.glsl";
+import {useScrollAnimation} from "@/app/hooks/useScrollAnimation";
 
 export default function Wobble() {
-    const scroll = useScroll();
+    const scrollOffset = useScrollAnimation();
     const wobbleRef = useRef<THREE.Mesh>(null);
 
     // Create icosahedron geometry
@@ -34,7 +34,6 @@ export default function Wobble() {
     }), []);
 
     useFrame((state) => {
-        const { offset } = scroll;
         const elapsedTime = state.clock.getElapsedTime();
 
         // Time uniform update
@@ -54,7 +53,7 @@ export default function Wobble() {
             let nextSection = sections[0];
 
             for (let i = 0; i < sections.length; i++) {
-                if (offset >= sections[i].start && offset <= sections[i].end) {
+                if (scrollOffset >= sections[i].start && scrollOffset <= sections[i].end) {
                     currentSection = sections[i];
                     nextSection = sections[i + 1] || currentSection;
                     break;
@@ -63,7 +62,7 @@ export default function Wobble() {
 
             // Calculate normalized offset
             const sectionRange = currentSection.end - currentSection.start;
-            const normalizedOffset = (offset - currentSection.start) / sectionRange;
+            const normalizedOffset = (scrollOffset - currentSection.start) / sectionRange;
 
             // Interpolate position and scale
             const targetPosition = new THREE.Vector3().lerpVectors(

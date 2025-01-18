@@ -4,14 +4,13 @@
 
 html,
 body {
-    @apply w-full h-full bg-gradient-to-br from-slate-700 to-slate-900 text-gray-100;
+    @apply w-full h-full text-gray-100;
 }
 
 html {
     scrollbar-width: none;
     overflow-y: scroll;
     -ms-overflow-style: none;
-    scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {

@@ -1,7 +1,7 @@
 'use client';
-import {lazy, Suspense, useEffect, useState} from "react";
-import {Canvas, useThree} from "@react-three/fiber";
-import {Scroll, ScrollControls, useProgress} from "@react-three/drei";
+import { lazy, Suspense, useEffect, useState } from "react";
+import {Canvas, useFrame, useThree} from "@react-three/fiber";
+import {ScrollControls, useProgress, useScroll} from "@react-three/drei";
 import * as THREE from "three";
 import Preloader from "@/components/ui/preloader";
 
@@ -14,7 +14,7 @@ const Contact = lazy(() => import("@/app/components/sections/contact"));
 const TOTAL_ASSETS = 39;
 
 function CameraSetup() {
-    const {size, camera} = useThree();
+    const { size, camera } = useThree();
     const aspect = size.width / size.height;
 
     useEffect(() => {
@@ -32,13 +32,16 @@ function CameraSetup() {
 
 export default function Home() {
     const [showPreloader, setShowPreloader] = useState(true);
-    const {loaded, total} = useProgress();
+    const { loaded, total } = useProgress();
     const progress = total > 0 ? (loaded / TOTAL_ASSETS) * 100 : 0;
 
     return (
         <div className="relative w-full h-screen">
-            {/*{showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress}/>}*/}
-            <div className="fixed inset-0 z-0">
+            {/* Preloader */}
+            {/*{showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress} />}*/}
+
+            {/* Fixed 3D Canvas */}
+            <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-700 to-slate-900">
                 <Suspense fallback={null}>
                     <Canvas
                         shadows
@@ -51,20 +54,19 @@ export default function Home() {
                         dpr={[1, 2]}
                         orthographic
                     >
-                        <CameraSetup/>
+                        <CameraSetup />
                         <ScrollControls pages={4}>
-                            <Experience/>
-                            <Scroll html style={{width: '100%', overflow: 'hidden'}}>
-                                <div className="scroll-container">
-                                    <Hero/>
-                                    <About/>
-                                    <Projects/>
-                                    <Contact/>
-                                </div>
-                            </Scroll>
+                            <Experience />
                         </ScrollControls>
                     </Canvas>
                 </Suspense>
+            </div>
+
+            <div className="relative z-10">
+                <Hero />
+                <About />
+                <Projects />
+                <Contact />
             </div>
         </div>
     );

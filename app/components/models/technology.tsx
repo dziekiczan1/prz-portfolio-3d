@@ -1,8 +1,9 @@
-import {Decal, Float, useScroll, useTexture} from "@react-three/drei";
+import {Decal, Float, useTexture} from "@react-three/drei";
 import {useMemo, useRef} from "react";
 import * as THREE from "three";
 import {useFrame} from "@react-three/fiber";
 import {technologyData} from "@/constants/technology";
+import {useScrollAnimation} from "@/app/hooks/useScrollAnimation";
 
 export default function Technology() {
     // Load textures
@@ -28,14 +29,14 @@ export default function Technology() {
     const sphereRefs = useRef<(THREE.Mesh | null)[]>([]);
     const decalMaterialRefs = useRef<(THREE.MeshBasicMaterial | null)[]>([]);
 
-    // Scroll animation
-    const scroll = useScroll();
-    useFrame(() => {
-        const {offset} = scroll;
+    // Get scroll offset
+    const scrollOffset = useScrollAnimation();
 
+    // Animate spheres based on scroll offset
+    useFrame(() => {
         sphereRefs.current.forEach((mesh, index) => {
             const decalMaterial = decalMaterialRefs.current[index];
-            const {originPosition, finalPosition, scale: maxScale} = technologyData[index];
+            const { originPosition, finalPosition, scale: maxScale } = technologyData[index];
 
             if (mesh && decalMaterial) {
                 const scrollStart = 0.10; // Sphere start appearing
@@ -44,15 +45,15 @@ export default function Technology() {
 
                 let normalizedOffset;
 
-                if (offset < scrollStart) {
+                if (scrollOffset < scrollStart) {
                     // Before the sphere starts appearing
                     normalizedOffset = 0;
-                } else if (offset >= scrollStart && offset <= scrollEndAppear) {
+                } else if (scrollOffset >= scrollStart && scrollOffset <= scrollEndAppear) {
                     // Sphere is appearing (scale from 0 to maxScale)
-                    normalizedOffset = (offset - scrollStart) / (scrollEndAppear - scrollStart);
-                } else if (offset > scrollEndAppear && offset <= scrollEndDisappear) {
+                    normalizedOffset = (scrollOffset - scrollStart) / (scrollEndAppear - scrollStart);
+                } else if (scrollOffset > scrollEndAppear && scrollOffset <= scrollEndDisappear) {
                     // Sphere is disappearing (scale from maxScale to 0)
-                    normalizedOffset = 1 - (offset - scrollEndAppear) / (scrollEndDisappear - scrollEndAppear);
+                    normalizedOffset = 1 - (scrollOffset - scrollEndAppear) / (scrollEndDisappear - scrollEndAppear);
                 } else {
                     // After the sphere has fully disappeared
                     normalizedOffset = 0;
@@ -60,7 +61,7 @@ export default function Technology() {
 
                 normalizedOffset = Math.max(0, Math.min(1, normalizedOffset));
 
-                // Animate position, scale and opacity
+                // Animate position, scale, and opacity
                 mesh.position.lerp(
                     new THREE.Vector3(
                         originPosition[0] + (finalPosition[0] - originPosition[0]) * normalizedOffset,
@@ -69,7 +70,8 @@ export default function Technology() {
                     ),
                     0.1
                 );
-                // Animate scale (respecting maxScale from technologyData)
+
+                // Animate scale
                 const targetScale = normalizedOffset * maxScale;
                 mesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
 

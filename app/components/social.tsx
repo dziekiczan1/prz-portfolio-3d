@@ -2,7 +2,7 @@ import {HoverBorderGradient} from "@/components/ui/button";
 
 export default function SocialMedia() {
     return (
-            <div className="absolute right-10 bottom-8 flex items-center gap-14">
+            <div className="fixed right-10 bottom-8 flex items-center gap-14">
                 <HoverBorderGradient
                     containerClassName="rotate-45 rounded"
                     as="button"
