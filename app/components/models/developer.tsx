@@ -55,7 +55,7 @@ export default function Developer(props: GroupProps) {
     useEffect(() => {
         if (scrollOffset < 0.45) {
             setCurrentAnimation('sitting');
-        } else if (scrollOffset < 0.75) {
+        } else if (scrollOffset < 0.8) {
             setCurrentAnimation('pointing');
         } else {
             setCurrentAnimation('phone');
