@@ -1,0 +1,116 @@
+"use client";
+import {
+    useScroll,
+    useTransform,
+    motion,
+} from "framer-motion";
+import {useEffect, useRef, useState} from "react";
+import Image from "next/image";
+
+interface TimelineEntry {
+    title: string;
+    companyName: string;
+    icon: string;
+    date: string;
+    points: string[];
+}
+
+export const Timeline = ({data}: { data: TimelineEntry[] }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [height, setHeight] = useState(0);
+
+    useEffect(() => {
+        if (ref.current) {
+            const rect = ref.current.getBoundingClientRect();
+            setHeight(rect.height + 100);
+        }
+    }, [ref]);
+
+    const {scrollYProgress} = useScroll({
+        target: containerRef,
+        offset: ["start 35%", "end 50%"],
+    });
+
+    const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
+    const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+
+    return (
+        <div
+            className="h-full w-full flex items-center justify-center"
+            ref={containerRef}
+        >
+            <div ref={ref} className="relative mx-auto flex flex-col gap-10 py-10">
+                {data.map((item, index) => (
+                    <div
+                        key={index}
+                        className="flex justify-end mr-24"
+                    >
+                        <div
+                            className="relative max-w-xl w-full mx-auto rounded-xl border border-[rgba(255,255,255,0.4)]
+                          bg-gradient-to-b from-[rgba(51,65,85,0.6)] to-[rgba(15,23,42,0.6)]
+                          after:content-[''] after:absolute after:right-[-6px] after:top-6
+                          after:border-t-[6px] after:border-t-transparent after:border-b-[6px] after:border-b-transparent
+                          after:border-l-[6px] after:border-l-[rgba(255,255,255,0.4)]"
+                        >
+                            <div className="p-6">
+                                <div className="flex justify-between">
+                                    <div className="flex flex-col">
+                                        <h3 className="text-lg font-semibold text-gray-100 mb-1">
+                                            {item.companyName}
+                                        </h3>
+                                        <p className="text-sm font-medium text-gray-300 mb-2">
+                                            {item.title}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-gray-400">
+                                            {item.date}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="border-b border-[rgba(255,255,255,0.2)] mb-4"></div>
+                                <ul className="list-disc ml-5 space-y-2">
+                                    {item.points.map((point, index) => (
+                                        <li
+                                            key={`experience-point-${index}`}
+                                            className="text-sm font-normal text-gray-300"
+                                        >
+                                            {point}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div
+                            className="h-16 w-16 absolute right-2 rounded-full flex items-center justify-center z-10 bg-[rgba(15,23,42,0.8)] border border-[rgba(255,255,255,0.2)] shadow-[0_0_10px_2px_rgba(99,102,241,0.3)]"
+                        >
+                            <Image
+                                src={item.icon}
+                                alt={item.title}
+                                width={40}
+                                height={40}
+                            />
+                        </div>
+                    </div>
+                ))}
+
+                <div
+                    style={{
+                        height: height + "px",
+                    }}
+                    className="absolute right-[39px] -top-16 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-gray-400 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
+                >
+                    <motion.div
+                        style={{
+                            height: heightTransform,
+                            opacity: opacityTransform,
+                        }}
+                        className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-fuchsia-800 via-fuchsia-800 to-transparent from-[0%] via-[10%] rounded-full"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};

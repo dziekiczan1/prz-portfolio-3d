@@ -5,6 +5,8 @@ import {useProgress} from "@react-three/drei";
 import * as THREE from "three";
 import Preloader from "@/components/ui/preloader";
 import Resume from "@/app/components/sections/resume";
+import GridPattern from "@/components/ui/grid-pattern";
+import {cn} from "@/lib/utils";
 
 const Hero = lazy(() => import("@/app/components/sections/hero"));
 const About = lazy(() => import("@/app/components/sections/about"));
@@ -41,6 +43,15 @@ export default function Home() {
             {/*{showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress} />}*/}
 
             <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-700 to-slate-900">
+                <GridPattern
+                    width={20}
+                    height={20}
+                    x={-1}
+                    y={-1}
+                    className={cn(
+                        "[mask-image:linear-gradient(to_top_left,white,transparent,transparent)] ",
+                    )}
+                />
                 <Suspense fallback={null}>
                     <Canvas
                         shadows
@@ -53,18 +64,18 @@ export default function Home() {
                         dpr={[1, 2]}
                         orthographic
                     >
-                        <CameraSetup />
-                        <Experience />
+                        <CameraSetup/>
+                        <Experience/>
                     </Canvas>
                 </Suspense>
             </div>
 
             <div className="relative z-10">
-                <Hero />
-                <About />
-                <Projects />
-                <Resume />
-                <Contact />
+                <Hero/>
+                <About/>
+                <Projects/>
+                <Resume/>
+                <Contact/>
             </div>
         </div>
     );
