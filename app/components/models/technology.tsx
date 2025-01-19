@@ -2,13 +2,13 @@ import {Decal, Float, useTexture} from "@react-three/drei";
 import {useMemo, useRef} from "react";
 import * as THREE from "three";
 import {useFrame} from "@react-three/fiber";
-import {technologyData} from "@/constants/technology";
+import {technologiesData} from "@/constants/technologies";
 import {useScrollAnimation} from "@/app/hooks/useScrollAnimation";
 
 export default function Technology() {
     // Load textures
     const textures = useTexture(
-        technologyData.map((data) => data.texturePath)
+        technologiesData.map((data) => data.texturePath)
     );
 
     // Create sphere geometry and material
@@ -36,7 +36,7 @@ export default function Technology() {
     useFrame(() => {
         sphereRefs.current.forEach((mesh, index) => {
             const decalMaterial = decalMaterialRefs.current[index];
-            const { originPosition, finalPosition, scale: maxScale } = technologyData[index];
+            const { originPosition, finalPosition, scale: maxScale } = technologiesData[index];
 
             if (mesh && decalMaterial) {
                 const scrollStart = 0.10; // Sphere start appearing
@@ -84,7 +84,7 @@ export default function Technology() {
 
     return (
         <>
-            {technologyData.map((data, index) => (
+            {technologiesData.map((data, index) => (
                 <Float key={index} rotationIntensity={0.15} floatIntensity={0.002} floatingRange={[-0.002,0.002]}>
                     <mesh
                         ref={(el) => {

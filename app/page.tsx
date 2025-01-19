@@ -1,7 +1,7 @@
 'use client';
 import { lazy, Suspense, useEffect, useState } from "react";
-import {Canvas, useFrame, useThree} from "@react-three/fiber";
-import {ScrollControls, useProgress, useScroll} from "@react-three/drei";
+import {Canvas, useThree} from "@react-three/fiber";
+import {ScrollControls, useProgress} from "@react-three/drei";
 import * as THREE from "three";
 import Preloader from "@/components/ui/preloader";
 

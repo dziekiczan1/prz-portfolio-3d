@@ -32,15 +32,15 @@ export default function Navbar() {
                 <Link href="/">
                     Resume
                 </Link>
-                <HoverBorderGradient
-                    containerClassName="rounded-full"
-                    as="button"
-                    className="px-8 py-2 text-m font-medium"
-                >
-                    <Link href="#contact">
+                <Link href="#contact">
+                    <HoverBorderGradient
+                        containerClassName="rounded-full"
+                        as="button"
+                        className="px-8 py-2 text-m font-medium"
+                    >
                         Contact
-                    </Link>
-                </HoverBorderGradient>
+                    </HoverBorderGradient>
+                </Link>
             </nav>
         </header>
     );

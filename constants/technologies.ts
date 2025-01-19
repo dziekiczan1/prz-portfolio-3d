@@ -1,4 +1,4 @@
-export const technologyData: {
+export const technologiesData: {
     name: string;
     originPosition: [number, number, number];
     mobileOriginPosition: [number, number, number];
