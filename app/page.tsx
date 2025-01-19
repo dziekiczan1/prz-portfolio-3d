@@ -1,9 +1,10 @@
 'use client';
 import { lazy, Suspense, useEffect, useState } from "react";
 import {Canvas, useThree} from "@react-three/fiber";
-import {ScrollControls, useProgress} from "@react-three/drei";
+import {useProgress} from "@react-three/drei";
 import * as THREE from "three";
 import Preloader from "@/components/ui/preloader";
+import Resume from "@/app/components/sections/resume";
 
 const Hero = lazy(() => import("@/app/components/sections/hero"));
 const About = lazy(() => import("@/app/components/sections/about"));
@@ -37,10 +38,8 @@ export default function Home() {
 
     return (
         <div className="relative w-full h-screen">
-            {/* Preloader */}
             {/*{showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress} />}*/}
 
-            {/* Fixed 3D Canvas */}
             <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-700 to-slate-900">
                 <Suspense fallback={null}>
                     <Canvas
@@ -55,9 +54,7 @@ export default function Home() {
                         orthographic
                     >
                         <CameraSetup />
-                        <ScrollControls pages={4}>
-                            <Experience />
-                        </ScrollControls>
+                        <Experience />
                     </Canvas>
                 </Suspense>
             </div>
@@ -66,6 +63,7 @@ export default function Home() {
                 <Hero />
                 <About />
                 <Projects />
+                <Resume />
                 <Contact />
             </div>
         </div>

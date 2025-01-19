@@ -40,8 +40,8 @@ export default function Technology() {
 
             if (mesh && decalMaterial) {
                 const scrollStart = 0.10; // Sphere start appearing
-                const scrollEndAppear = 0.33; // Sphere start disappearing
-                const scrollEndDisappear = 0.6; // Sphere fully disappeared
+                const scrollEndAppear = 0.24; // Sphere start disappearing
+                const scrollEndDisappear = 0.45; // Sphere fully disappeared
 
                 let normalizedOffset;
 
