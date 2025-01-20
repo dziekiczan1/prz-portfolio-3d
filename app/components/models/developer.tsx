@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import { useAnimations, useFBX, useGLTF } from '@react-three/drei';
-import { GroupProps, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 import { useScrollAnimation } from "@/app/hooks/useScrollAnimation";
@@ -32,22 +32,30 @@ interface CustomGLTF extends GLTF {
     };
 }
 
-export default function Developer(props: GroupProps) {
+export default function Developer() {
     const group = useRef<THREE.Group>(null);
-    const { ...restProps } = props;
     const { nodes, materials } = useGLTF('./models/developer.glb') as CustomGLTF;
 
     const { animations: phoneAnimation } = useFBX('./models/phone.fbx');
     const { animations: sittingAnimation } = useFBX('./models/sitting.fbx');
     const { animations: pointingAnimation } = useFBX('./models/pointing.fbx');
-    phoneAnimation[0].name = 'phone';
-    sittingAnimation[0].name = 'sitting';
-    pointingAnimation[0].name = 'pointing';
 
-    const { actions } = useAnimations(
-        [phoneAnimation[0], sittingAnimation[0], pointingAnimation[0]],
-        group
-    );
+    const animations = useMemo(() => {
+        phoneAnimation[0].name = 'phone';
+        sittingAnimation[0].name = 'sitting';
+        pointingAnimation[0].name = 'pointing';
+
+        return [phoneAnimation[0], sittingAnimation[0], pointingAnimation[0]];
+    }, [phoneAnimation, sittingAnimation, pointingAnimation]);
+
+    const { actions } = useAnimations(animations, group);
+    const actionsRef = useRef(actions);
+
+    useEffect(() => {
+        if (actions) {
+            actionsRef.current = actions;
+        }
+    }, [actions]);
 
     const scrollOffset = useScrollAnimation();
     const [currentAnimation, setCurrentAnimation] = useState<string>('sitting');
@@ -63,10 +71,17 @@ export default function Developer(props: GroupProps) {
     }, [scrollOffset]);
 
     useEffect(() => {
-        if (actions[currentAnimation]) {
-            actions[currentAnimation].play();
+        const currentAction = actionsRef.current[currentAnimation];
+        if (currentAction) {
+            currentAction.play();
         }
-    }, [currentAnimation, actions]);
+
+        return () => {
+            if (currentAction) {
+                currentAction.stop();
+            }
+        };
+    }, [currentAnimation]);
 
     useFrame(() => {
         const scrollStartFade = 0.01;
@@ -130,7 +145,7 @@ export default function Developer(props: GroupProps) {
     }
 
     return (
-        <group {...restProps} ref={group} position={[0.5, -0.1, 8]} rotation={[-Math.PI / 2, 0, 0]}>
+        <group ref={group} position={[0.5, -0.1, 8]} rotation={[-Math.PI / 2, 0, 0]}>
             <primitive object={nodes.Hips} />
             <skinnedMesh
                 name="EyeLeft"
