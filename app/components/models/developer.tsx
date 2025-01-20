@@ -50,6 +50,7 @@ export default function Developer() {
 
     const { actions } = useAnimations(animations, group);
     const actionsRef = useRef(actions);
+    const previousAnimationRef = useRef<string>('');
 
     useEffect(() => {
         if (actions) {
@@ -72,13 +73,56 @@ export default function Developer() {
 
     useEffect(() => {
         const currentAction = actionsRef.current[currentAnimation];
-        if (currentAction) {
-            currentAction.play();
+        const previousAction = actionsRef.current[previousAnimationRef.current];
+
+        if (previousAction) {
+            if (
+                (previousAnimationRef.current === 'pointing' && currentAnimation === 'phone') ||
+                (previousAnimationRef.current === 'phone' && currentAnimation === 'pointing')
+            ) {
+                // Fade out the previous animation (only between 'pointing' and 'phone')
+                previousAction.fadeOut(0.5); // 0.5 seconds fade-out duration
+            } else {
+                // Immediately stop and reset the previous animation (for 'sitting' or other cases)
+                previousAction.stop().reset();
+            }
         }
 
+        if (currentAction) {
+            if (currentAnimation === 'sitting') {
+                // Play 'sitting' immediately without fade-in
+                currentAction.reset().play();
+            } else if (
+                (previousAnimationRef.current === 'pointing' && currentAnimation === 'phone') ||
+                (previousAnimationRef.current === 'phone' && currentAnimation === 'pointing')
+            ) {
+                // Fade in the new animation (only between 'pointing' and 'phone')
+                currentAction
+                    .reset() // Reset the animation to the beginning
+                    .fadeIn(0.5) // 0.5 seconds fade-in duration
+                    .play();
+            } else {
+                // Play other animations immediately without fade-in
+                currentAction.reset().play();
+            }
+        }
+
+        // Update the previous animation ref
+        previousAnimationRef.current = currentAnimation;
+
+        // Cleanup function to stop the animation when the component unmounts or the animation changes
         return () => {
-            if (currentAction) {
-                currentAction.stop();
+            if (previousAction) {
+                if (
+                    (previousAnimationRef.current === 'pointing' && currentAnimation === 'phone') ||
+                    (previousAnimationRef.current === 'phone' && currentAnimation === 'pointing')
+                ) {
+                    // Stop the previous animation after fade-out
+                    previousAction.stop();
+                } else {
+                    // Stop and reset other animations immediately
+                    previousAction.stop().reset();
+                }
             }
         };
     }, [currentAnimation]);
