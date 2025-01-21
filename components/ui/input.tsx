@@ -1,15 +1,16 @@
 "use client";
 import * as React from "react";
-import {cn} from "@/lib/utils";
-import {useMotionTemplate, useMotionValue, motion} from "framer-motion";
+import { cn } from "@/lib/utils";
+import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
 
 export interface InputProps
-    extends React.InputHTMLAttributes<HTMLInputElement> {
+    extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
     label?: string;
+    textarea?: boolean;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-    ({className, type, label, ...props}, ref) => {
+const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
+    ({ className, type, label, textarea = false, ...props }, ref) => {
         const radius = 250;
         const [visible, setVisible] = React.useState(false);
         const [isFocused, setIsFocused] = React.useState(false);
@@ -18,16 +19,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         let mouseX = useMotionValue(0);
         let mouseY = useMotionValue(0);
 
-        function handleMouseMove({currentTarget, clientX, clientY}: any) {
-            let {left, top} = currentTarget.getBoundingClientRect();
-
+        function handleMouseMove({ currentTarget, clientX, clientY }: any) {
+            let { left, top } = currentTarget.getBoundingClientRect();
             mouseX.set(clientX - left);
             mouseY.set(clientY - top);
         }
 
         const handleFocus = () => setIsFocused(true);
         const handleBlur = () => setIsFocused(false);
-        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const handleChange = (
+            e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+        ) => {
             setHasValue(!!e.target.value);
             if (props.onChange) props.onChange(e);
         };
@@ -54,33 +56,54 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                             `absolute left-3 transition-all duration-200 pointer-events-none
                              ${
                                 isFocused || hasValue
-                                    ? "-top-4 text-xs text-gray-100"
-                                    : "top-1/2 -translate-y-1/2 text-sm text-gray-400"
+                                    ? "-top-5 text-xs text-gray-400 font-semibold"
+                                    : !textarea
+                                        ? "top-1/2 -translate-y-1/2 text-sm text-gray-400"
+                                        : "top-3.5 text-sm text-gray-400"
                             }`
                         )}
                     >
                         {label}
                     </motion.label>
                 )}
-                <input
-                    type={type}
-                    className={cn(
-                        `flex h-10 w-full rounded-md border border-[rgba(255,255,255,0.4)] bg-slate-900
-                         shadow-input px-3 py-2 text-gray-100 text-sm placeholder:text-transparent 
-                         focus-visible:outline-none focus-visible:ring-[1px] dark:focus-visible:ring-fuchsia-700
-                         disabled:cursor-not-allowed disabled:opacity-50 transition duration-400`,
-                        className
-                    )}
-                    ref={ref}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    {...props}
-                />
+                {textarea ? (
+                    <textarea
+                        className={cn(
+                            `flex w-full rounded-md border border-[rgba(255,255,255,0.4)] bg-slate-900
+                             shadow-input px-3 py-2 text-gray-100 text-sm placeholder:text-transparent 
+                             focus-visible:outline-none focus-visible:ring-[1px] dark:focus-visible:ring-fuchsia-700
+                             disabled:cursor-not-allowed disabled:opacity-50 transition duration-400
+                             resize-none`,
+                            className
+                        )}
+                        ref={ref as React.Ref<HTMLTextAreaElement>}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        {...props}
+                    />
+                ) : (
+                    <input
+                        type={type}
+                        className={cn(
+                            `flex h-12 w-full rounded-md border border-[rgba(255,255,255,0.4)] bg-slate-900
+                             shadow-input px-3 py-2 text-gray-100 text-sm placeholder:text-transparent 
+                             focus-visible:outline-none focus-visible:ring-[1px] dark:focus-visible:ring-fuchsia-700
+                             disabled:cursor-not-allowed disabled:opacity-50 transition duration-400`,
+                            className
+                        )}
+                        ref={ref as React.Ref<HTMLInputElement>}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        {...props}
+                    />
+                )}
             </motion.div>
         );
     }
 );
+
 Input.displayName = "Input";
 
-export {Input};
+export default Input; // Export as default

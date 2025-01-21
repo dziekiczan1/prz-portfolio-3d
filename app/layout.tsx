@@ -6,13 +6,13 @@ import Navbar from "@/app/components/navbar";
 import SocialMedia from "@/app/components/social";
 
 const dmSans = DM_Sans({
-    weight: "400",
+    weight: ["400", "600"],
     subsets: ["latin"],
     variable: "--font-dmSans",
 });
 
 const orbitron = Orbitron({
-    weight: ["400", "600"],
+    weight: ["400", "600", "700"],
     subsets: ["latin"],
     variable: "--font-orbitron",
 });

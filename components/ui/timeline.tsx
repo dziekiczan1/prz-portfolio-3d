@@ -47,7 +47,7 @@ export const Timeline = ({data}: { data: TimelineEntry[] }) => {
                         className="flex justify-end mr-24"
                     >
                         <div
-                            className="relative max-w-xl w-full mx-auto rounded-xl border border-[rgba(255,255,255,0.4)]
+                            className="relative max-w-2xl w-full mx-auto rounded-xl border border-[rgba(255,255,255,0.4)]
                           bg-gradient-to-b from-[rgba(51,65,85,0.6)] to-[rgba(15,23,42,0.6)]
                           after:content-[''] after:absolute after:right-[-6px] after:top-6
                           after:border-t-[6px] after:border-t-transparent after:border-b-[6px] after:border-b-transparent

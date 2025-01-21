@@ -2,7 +2,7 @@ export default function About() {
     return (
         <section className="h-screen flex items-center justify-center" id="about">
             <div className="flex flex-col gap-6 max-w-5xl px-8">
-                <h2 className="text-fuchsia-500 text-4xl font-bold text-center mb-8">
+                <h2 className="text-fuchsia-500 text-4xl font-semibold text-center mb-8">
                     Crafting Digital Experiences with Passion
                 </h2>
 
