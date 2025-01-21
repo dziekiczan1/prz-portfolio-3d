@@ -7,12 +7,18 @@ const Input = dynamic(() => import("@/components/ui/input"), { ssr: false });
 export default function Contact() {
     return (
         <section className="h-screen flex items-center justify-center" id="contact">
-            <form className="relative p-8 max-w-2xl w-full mx-auto rounded-xl border border-[rgba(255,255,255,0.4)]
+            <form className="relative p-8 max-w-5xl w-full mx-auto rounded-xl border border-[rgba(255,255,255,0.4)]
                           bg-gradient-to-b from-[rgba(51,65,85,0.6)] to-[rgba(15,23,42,0.6)]
                           shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm">
                 <h2 className="text-fuchsia-500 text-4xl font-semibold text-center mb-8">
-                    Get in Touch
+                    Let’s Connect
                 </h2>
+                <p className="text-lg font-normal text-gray-300 leading-relaxed mb-8">
+                    Whether you have a project in mind, want to collaborate, or just want to say hello, I’d love to hear
+                    from you.
+                    Feel free to reach out, and I’ll get back to you as soon as possible. Let’s create something amazing
+                    together!
+                </p>
                 <fieldset className="space-y-8">
                     <Input
                         label="Your Name"

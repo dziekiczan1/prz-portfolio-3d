@@ -5,12 +5,14 @@ import {
     motion,
 } from "framer-motion";
 import {useEffect, useRef, useState} from "react";
+import Link from "next/link";
 import Image from "next/image";
 
 interface TimelineEntry {
     title: string;
     companyName: string;
     icon: string;
+    link: string;
     date: string;
     points: string[];
 }
@@ -40,14 +42,14 @@ export const Timeline = ({data}: { data: TimelineEntry[] }) => {
             className="h-full w-full flex items-center justify-center"
             ref={containerRef}
         >
-            <div ref={ref} className="relative mx-auto flex flex-col gap-10 py-10">
+            <div ref={ref} className="relative mx-auto flex flex-col gap-10 py-10 max-w-4xl">
                 {data.map((item, index) => (
                     <div
                         key={index}
                         className="flex justify-end mr-24"
                     >
                         <div
-                            className="relative max-w-2xl w-full mx-auto rounded-xl border border-[rgba(255,255,255,0.4)]
+                            className="relative w-full mx-auto rounded-xl border border-[rgba(255,255,255,0.4)]
                           bg-gradient-to-b from-[rgba(51,65,85,0.6)] to-[rgba(15,23,42,0.6)]
                           after:content-[''] after:absolute after:right-[-6px] after:top-6
                           after:border-t-[6px] after:border-t-transparent after:border-b-[6px] after:border-b-transparent
@@ -83,16 +85,20 @@ export const Timeline = ({data}: { data: TimelineEntry[] }) => {
                             </div>
                         </div>
 
-                        <div
-                            className="h-16 w-16 absolute right-2 rounded-full flex items-center justify-center z-10 bg-[rgba(15,23,42,0.8)] border border-[rgba(255,255,255,0.2)] shadow-[0_0_10px_2px_rgba(99,102,241,0.3)]"
-                        >
-                            <Image
-                                src={item.icon}
-                                alt={item.title}
-                                width={40}
-                                height={40}
-                            />
-                        </div>
+                        <Link href={item.link} target="_blank" rel="noopener noreferrer">
+                            <div
+                                className="h-16 w-16 absolute right-2 rounded-full flex items-center justify-center z-10 bg-[rgba(15,23,42,0.8)]
+                                hover:bg-[rgba(15,23,42,0.6)] border border-[rgba(255,255,255,0.2)] shadow-[0_0_10px_2px_rgba(99,102,241,0.3)]
+                                hover:shadow-[0_0_10px_2px_rgba(99,102,241,0.9)] transition-all duration-300"
+                            >
+                                <Image
+                                    src={item.icon}
+                                    alt={item.title}
+                                    width={40}
+                                    height={40}
+                                />
+                            </div>
+                        </Link>
                     </div>
                 ))}
 
@@ -100,7 +106,8 @@ export const Timeline = ({data}: { data: TimelineEntry[] }) => {
                     style={{
                         height: height + "px",
                     }}
-                    className="absolute right-[39px] -top-16 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-gray-400 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
+                    className="absolute right-[39px] -top-16 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))]
+                    from-transparent from-[0%] via-gray-400 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
                 >
                     <motion.div
                         style={{

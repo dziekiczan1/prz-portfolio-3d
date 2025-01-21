@@ -39,7 +39,7 @@ export default function Technology() {
             const { originPosition, finalPosition, scale: maxScale } = technologiesData[index];
 
             if (mesh && decalMaterial) {
-                const scrollStart = 0.10; // Sphere start appearing
+                const scrollStart = 0.085; // Sphere start appearing
                 const scrollEndAppear = 0.20; // Sphere start disappearing
                 const scrollEndDisappear = 0.31; // Sphere fully disappeared
 

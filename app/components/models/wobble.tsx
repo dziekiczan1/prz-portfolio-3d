@@ -42,11 +42,11 @@ console.log(scrollOffset);
         if (wobbleRef.current) {
             // Wobble section positions
             const sections = [
-                { start: 0, end: 0.01, position: new THREE.Vector3(-1, 0, 0), scale: 0.35 }, // Hero section
-                { start: 0.01, end: 0.18, position: new THREE.Vector3(0.2, 0, 0), scale: 0.8 }, // About section
-                { start: 0.18, end: 0.75, position: new THREE.Vector3(2, 1, 0), scale: 0.28 }, // Projects section
-                { start: 0.75, end: 0.95, position: new THREE.Vector3(-2, 0, 0), scale: 0.45 }, // Resume section
-                { start: 0.95, end: 1, position: new THREE.Vector3(0, 0, 0), scale: 0.35 }, // Contact section
+                { start: 0, end: 0.025, position: new THREE.Vector3(-1, 0, 0), scale: 0.35 }, // Hero section
+                { start: 0.025, end: 0.20, position: new THREE.Vector3(0.2, 0, 0), scale: 0.8 }, // About section
+                { start: 0.20, end: 0.78, position: new THREE.Vector3(2, 0.5, 0), scale: 0.28 }, // Projects section
+                { start: 0.78, end: 0.95, position: new THREE.Vector3(-2, 0, 0), scale: 0.45 }, // Resume section
+                { start: 0.95, end: 1, position: new THREE.Vector3(0, 0, 0), scale: 0.38 }, // Contact section
             ];
 
             // Find current and next section

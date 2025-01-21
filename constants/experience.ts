@@ -3,6 +3,7 @@ export const experienceData = [
         title: "Frontend Developer",
         companyName: "MacHelp NYC",
         icon: '/experience/machelp.webp',
+        link: 'https://machelpnyc.com/',
         date: "2023 - present",
         points: [
             "Designed and implemented new features and solutions for web applications to enhance functionality and user experience.",
@@ -16,6 +17,7 @@ export const experienceData = [
         title: "Fullstack Developer / Owner",
         companyName: "eRZet",
         icon: '/experience/erzet.webp',
+        link: 'https://erzet.dev/',
         date: "2022 - present",
         points: [
             "Developed and maintained web applications using Next.js, focusing on scalability and performance.",
@@ -29,6 +31,7 @@ export const experienceData = [
         title: "Frontend Developer",
         companyName: "Aurora Creation",
         icon: '/experience/aurora.webp',
+        link: 'https://auroracreation.pl/',
         date: "2022 - present",
         points: [
             "Managed and implemented new e-commerce projects, ensuring timely delivery and high-quality results.",
@@ -42,6 +45,7 @@ export const experienceData = [
         title: "Frontend Developer",
         companyName: "Freelancing",
         icon: '/experience/coding.svg',
+        link: 'https://piotr.rzadkowolski.dev/',
         date: "2021 - present",
         points: [
             "Developed custom web applications tailored to client needs, ensuring functionality and usability.",
