@@ -1,5 +1,6 @@
 import {HoverBorderGradient} from "@/components/ui/button";
 import {socialMediaData} from "@/constants/social";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function SocialMedia() {
@@ -10,15 +11,17 @@ export default function SocialMedia() {
                     <HoverBorderGradient
                         containerClassName="rotate-45 rounded"
                         as="button"
-                        className="p-4 text-m font-medium"
+                        className="p-4 text-m font-medium group"
                     >
-
-                        <img
+                        <Image
                             src={social.logo}
                             alt={social.name}
-                            className="w-6 h-6 -rotate-45"
+                            width={24}
+                            height={24}
+                            className="w-6 h-6 -rotate-45 transition-transform duration-300 group-hover:scale-110"
                         />
-                    </HoverBorderGradient></Link>
+                    </HoverBorderGradient>
+                </Link>
             ))}
         </div>
     );
