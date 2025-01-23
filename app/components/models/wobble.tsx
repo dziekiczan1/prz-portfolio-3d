@@ -35,7 +35,6 @@ export default function Wobble() {
 
     useFrame((state) => {
         const elapsedTime = state.clock.getElapsedTime();
-console.log(scrollOffset);
         // Time uniform update
         uniforms.uTime.value = elapsedTime;
 
