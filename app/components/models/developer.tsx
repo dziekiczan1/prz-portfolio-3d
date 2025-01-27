@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 import { useScrollAnimation } from "@/app/hooks/useScrollAnimation";
 
-interface CustomGLTF extends GLTF {
+interface DeveloperGLTF extends GLTF {
     nodes: {
         [key: string]: THREE.Object3D | THREE.Mesh | THREE.SkinnedMesh;
         Hips: THREE.Object3D;
@@ -34,7 +34,7 @@ interface CustomGLTF extends GLTF {
 
 export default function Developer() {
     const group = useRef<THREE.Group>(null);
-    const { nodes, materials } = useGLTF('./models/developer.glb') as CustomGLTF;
+    const { nodes, materials } = useGLTF('./models/developer.glb') as DeveloperGLTF;
 
     const { animations: phoneAnimation } = useFBX('./models/phone.fbx');
     const { animations: sittingAnimation } = useFBX('./models/sitting.fbx');

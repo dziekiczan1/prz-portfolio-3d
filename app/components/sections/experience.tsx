@@ -4,6 +4,7 @@ import {useRef} from "react";
 import {useControls} from "leva";
 import {DirectionalLight} from "three";
 
+import Monitor from "@/app/components/models/monitor";
 import Wobble from "@/app/components/models/wobble";
 import Technology from "@/app/components/models/technology";
 import Developer from "@/app/components/models/developer";
@@ -36,6 +37,7 @@ export default function Experience() {
             <Wobble/>
             <Developer />
             <Technology/>
+            <Monitor />
         </>
     );
 }
