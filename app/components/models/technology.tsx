@@ -34,7 +34,6 @@ export default function Technology() {
 
     // Animate spheres based on scroll offset
     useFrame(() => {
-        console.log("scrollOffset", scrollOffset);
         sphereRefs.current.forEach((mesh, index) => {
             const decalMaterial = decalMaterialRefs.current[index];
             const { originPosition, finalPosition, scale: maxScale } = technologiesData[index];
