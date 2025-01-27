@@ -38,7 +38,7 @@ export const technologiesData: {
         mobileFinalPosition: [4, -4, -3],
         scale: 0.08,
         rotation: [0.2, 0.2, 0],
-        texturePath: './technologies/framer2.svg'
+        texturePath: './technologies/framer.svg'
     },
     {
         name: 'GIT',
@@ -65,7 +65,7 @@ export const technologiesData: {
         name: 'Linux',
         originPosition: [2.4, -1.5, -1.7],
         mobileOriginPosition: [0, 0, -1.7],
-        finalPosition: [1.8, -0.8, -3],
+        finalPosition: [1.6, -0.35, 3],
         mobileFinalPosition: [-4, 0, -3],
         scale: 0.1,
         rotation: [-0.2, -0.2, 0],
@@ -75,7 +75,7 @@ export const technologiesData: {
         name: 'Magento',
         originPosition: [1.3, -1.5, -1.7],
         mobileOriginPosition: [0, 0, -1.7],
-        finalPosition: [1.3, -0.65, -3],
+        finalPosition: [1.3, -0.5, -3],
         mobileFinalPosition: [0, 4, -3],
         scale: 0.15,
         rotation: [-0.1, -0.2, 0],
@@ -110,18 +110,18 @@ export const technologiesData: {
         mobileFinalPosition: [-5, 5, -3],
         scale: 0.1,
         rotation: [0.2, 0.3, 0],
-        texturePath: './technologies/nodejs2.svg'
+        texturePath: './technologies/nodejs.svg'
     },
     {
-        name: 'NPM',
+        name: 'Figma',
         originPosition: [1.6, -1.6, -1.7],
         mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [0.85, -0.8, -3],
         mobileFinalPosition: [5, -5, -3],
-        scale: 0.06,
+        scale: 0.08,
         rotation: [0.2, -0.2, 0],
-        decalScale: 0.8,
-        texturePath: './technologies/npm.svg'
+        decalScale: 1,
+        texturePath: './technologies/figma.svg'
     },
     {
         name: 'React',
@@ -148,7 +148,7 @@ export const technologiesData: {
         name: 'Sass',
         originPosition: [2.5, 0, -1.7],
         mobileOriginPosition: [0, 0, -1.7],
-        finalPosition: [1.82, -0.4, 3],
+        finalPosition: [1.82, -0.25, 3],
         mobileFinalPosition: [-5, 0, -3],
         scale: 0.08,
         rotation: [-0.3, 0, 0],
@@ -158,12 +158,34 @@ export const technologiesData: {
         name: 'Tailwind CSS',
         originPosition: [1, -1.5, -1.7],
         mobileOriginPosition: [0, 0, -1.7],
-        finalPosition: [1.5, -0.18, 3],
+        finalPosition: [1.35, 0.1, 3],
         mobileFinalPosition: [0, 5, -3],
         scale: 0.18,
         rotation: [0, -0.2, 0],
         decalScale: 0.9,
         texturePath: './technologies/tailwind.svg'
+    },
+    {
+        name: 'GraphQL',
+        originPosition: [0, -1.5, -1.7],
+        mobileOriginPosition: [0, 0, -1.7],
+        finalPosition: [0.6, -0.7, 3],
+        mobileFinalPosition: [0, 5, -3],
+        scale: 0.1,
+        rotation: [0, -0.2, 0],
+        decalScale: 0.9,
+        texturePath: './technologies/graphql.svg'
+    },
+    {
+        name: 'Jira',
+        originPosition: [0, -1.5, -1.7],
+        mobileOriginPosition: [0, 0, -1.7],
+        finalPosition: [0.1, -0.65, 3],
+        mobileFinalPosition: [0, 5, -3],
+        scale: 0.07,
+        rotation: [0, -0.2, 0],
+        decalScale: 0.8,
+        texturePath: './technologies/jira.svg'
     },
     {
         name: 'Three.JS',
