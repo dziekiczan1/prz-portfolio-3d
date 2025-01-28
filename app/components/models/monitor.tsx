@@ -5,6 +5,7 @@ import * as THREE from "three";
 import {GLTF} from "three-stdlib";
 import {useFrame} from "@react-three/fiber";
 import {useScrollAnimation} from "@/app/hooks/useScrollAnimation";
+import {useProjectContext} from "@/context/project-context";
 
 interface MonitorGLTF extends GLTF {
     nodes: {
@@ -25,10 +26,9 @@ interface MonitorGLTF extends GLTF {
 
 export default function Monitor() {
     const { nodes, materials } = useGLTF('./models/monitor.glb') as MonitorGLTF;
-
+    const { activeProject } = useProjectContext();
     const monitorRef = useRef<THREE.Group>(null!);
-
-    // Get scroll offset
+    console.log(activeProject);
     const scrollOffset = useScrollAnimation();
 
     useFrame(() => {
