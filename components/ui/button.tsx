@@ -20,6 +20,7 @@ export function HoverBorderGradient({
         className?: string;
         duration?: number;
         clockwise?: boolean;
+        type?: "button" | "submit" | "reset";
     } & React.HTMLAttributes<HTMLElement>
 >) {
     const [hovered, setHovered] = useState<boolean>(false);
@@ -72,7 +73,7 @@ export function HoverBorderGradient({
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             className={cn(
-                "relative flex rounded-full border border-2 border-fuchsia-800 content-center " +
+                "relative flex rounded-full border-2 border-fuchsia-800 content-center " +
                 "hover:bg-slate-800 transition duration-500 items-center flex-col flex-nowrap gap-10 h-min " +
                 "justify-center overflow-visible p-px decoration-clone w-fit",
                 containerClassName

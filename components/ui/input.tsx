@@ -7,20 +7,21 @@ export interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
     label?: string;
     textarea?: boolean;
+    rows?: number;
 }
 
 const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
-    ({ className, type, label, textarea = false, ...props }, ref) => {
+    ({ className, type, label, textarea = false, rows, ...props }, ref) => {
         const radius = 250;
         const [visible, setVisible] = React.useState(false);
         const [isFocused, setIsFocused] = React.useState(false);
         const [hasValue, setHasValue] = React.useState(false);
 
-        let mouseX = useMotionValue(0);
-        let mouseY = useMotionValue(0);
+        const mouseX = useMotionValue(0);
+        const mouseY = useMotionValue(0);
 
-        function handleMouseMove({ currentTarget, clientX, clientY }: any) {
-            let { left, top } = currentTarget.getBoundingClientRect();
+        function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement>) {
+            const { left, top } = currentTarget.getBoundingClientRect();
             mouseX.set(clientX - left);
             mouseY.set(clientY - top);
         }
@@ -80,6 +81,7 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         onChange={handleChange}
+                        rows={rows}
                         {...props}
                     />
                 ) : (
@@ -106,4 +108,4 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
 
 Input.displayName = "Input";
 
-export default Input; // Export as default
+export default Input;
