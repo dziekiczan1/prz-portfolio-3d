@@ -48,7 +48,11 @@ export const Timeline = ({data}: { data: TimelineEntry[] }) => {
                         key={index}
                         className="flex justify-end mr-24"
                     >
-                        <div
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ amount: 0.2 }}
+                            transition={{ duration: 0.5, delay: 0.2 * index }}
                             className="relative w-full mx-auto rounded-xl border border-[rgba(255,255,255,0.4)]
                           bg-gradient-to-b from-[rgba(51,65,85,0.6)] to-[rgba(15,23,42,0.6)]
                           after:content-[''] after:absolute after:right-[-6px] after:top-6
@@ -83,7 +87,7 @@ export const Timeline = ({data}: { data: TimelineEntry[] }) => {
                                     ))}
                                 </ul>
                             </div>
-                        </div>
+                        </motion.div>
 
                         <Link href={item.link} target="_blank" rel="noopener noreferrer">
                             <div
