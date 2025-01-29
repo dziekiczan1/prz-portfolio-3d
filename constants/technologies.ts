@@ -156,7 +156,7 @@ export const technologiesData: {
     },
     {
         name: 'Tailwind CSS',
-        originPosition: [1, -1.5, -1.7],
+        originPosition: [1, -1.5, 3],
         mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [1.45, 0.3, 3],
         mobileFinalPosition: [0, 5, -3],

@@ -7,6 +7,7 @@ import {DirectionalLight} from "three";
 import Wobble from "@/app/components/models/wobble";
 import Technology from "@/app/components/models/technology";
 import Developer from "@/app/components/models/developer";
+import SparklesBackground from "@/app/components/models/sparkles";
 
 export default function Experience() {
     // Performance monitor
@@ -36,6 +37,7 @@ export default function Experience() {
             <Wobble/>
             <Developer />
             <Technology/>
+            <SparklesBackground/>
         </>
     );
 }
