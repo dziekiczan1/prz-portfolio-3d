@@ -4,7 +4,6 @@ import "./globals.css";
 
 import Navbar from "@/app/components/navbar";
 import SocialMedia from "@/app/components/social";
-import {ProjectProvider} from "@/context/project-context";
 
 const dmSans = DM_Sans({
     weight: ["400", "600"],
@@ -29,9 +28,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         <body className={`${dmSans.variable} ${dmSans.className} ${orbitron.variable} antialiased`}>
             <Navbar/>
             <main>
-                <ProjectProvider>
-                    {children}
-                </ProjectProvider>
+                {children}
             </main>
             <SocialMedia/>
         </body>
