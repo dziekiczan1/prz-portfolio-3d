@@ -4,9 +4,9 @@ import { Sparkles } from '@react-three/drei';
 export default function SparklesBackground() {
     const scrollOffset = useScrollAnimation();
 
-    const sparkleSize = 5;
+    const sparkleSize = 3;
     const sparkleCount = 100;
-    const sparkleSpeed = 1;
+    const sparkleSpeed = 0.8;
 
     let normalizedOffset;
     if (scrollOffset < 0.32) {
@@ -24,9 +24,10 @@ export default function SparklesBackground() {
             count={sparkleCount}
             size={sparkleSize}
             speed={sparkleSpeed}
-            opacity={normalizedOffset}
+            opacity={normalizedOffset * 0.8}
             position={[0, 0, 0]}
             scale={5}
+            color={'#9ca3af'}
         />
     );
 }
