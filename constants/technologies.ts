@@ -156,14 +156,25 @@ export const technologiesData: {
     },
     {
         name: 'Tailwind CSS',
-        originPosition: [1, -1.5, 3],
-        mobileOriginPosition: [0, 0, -1.7],
-        finalPosition: [1.45, 0.3, 3],
+        originPosition: [2, 0.3, 3],
+        mobileOriginPosition: [0, 2, -1.7],
+        finalPosition: [1.5, 0.25, 3],
         mobileFinalPosition: [0, 5, -3],
-        scale: 0.18,
+        scale: 0.12,
         rotation: [0, -0.2, 0],
         decalScale: 0.9,
         texturePath: './technologies/tailwind.svg'
+    },
+    {
+        name: 'Photoshop',
+        originPosition: [1, -1.5, 3],
+        mobileOriginPosition: [0, 0, -1.7],
+        finalPosition: [1.45, 0, 3],
+        mobileFinalPosition: [0, 5, -3],
+        scale: 0.14,
+        rotation: [0, -0.2, 0],
+        decalScale: 0.9,
+        texturePath: './technologies/photoshop.svg'
     },
     {
         name: 'GraphQL',
