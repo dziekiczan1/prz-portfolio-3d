@@ -1,12 +1,14 @@
 'use client';
 import { BlurIn } from "@/components/ui/blur-in";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { HoverBorderGradient } from "@/components/ui/button";
 
 export default function Hero() {
     const sectionIds = ['about', 'projects', 'resume', 'contact'];
     const scrollPauseDuration = 1500;
     const scrollDurationBetweenSections = 2500;
     const animationRunning = useRef(false);
+    const animationFrameId = useRef<number | null>(null);
 
     const animateScroll = (targetPosition: number, duration: number): Promise<void> => {
         return new Promise((resolve) => {
@@ -19,13 +21,13 @@ export default function Hero() {
                 window.scrollTo(0, startPosition + (targetPosition - startPosition) * progress);
 
                 if (elapsedTime < duration) {
-                    requestAnimationFrame(scrollStep);
+                    animationFrameId.current = requestAnimationFrame(scrollStep);
                 } else {
                     resolve();
                 }
             }
 
-            requestAnimationFrame(scrollStep);
+            animationFrameId.current = requestAnimationFrame(scrollStep);
         });
     };
 
@@ -51,24 +53,49 @@ export default function Hero() {
         }
     };
 
-
     const handlePlayAnimation = () => {
         scrollToSectionWithPause();
     };
 
+    const stopAnimation = () => {
+        if (animationFrameId.current !== null) {
+            cancelAnimationFrame(animationFrameId.current);
+            animationFrameId.current = null;
+        }
+        animationRunning.current = false;
+    };
+
+    useEffect(() => {
+        const handleClick = (event: MouseEvent) => {
+            const playButton = document.querySelector('.hover-border-gradient-button');
+            if (!playButton?.contains(event.target as Node)) {
+                stopAnimation();
+            }
+        };
+
+        window.addEventListener('click', handleClick);
+
+        return () => {
+            window.removeEventListener('click', handleClick);
+        };
+    }, []);
+
     return (
         <section className="bg-transparent h-screen flex items-center justify-center flex-col">
-            <BlurIn className="text-9xl font-medium tracking-wide">
+            <BlurIn className="text-9xl font-medium tracking-wide mb-8">
                 Piotr<br />
                 <span className="font-bold text-fuchsia-800">Rzadkowolski</span>
             </BlurIn>
-            <button
-                onClick={handlePlayAnimation}
-                className="mt-8 px-6 py-3 bg-fuchsia-800 text-white rounded-full font-semibold hover:bg-fuchsia-900 focus:ring-2 focus:ring-fuchsia-700 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={animationRunning.current}
-            >
-                {animationRunning.current ? "Animating..." : "Play Animation to Contact"}
-            </button>
+            <div className="relative">
+                <HoverBorderGradient
+                    onClick={handlePlayAnimation}
+                    containerClassName="hover-border-gradient-button absolute top-8 left-1/2 rounded-full w-max animate-scale-bounce"
+                    as="button"
+                    className="px-8 py-2 text-m font-medium"
+                >
+                    Play animation
+                </HoverBorderGradient>
+            </div>
         </section>
     );
 }

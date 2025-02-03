@@ -17,6 +17,15 @@ const config: Config = {
             boxShadow: {
                 input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,
             },
+            keyframes: {
+                scaleBounce: {
+                    '0%, 100%': { transform: 'translateX(-50%) scale(1)' },
+                    '50%': { transform: 'translateX(-50%) scale(1.1)' },
+                },
+            },
+            animation: {
+                'scale-bounce': 'scaleBounce 2s ease-in-out infinite',
+            },
         }
     },
     plugins: [addVariablesForColors],
