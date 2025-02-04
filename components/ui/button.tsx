@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
+type Variant = "primary" | "secondary";
 
 export function HoverBorderGradient({
                                         children,
                                         containerClassName,
                                         className,
+                                        variant = "primary",
                                         as: Tag = "button",
                                         duration = 1,
                                         clockwise = true,
@@ -18,6 +20,7 @@ export function HoverBorderGradient({
         as?: React.ElementType;
         containerClassName?: string;
         className?: string;
+        variant?: Variant;
         duration?: number;
         clockwise?: boolean;
         type?: "button" | "submit" | "reset";
@@ -25,7 +28,7 @@ export function HoverBorderGradient({
 >) {
     const [hovered, setHovered] = useState<boolean>(false);
     const [direction, setDirection] = useState<Direction>("TOP");
-    const [gradientAngle, setGradientAngle] = useState<number>(45); // Initial gradient angle
+    const [gradientAngle, setGradientAngle] = useState<number>(45);
 
     const rotateDirection = (currentDirection: Direction): Direction => {
         const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
@@ -45,8 +48,8 @@ export function HoverBorderGradient({
             "radial-gradient(16.2% 41.199999999999996% at 100% 50%, hsl(0, 0%, 100%) 0%, rgba(255, 255, 255, 0) 100%)",
     };
 
-    const highlight =
-        "radial-gradient(75% 181.15942028985506% at 50% 50%, #3275F8 0%, rgba(255, 255, 255, 0) 100%)";
+    const primaryHighlight = "radial-gradient(75% 181.2% at 50% 50%, #3275F8 0%, rgba(255, 255, 255, 0) 100%)";
+    const secondaryHighlight = "radial-gradient(75% 181.2% at 50% 50%, #86198F 0%, rgba(255, 255, 255, 0) 100%)";
 
     useEffect(() => {
         if (!hovered) {
@@ -55,7 +58,7 @@ export function HoverBorderGradient({
             }, duration * 1000);
             return () => clearInterval(interval);
         }
-    }, [hovered, duration, rotateDirection]);
+    }, [hovered, duration]);
 
     useEffect(() => {
         if (hovered) {
@@ -73,9 +76,9 @@ export function HoverBorderGradient({
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             className={cn(
-                "relative flex rounded-full border-2 border-fuchsia-800 content-center " +
-                "hover:bg-slate-800 transition duration-500 items-center flex-col flex-nowrap gap-10 h-min " +
-                "justify-center overflow-visible p-px decoration-clone w-fit",
+                "relative flex rounded-full border-2 transition duration-500 items-center " +
+                "flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit",
+                variant === "primary" ? "border-fuchsia-800 hover:bg-slate-800" : "border-slate-400 hover:bg-fuchsia-800",
                 containerClassName
             )}
             {...props}
@@ -90,7 +93,7 @@ export function HoverBorderGradient({
             </div>
 
             <motion.div
-                className="flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
+                className="absolute inset-0 overflow-hidden z-0 rounded-[inherit]"
                 style={{
                     filter: "blur(2px)",
                     position: "absolute",
@@ -100,7 +103,7 @@ export function HoverBorderGradient({
                 initial={{ background: movingMap[direction] }}
                 animate={{
                     background: hovered
-                        ? [movingMap[direction], highlight]
+                        ? [movingMap[direction], variant === "primary" ? primaryHighlight : secondaryHighlight]
                         : movingMap[direction],
                 }}
                 transition={{ ease: "linear", duration: duration ?? 1 }}
@@ -109,10 +112,14 @@ export function HoverBorderGradient({
             <motion.div
                 className="absolute inset-0 z-1 rounded-[inherit]"
                 initial={{
-                    background: "linear-gradient(45deg, hsl(215, 16%, 35%), hsl(222, 47%, 11%))",
+                    background: variant === "primary"
+                        ? "linear-gradient(45deg, hsl(215, 16%, 35%), hsl(222, 47%, 11%))"
+                        : "linear-gradient(45deg, #86198F, hsl(270, 50%, 60%)",
                 }}
                 animate={{
-                    background: `linear-gradient(${gradientAngle}deg, hsl(215, 16%, 35%), hsl(222, 47%, 11%))`,
+                    background: `linear-gradient(${gradientAngle}deg, ${
+                        variant === "primary" ? "hsl(215, 16%, 35%), hsl(222, 47%, 11%)" : "#86198F, hsl(270, 70%, 60%)"
+                    })`,
                 }}
                 transition={{ ease: "linear", duration: 0.5 }}
             />
