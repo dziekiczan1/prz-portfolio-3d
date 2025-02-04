@@ -8,10 +8,11 @@ export interface InputProps
     label?: string;
     textarea?: boolean;
     rows?: number;
+    name: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
-    ({ className, type, label, textarea = false, rows, ...props }, ref) => {
+    ({ className, type, label, name, textarea = false, rows, ...props }, ref) => {
         const radius = 250;
         const [visible, setVisible] = React.useState(false);
         const [isFocused, setIsFocused] = React.useState(false);
@@ -82,11 +83,13 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
                         onBlur={handleBlur}
                         onChange={handleChange}
                         rows={rows}
+                        name={name}
                         {...props}
                     />
                 ) : (
                     <input
                         type={type}
+                        name={name}
                         className={cn(
                             `flex h-12 w-full rounded-md border border-[rgba(255,255,255,0.4)] bg-slate-900
                              shadow-input px-3 py-2 text-gray-100 text-sm placeholder:text-transparent 
