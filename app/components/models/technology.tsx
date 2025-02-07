@@ -32,11 +32,16 @@ export default function Technology() {
     // Get scroll offset
     const scrollOffset = useScrollAnimation();
 
+    // Time accumulator for oscillation
+    const time = useRef(0);
+
     // Animate spheres based on scroll offset
-    useFrame(() => {
+    useFrame((state, delta) => {
+        time.current += delta;
+
         sphereRefs.current.forEach((mesh, index) => {
             const decalMaterial = decalMaterialRefs.current[index];
-            const { originPosition, finalPosition, scale: maxScale } = technologiesData[index];
+            const {originPosition, finalPosition, scale: maxScale} = technologiesData[index];
 
             if (mesh && decalMaterial) {
                 const scrollStart = 0.085; // Sphere start appearing
@@ -78,6 +83,16 @@ export default function Technology() {
                 // Animate opacity
                 (mesh.material as THREE.MeshStandardMaterial).opacity = normalizedOffset;
                 decalMaterial.opacity = normalizedOffset;
+
+                // Add a small rotation on the Y-axis and X-axis
+                const rotationAmplitude = 0.1; // Oscillates between -0.1 and 0.1
+                const rotationSpeed = 1; // Speed of oscillation
+
+                // Oscillate on the Y-axis
+                mesh.rotation.y = Math.sin(time.current * rotationSpeed) * rotationAmplitude;
+
+                // Oscillate on the X-axis (use a different phase for variety)
+                mesh.rotation.x = Math.sin(time.current * rotationSpeed + Math.PI / 2) * rotationAmplitude;
             }
         });
     });
@@ -85,7 +100,7 @@ export default function Technology() {
     return (
         <>
             {technologiesData.map((data, index) => (
-                <Float key={index} rotationIntensity={0.15} floatIntensity={0.002} floatingRange={[-0.002,0.002]}>
+                <Float key={index} rotationIntensity={0.15} floatIntensity={0.002} floatingRange={[-0.002, 0.002]}>
                     <mesh
                         ref={(el) => {
                             sphereRefs.current[index] = el as THREE.Mesh | null;
