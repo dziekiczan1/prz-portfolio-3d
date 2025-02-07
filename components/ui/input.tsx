@@ -9,14 +9,18 @@ export interface InputProps
     textarea?: boolean;
     rows?: number;
     name: string;
+    required?: boolean;
+    pattern?: string;
+    errorMessage?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
-    ({ className, type, label, name, textarea = false, rows, ...props }, ref) => {
+    ({ className, type, label, name, textarea = false, rows, required, pattern, errorMessage, ...props }, ref) => {
         const radius = 250;
         const [visible, setVisible] = React.useState(false);
         const [isFocused, setIsFocused] = React.useState(false);
         const [hasValue, setHasValue] = React.useState(false);
+        const [isValid, setIsValid] = React.useState(true);
 
         const mouseX = useMotionValue(0);
         const mouseY = useMotionValue(0);
@@ -28,12 +32,28 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
         }
 
         const handleFocus = () => setIsFocused(true);
-        const handleBlur = () => setIsFocused(false);
+        const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            setIsFocused(false);
+            validateInput(e.target);
+        };
         const handleChange = (
             e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
         ) => {
             setHasValue(!!e.target.value);
+            validateInput(e.target);
             if (props.onChange) props.onChange(e);
+        };
+
+        const validateInput = (target: HTMLInputElement | HTMLTextAreaElement) => {
+            if (required && !target.value) {
+                setIsValid(false);
+                return;
+            }
+            if (pattern && !new RegExp(pattern).test(target.value)) {
+                setIsValid(false);
+                return;
+            }
+            setIsValid(true);
         };
 
         return (
@@ -66,6 +86,7 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
                         )}
                     >
                         {label}
+                        {required && <span className="text-fuchsia-500 ml-1">*</span>}
                     </motion.label>
                 )}
                 {textarea ? (
@@ -84,6 +105,7 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
                         onChange={handleChange}
                         rows={rows}
                         name={name}
+                        required={required}
                         {...props}
                     />
                 ) : (
@@ -101,8 +123,20 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         onChange={handleChange}
+                        required={required}
+                        pattern={pattern}
                         {...props}
                     />
+                )}
+                {!isValid && errorMessage && (
+                    <motion.p
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute text-fuchsia-500 -bottom-4 left-3 text-xs !mt-0"
+                    >
+                        {errorMessage}
+                    </motion.p>
                 )}
             </motion.div>
         );

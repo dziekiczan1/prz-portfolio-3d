@@ -74,13 +74,15 @@ export default function Contact() {
                     Feel free to reach out, and I’ll get back to you as soon as possible. Let’s create something amazing
                     together!
                 </motion.p>
-                <fieldset className="space-y-8 w-4/5 mx-auto">
+                <fieldset className="space-y-10 w-4/5 mx-auto">
                     <Input
                         name="user_name"
                         label="Your Name"
                         type="text"
                         placeholder="John Doe"
                         className="w-full"
+                        required
+                        errorMessage="Please enter your name."
                     />
                     <Input
                         name="user_email"
@@ -88,6 +90,9 @@ export default function Contact() {
                         type="email"
                         placeholder="john.doe@example.com"
                         className="w-full"
+                        required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        errorMessage="Please enter a valid email address."
                     />
                     <Input
                         name="user_subject"
@@ -95,12 +100,16 @@ export default function Contact() {
                         type="text"
                         placeholder="Let us know how we can help"
                         className="w-full"
+                        required
+                        errorMessage="Please enter a subject."
                     />
                     <Input
                         name="message"
                         label="Your Message"
                         textarea
                         rows={4}
+                        required
+                        errorMessage="Please enter a message."
                     />
                 </fieldset>
                 <div className="flex justify-center mt-8">
