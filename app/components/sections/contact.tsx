@@ -5,6 +5,7 @@ import {BlurIn} from "@/components/ui/blur-in";
 import {motion} from "framer-motion";
 import {FormEvent, useRef, useState} from "react";
 import emailjs from "@emailjs/browser";
+import Image from "next/image";
 
 const Input = dynamic(() => import("@/components/ui/input"), {ssr: false});
 
@@ -12,16 +13,20 @@ export default function Contact() {
     const form = useRef<HTMLFormElement | null>(null);
     const [isSend, setIsSend] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const sendEmail = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!form.current) return;
+
+        setIsLoading(true);
 
         const serviceID = process.env.NEXT_PUBLIC_CONTACT_SERVICE;
         const publicKey = process.env.NEXT_PUBLIC_CONTACT_KEY;
 
         if (!serviceID || !publicKey) {
             console.error("Missing EmailJS credentials.");
+            setIsLoading(false);
             return;
         }
 
@@ -40,7 +45,15 @@ export default function Contact() {
                 () => {
                     setIsError(true);
                 }
-            );
+            )
+            .finally(() => {
+                setIsLoading(false);
+
+                setTimeout(() => {
+                    setIsSend(false);
+                    setIsError(false);
+                }, 2000);
+            });
     };
 
     return (
@@ -61,16 +74,7 @@ export default function Contact() {
                     Feel free to reach out, and I’ll get back to you as soon as possible. Let’s create something amazing
                     together!
                 </motion.p>
-                {isSend ? (
-                    <div className="contact-form-status">
-                        Your message has been successfully sent!
-                    </div>
-                ) : isError ? (
-                    <div className="contact-form-status error">
-                        There was a problem with sending your message. Try again!
-                    </div>
-                ) : null}
-                <fieldset className="space-y-8">
+                <fieldset className="space-y-8 w-4/5 mx-auto">
                     <Input
                         name="user_name"
                         label="Your Name"
@@ -99,9 +103,59 @@ export default function Contact() {
                         rows={4}
                     />
                 </fieldset>
-                <HoverBorderGradient type="submit" containerClassName="w-full mt-8">
-                    Send Message
-                </HoverBorderGradient>
+                <div className="flex justify-center mt-8">
+                    {isLoading ? (
+                        <motion.div
+                            initial={{opacity: 0, scale: 0.5}}
+                            animate={{opacity: 1, scale: 1}}
+                            transition={{duration: 0.3}}
+                            className="flex flex-col items-center gap-2"
+                        >
+                            <Image
+                                src="./icons/spinner.svg"
+                                alt="Loading"
+                                width={22}
+                                height={22}
+                                className="animate-spin"
+                            />
+                            <p className="text-gray-300 text-xs">Sending...</p>
+                        </motion.div>
+                    ) : isSend ? (
+                        <motion.div
+                            initial={{opacity: 0, scale: 0.5}}
+                            animate={{opacity: 1, scale: 1}}
+                            transition={{duration: 0.3}}
+                            className="flex flex-col items-center gap-2"
+                        >
+                            <Image
+                                src="./icons/check.svg"
+                                alt="Success"
+                                width={22}
+                                height={22}
+                            />
+                            <p className="text-green-500 text-xs">Message Sent!</p>
+                        </motion.div>
+                    ) : isError ? (
+                        <motion.div
+                            initial={{opacity: 0, scale: 0.5}}
+                            animate={{opacity: 1, scale: 1}}
+                            transition={{duration: 0.3}}
+                            className="flex flex-col items-center gap-2"
+                        >
+                            <Image
+                                src="./icons/times.svg"
+                                alt="Error"
+                                width={22}
+                                height={22}
+                            />
+                            <p className="text-red-500 text-xs">Failed to Send. Try Again.</p>
+                        </motion.div>
+                    ) : (
+                        <HoverBorderGradient type="submit" containerClassName="w-2/5">
+                            Send Message
+                        </HoverBorderGradient>
+                    )}
+                </div>
             </form>
         </section>
     );
