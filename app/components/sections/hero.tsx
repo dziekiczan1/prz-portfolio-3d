@@ -90,7 +90,7 @@ export default function Hero() {
                 <HoverBorderGradient
                     onClick={handlePlayAnimation}
                     variant="secondary"
-                    containerClassName="hover-border-gradient-button absolute top-8 left-1/2 rounded-full w-max animate-scale-bounce"
+                    containerClassName="hover-border-gradient-button absolute top-8 rounded-full w-max animate-scale-bounce"
                     as="button"
                     className="px-8 py-2 text-m font-medium"
                 >

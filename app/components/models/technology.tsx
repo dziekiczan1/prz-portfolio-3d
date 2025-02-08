@@ -86,12 +86,12 @@ export default function Technology() {
 
                 // Add a small rotation on the Y-axis and X-axis
                 const rotationAmplitude = 0.1; // Oscillates between -0.1 and 0.1
-                const rotationSpeed = 1; // Speed of oscillation
+                const rotationSpeed = 1;
 
                 // Oscillate on the Y-axis
                 mesh.rotation.y = Math.sin(time.current * rotationSpeed) * rotationAmplitude;
 
-                // Oscillate on the X-axis (use a different phase for variety)
+                // Oscillate on the X-axis
                 mesh.rotation.x = Math.sin(time.current * rotationSpeed + Math.PI / 2) * rotationAmplitude;
             }
         });
