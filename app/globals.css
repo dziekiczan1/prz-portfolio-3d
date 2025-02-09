@@ -35,7 +35,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-heading {
-    @apply text-fuchsia-500 text-4xl font-semibold mb-8
+    @apply text-fuchsia-500 text-4xl font-semibold mb-8 text-center;
+}
+
+.section-paragraph {
+    @apply text-lg font-normal text-gray-300 leading-relaxed mb-8 text-center;
 }
 
 .glass-card {

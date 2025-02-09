@@ -43,7 +43,7 @@ export default function About() {
                     {aboutSection.paragraphs.map((paragraph, index) => (
                         <motion.p
                             key={index}
-                            className="text-lg font-normal text-gray-300 leading-relaxed"
+                            className="section-paragraph"
                             initial={{opacity: 0, y: 20}}
                             whileInView={{opacity: 1, y: 0}}
                             transition={{duration: 0.6, delay: index * 0.2}}

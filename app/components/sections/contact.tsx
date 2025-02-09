@@ -1,22 +1,22 @@
 "use client";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 
-import { HoverBorderGradient } from "@/components/ui/button";
-import { BlurIn } from "@/components/ui/blur-in";
+import {HoverBorderGradient} from "@/components/ui/button";
+import {BlurIn} from "@/components/ui/blur-in";
 
-import { StatusIndicator } from "@/components/ui/status-indicator";
-import { useContactForm } from "@/app/hooks/useContactForm";
-import { contactSection } from "@/constants/sections";
-import { formFields } from "@/constants/contact";
+import {StatusIndicator} from "@/components/ui/status-indicator";
+import {useContactForm} from "@/app/hooks/useContactForm";
+import {contactSection} from "@/constants/sections";
+import {formFields} from "@/constants/contact";
 
-const Input = dynamic(() => import("@/components/ui/input"), { ssr: false });
+const Input = dynamic(() => import("@/components/ui/input"), {ssr: false});
 
-const FormField = ({ children }: { children: React.ReactNode }) => (
+const FormField = ({children}: { children: React.ReactNode }) => (
     <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+        initial={{opacity: 0, y: 10}}
+        whileInView={{opacity: 1, y: 0}}
+        transition={{duration: 0.3}}
         className="space-y-10 w-4/5 mx-auto"
     >
         {children}
@@ -24,28 +24,29 @@ const FormField = ({ children }: { children: React.ReactNode }) => (
 );
 
 export default function Contact() {
-    const { formRef, status, handleSubmit } = useContactForm();
+    const {formRef, status, handleSubmit} = useContactForm();
 
     return (
-        <section className="h-screen flex items-center justify-center" id="contact">
-            <form
-                ref={formRef}
-                onSubmit={handleSubmit}
-                className="relative p-8 max-w-5xl w-full glass-card"
-            >
+        <section className="h-screen flex flex-col items-center justify-center" id="contact">
+            <div className="max-w-5xl mx-auto">
                 <BlurIn className="section-heading">
                     {contactSection.heading}
                 </BlurIn>
 
                 <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-lg font-normal text-gray-300 leading-relaxed mb-8"
+                    initial={{opacity: 0, y: 20}}
+                    whileInView={{opacity: 1, y: 0}}
+                    transition={{duration: 0.6}}
+                    className="section-paragraph"
                 >
                     {contactSection.paragraph}
                 </motion.p>
-
+            </div>
+            <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="relative p-8 max-w-5xl w-full glass-card"
+            >
                 <FormField>
                     {formFields.map((field) => (
                         <Input
@@ -69,7 +70,7 @@ export default function Contact() {
                             Send Message
                         </HoverBorderGradient>
                     ) : (
-                        <StatusIndicator status={status} />
+                        <StatusIndicator status={status}/>
                     )}
                 </div>
             </form>
