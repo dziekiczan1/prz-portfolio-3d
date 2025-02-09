@@ -1,13 +1,13 @@
 export const projectsData = [
     {
         id: 0,
-        title: "Project 1",
+        title: "WhereTo? Dive!",
         image: "/projects/proj1.webp",
         link: "#",
         description: "A modern web application built with React and Tailwind CSS.",
-        stack: ["React", "Tailwind CSS", "Framer Motion"],
+        stack: ["React", "Redux", "MongoDB", "Express", "Node.js"],
         live: "https://example.com",
-        github: "https://github.com/example/project1",
+        github: "https://github.com/dziekiczan1/dive",
     },
     {
         id: 1,

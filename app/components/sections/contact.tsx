@@ -31,11 +31,9 @@ export default function Contact() {
             <form
                 ref={formRef}
                 onSubmit={handleSubmit}
-                className="relative p-8 max-w-5xl w-full mx-auto rounded-xl border border-white/40
-                          bg-gradient-to-b from-slate-700/60 to-slate-900/60
-                          shadow-xl backdrop-blur-sm"
+                className="relative p-8 max-w-5xl w-full glass-card"
             >
-                <BlurIn className="text-fuchsia-500 text-4xl font-semibold text-center mb-8">
+                <BlurIn className="section-heading">
                     {contactSection.heading}
                 </BlurIn>
 

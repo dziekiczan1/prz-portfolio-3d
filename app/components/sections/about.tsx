@@ -28,7 +28,7 @@ export default function About() {
                     transition={{duration: 0.6, delay: 0.2}}
                     viewport={{once: true}}
                 >
-                    <BlurIn className="text-fuchsia-500 text-4xl font-semibold text-center mb-8">
+                    <BlurIn className="section-heading">
                         {aboutSection.heading}
                     </BlurIn>
                 </motion.div>

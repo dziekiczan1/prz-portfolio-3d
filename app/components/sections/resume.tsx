@@ -10,7 +10,7 @@ export default function Resume() {
     return (
         <section id="resume">
             <div className="max-w-5xl mx-auto">
-                <BlurIn className="text-fuchsia-500 text-4xl font-semibold text-center mb-8">
+                <BlurIn className="section-heading">
                     {resumeSection.heading}
                 </BlurIn>
                 <motion.p initial={{opacity: 0, y: 20}}

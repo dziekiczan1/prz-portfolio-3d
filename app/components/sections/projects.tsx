@@ -6,21 +6,7 @@ import {BlurIn} from "@/components/ui/blur-in";
 import {Chevron} from "@/components/ui/chevron";
 import {projectsSection} from "@/constants/sections";
 import {projectsData} from "@/constants/projects";
-
-interface Project {
-    id: string;
-    title: string;
-    description: string;
-    image: string;
-    stack: string[];
-    live: string;
-    github: string;
-}
-
-interface SlideButtonProps {
-    direction: "prev" | "next";
-    onClick: () => void;
-}
+import {Project, SlideButtonProps} from "@/types/projects";
 
 const SLIDE_TRANSITION = {
     type: "spring",
@@ -60,7 +46,7 @@ const ProjectCard = ({project}: { project: Project }) => (
         transition={{duration: 0.5}}
     >
         <div
-            className="w-3/5 h-auto overflow-hidden rounded-xl border-2 border-white/40 hover:shadow-fuchsia-glow transition-shadow duration-300">
+            className="w-3/5 h-auto overflow-hidden rounded-xl border-2 border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300">
             <img
                 src={project.image}
                 alt={project.title}
@@ -108,9 +94,7 @@ const ProjectCard = ({project}: { project: Project }) => (
 );
 
 const SlideContainer = ({children}: { children: React.ReactNode }) => (
-    <div className="w-full overflow-hidden mx-auto rounded-xl border border-[rgba(255,255,255,0.4)]
-                          bg-gradient-to-b from-[rgba(51,65,85,0.6)] to-[rgba(15,23,42,0.6)]
-                          shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm">
+    <div className="w-full overflow-hidden glass-card">
         <motion.div
             className="flex"
             style={{width: "100%"}}
@@ -138,7 +122,7 @@ export default function Projects() {
     return (
         <section id="projects" className="h-screen flex flex-col items-center justify-center">
             <div className="relative max-w-5xl mx-auto text-center">
-                <BlurIn className="text-fuchsia-500 text-4xl font-semibold mb-8">
+                <BlurIn className="section-heading">
                     {projectsSection.heading}
                 </BlurIn>
                 <AnimatedDiv
