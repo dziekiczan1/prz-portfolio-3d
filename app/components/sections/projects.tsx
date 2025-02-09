@@ -1,39 +1,11 @@
 import {motion} from "framer-motion";
 import {useState} from "react";
+
 import {BlurIn} from "@/components/ui/blur-in";
 
-export const projects = [
-    {
-        id: 0,
-        title: "Project 1",
-        image: "/projects/proj1.webp",
-        link: "#",
-        description: "A modern web application built with React and Tailwind CSS.",
-        stack: ["React", "Tailwind CSS", "Framer Motion"],
-        live: "https://example.com",
-        github: "https://github.com/example/project1",
-    },
-    {
-        id: 1,
-        title: "Project 2",
-        image: "/projects/proj2.webp",
-        link: "#",
-        description: "An interactive dashboard for data visualization.",
-        stack: ["React", "Tailwind CSS", "Framer Motion"],
-        live: "https://example.com",
-        github: "https://github.com/example/project2",
-    },
-    {
-        id: 2,
-        title: "Project 3",
-        image: "/projects/proj3.webp",
-        link: "#",
-        description: "A portfolio website showcasing my projects and skills.",
-        stack: ["React", "Tailwind CSS", "Framer Motion"],
-        live: "https://example.com",
-        github: "https://github.com/example/project3",
-    },
-];
+import {projectsSection} from "@/constants/sections";
+import {projectsData} from "@/constants/projects";
+import {HoverBorderGradient} from "@/components/ui/button";
 
 export default function Projects() {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -54,15 +26,13 @@ export default function Projects() {
         <section id="projects" className="h-screen flex flex-col items-center justify-center">
             <div className="max-w-5xl mx-auto">
                 <BlurIn className="text-fuchsia-500 text-4xl font-semibold text-center mb-8">
-                    From Concept to Code
+                    {projectsSection.heading}
                 </BlurIn>
                 <motion.p initial={{opacity: 0, y: 20}}
                           whileInView={{opacity: 1, y: 0}}
                           transition={{duration: 0.6, delay: 0.4}}
                           className="text-lg font-normal text-gray-300 leading-relaxed mb-8">
-                    Over the past few years, I’ve had the opportunity to work on a variety of projects, from dynamic web
-                    applications to interactive dashboards. Each project has been a learning experience, allowing me to
-                    refine my skills and explore new technologies. Here are some of the highlights of my journey so far.
+                    {projectsSection.paragraph}
                 </motion.p>
             </div>
             <div className="flex w-full max-w-5xl relative">
@@ -84,7 +54,7 @@ export default function Projects() {
                             opacity: {duration: 0.5},
                         }}
                     >
-                        {projects.map((project, index) => (
+                        {projectsData.map((project, index) => (
                             <motion.div
                                 key={project.id}
                                 className="flex gap-8 p-8"
@@ -100,7 +70,7 @@ export default function Projects() {
 
                                 <div
                                     className="w-3/5 h-auto overflow-hidden rounded-xl border-2 border-[rgba(255,255,255,0.4)]
-                                    shadow-[0_0_20px_rgba(159,68,217,0.5)] hover:shadow-[0_0_25px_rgba(159,68,217,0.8)] transition-shadow duration-300">
+                                    hover:shadow-[0_0_25px_rgba(159,68,217,0.8)] transition-shadow duration-300">
                                     <img
                                         src={project.image}
                                         alt={project.title}

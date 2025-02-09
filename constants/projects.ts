@@ -1,0 +1,32 @@
+export const projectsData = [
+    {
+        id: 0,
+        title: "Project 1",
+        image: "/projects/proj1.webp",
+        link: "#",
+        description: "A modern web application built with React and Tailwind CSS.",
+        stack: ["React", "Tailwind CSS", "Framer Motion"],
+        live: "https://example.com",
+        github: "https://github.com/example/project1",
+    },
+    {
+        id: 1,
+        title: "Project 2",
+        image: "/projects/proj2.webp",
+        link: "#",
+        description: "An interactive dashboard for data visualization.",
+        stack: ["React", "Tailwind CSS", "Framer Motion"],
+        live: "https://example.com",
+        github: "https://github.com/example/project2",
+    },
+    {
+        id: 2,
+        title: "Project 3",
+        image: "/projects/proj3.webp",
+        link: "#",
+        description: "A portfolio website showcasing my projects and skills.",
+        stack: ["React", "Tailwind CSS", "Framer Motion"],
+        live: "https://example.com",
+        github: "https://github.com/example/project3",
+    },
+];

@@ -1,11 +1,14 @@
 "use client";
-import {HoverBorderGradient} from "@/components/ui/button";
 import dynamic from "next/dynamic";
-import {BlurIn} from "@/components/ui/blur-in";
+import Image from "next/image";
+import emailjs from "@emailjs/browser";
 import {motion} from "framer-motion";
 import {FormEvent, useRef, useState} from "react";
-import emailjs from "@emailjs/browser";
-import Image from "next/image";
+
+import {HoverBorderGradient} from "@/components/ui/button";
+import {BlurIn} from "@/components/ui/blur-in";
+
+import {contactSection} from "@/constants/sections";
 
 const Input = dynamic(() => import("@/components/ui/input"), {ssr: false});
 
@@ -63,16 +66,13 @@ export default function Contact() {
                           bg-gradient-to-b from-[rgba(51,65,85,0.6)] to-[rgba(15,23,42,0.6)]
                           shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm">
                 <BlurIn className="text-fuchsia-500 text-4xl font-semibold text-center mb-8">
-                    Let’s Connect
+                    {contactSection.heading}
                 </BlurIn>
                 <motion.p initial={{opacity: 0, y: 20}}
                           whileInView={{opacity: 1, y: 0}}
                           transition={{duration: 0.6}}
                           className="text-lg font-normal text-gray-300 leading-relaxed mb-8">
-                    Whether you have a project in mind, want to collaborate, or just want to say hello, I’d love to hear
-                    from you.
-                    Feel free to reach out, and I’ll get back to you as soon as possible. Let’s create something amazing
-                    together!
+                    {contactSection.paragraph}
                 </motion.p>
                 <fieldset className="space-y-10 w-4/5 mx-auto">
                     <Input
