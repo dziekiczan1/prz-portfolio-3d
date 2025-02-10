@@ -14,7 +14,7 @@ const Experience = lazy(() => import("@/app/components/sections/experience"));
 const Projects = lazy(() => import("@/app/components/sections/projects"));
 const Contact = lazy(() => import("@/app/components/sections/contact"));
 
-const TOTAL_ASSETS = 39;
+const TOTAL_ASSETS = 44;
 
 function CameraSetup() {
     const { size, camera } = useThree();
@@ -40,7 +40,7 @@ export default function Home() {
 
     return (
         <div className="relative w-full h-screen">
-            {/*{showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress} />}*/}
+            {showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress} />}
 
             <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-700 to-slate-900">
                 <GridPattern
