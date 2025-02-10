@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import {motion} from "framer-motion";
 import {useState} from "react";
 
@@ -47,11 +48,13 @@ const ProjectCard = ({project}: { project: Project }) => (
     >
         <div
             className="w-3/5 h-auto overflow-hidden rounded-xl border-2 border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300">
-            <img
+            <Image
                 src={project.image}
                 alt={project.title}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                width={800}
+                height={500}
             />
         </div>
 
