@@ -81,8 +81,8 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="bg-transparent h-screen flex items-center justify-center flex-col">
-            <BlurIn className="text-9xl font-medium tracking-wide mb-8">
+        <section className="bg-transparent h-screen flex items-center justify-end lg:justify-center flex-col">
+            <BlurIn className="text-4xl lg:text-9xl font-medium tracking-wide mb-8">
                 Piotr<br />
                 <span className="font-bold text-fuchsia-800">Rzadkowolski</span>
             </BlurIn>
