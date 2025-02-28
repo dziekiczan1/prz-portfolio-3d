@@ -105,32 +105,34 @@ export default function Navbar() {
             />
 
             <div
-                className={`fixed inset-y-0 right-0 w-64 bg-slate-800 transform shadow-xl ${
+                className={`fixed inset-y-0 right-0 w-4/5 bg-gradient-to-br from-slate-700 to-slate-900 transform ${
                     isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-                } transition-transform duration-300 ease-in-out lg:hidden z-30 rounded-l-lg`}
+                } transition-transform duration-300 ease-in-out lg:hidden z-30 border-l-2 border-slate-700`}
             >
-                <nav className="flex flex-col items-start p-6 mt-16 space-y-6">
+                <nav className="flex flex-col items-start justify-center p-6 mt-16 space-y-6">
                     {navigationMenuData.map((item, index) => (
                         <motion.div
                             key={item.link}
                             initial={{opacity: 0, x: 20}}
                             animate={{opacity: 1, x: 0}}
                             transition={{duration: 0.3, delay: index * 0.1}}
-                            className="w-full"
+                            className="w-full border-b border-slate-700 pb-2"
                         >
                             <Link
                                 href={item.link}
-                                className="w-full group relative py-2 px-4 rounded-lg transition-all duration-300
-                                    hover:bg-slate-700 hover:pl-6 hover:shadow-md"
+                                className="relative group text-lg font-medium flex items-center gap-2 transition-colors hover:text-fuchsia-500"
                                 onClick={toggleMobileMenu}
                             >
-                                <span
-                                    className="text-slate-100 text-lg font-medium group-hover:text-fuchsia-400 transition-colors">
-                                    {item.sectionName}
-                                </span>
-                                <div className="absolute left-0 top-1/2 w-1 h-6 bg-fuchsia-500 rounded-full
-                                            transform -translate-y-1/2 opacity-0 group-hover:opacity-100
-                                            transition-opacity duration-300"/>
+                                <motion.span
+                                    initial={{x: -5, opacity: 0}}
+                                    animate={{x: 0, opacity: 1}}
+                                    transition={{duration: 0.3, delay: index * 0.1}}
+                                    className={`opacity-70 group-hover:opacity-100 ${
+                                        activeSection === item.name ? 'text-fuchsia-500' : 'text-gray-100'}`}
+                                >
+                                    →
+                                </motion.span>
+                                {item.sectionName}
                             </Link>
                         </motion.div>
                     ))}
@@ -139,15 +141,12 @@ export default function Navbar() {
                         initial={{opacity: 0, x: 20}}
                         animate={{opacity: 1, x: 0}}
                         transition={{duration: 0.3, delay: navigationMenuData.length * 0.1}}
-                        className="mt-8 w-full px-4"
+                        className="w-full"
                     >
-                        <Link href="#contact" onClick={toggleMobileMenu} className="block w-full">
-                            <HoverBorderGradient
-                                containerClassName="rounded-full w-full"
+                        <Link href="#contact" onClick={toggleMobileMenu}>
+                        <HoverBorderGradient
+                                containerClassName="w-full"
                                 as="button"
-                                className="w-full px-8 py-3 text-lg font-semibold bg-fuchsia-600
-                                        hover:bg-fuchsia-700 transition-all duration-300
-                                        hover:scale-105 hover:shadow-lg"
                             >
                                 Contact Me
                             </HoverBorderGradient>
