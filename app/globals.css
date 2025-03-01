@@ -34,6 +34,10 @@ h1, h2, h3, h4, h5, h6 {
     @apply hidden;
 }
 
+.section-wrapper {
+    @apply min-h-screen lg:min-h-0 lg:h-screen flex items-center justify-center flex-col;
+}
+
 .section-heading {
     @apply text-fuchsia-500 text-4xl font-semibold mb-8 text-center;
 }

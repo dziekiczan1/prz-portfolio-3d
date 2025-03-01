@@ -17,7 +17,7 @@ export default function About() {
     const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
     return (
-        <section className="h-screen flex items-center justify-center" id="about" ref={ref}>
+        <section className="section-wrapper" id="about" ref={ref}>
             <motion.div
                 className="flex flex-col gap-6 max-w-5xl px-8"
                 style={{opacity, y}}

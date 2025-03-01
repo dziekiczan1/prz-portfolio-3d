@@ -123,7 +123,7 @@ export default function Projects() {
     };
 
     return (
-        <section id="projects" className="h-screen flex flex-col items-center justify-center mb-10 lg:mb-0">
+        <section id="projects" className="section-wrapper mb-10 lg:mb-0">
             <div className="relative max-w-5xl mx-auto text-center">
                 <BlurIn className="section-heading">
                     {projectsSection.heading}

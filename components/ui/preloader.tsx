@@ -75,7 +75,7 @@ export default function Preloader({ onEnter, progress }: PreloaderProps) {
                 </Link>
             </div>
             <motion.div
-                className="flex flex-col justify-center items-center h-screen"
+                className="section-wrapper"
                 animate={contentControls}
             >
                 <div className="mb-8 text-center min-h-[68px]">
