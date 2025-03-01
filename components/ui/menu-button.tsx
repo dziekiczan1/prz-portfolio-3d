@@ -70,7 +70,7 @@ export const MenuButton = ({
         ...lineProps
     };
 
-    const unitHeight = 4;
+    const unitHeight = 6;
     const unitWidth = (unitHeight * (width as number)) / (height as number);
 
     return (
@@ -85,24 +85,24 @@ export const MenuButton = ({
             <motion.line
                 x1="0"
                 x2={unitWidth}
-                y1="0"
-                y2="0"
+                y1="1"
+                y2="1"
                 variants={top}
                 {...resolvedLineProps}
             />
             <motion.line
                 x1="0"
                 x2={unitWidth}
-                y1="2"
-                y2="2"
+                y1="3"
+                y2="3"
                 variants={center}
                 {...resolvedLineProps}
             />
             <motion.line
                 x1="0"
                 x2={unitWidth}
-                y1="4"
-                y2="4"
+                y1="5"
+                y2="5"
                 variants={bottom}
                 {...resolvedLineProps}
             />

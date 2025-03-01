@@ -127,10 +127,10 @@ export default function Preloader({ onEnter, progress }: PreloaderProps) {
                 </div>
                 <div className="min-h-[46px] min-w-48">
                     {progress >= 100 && (
-                        <motion.button
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
                             className="w-full"
                         >
                             <HoverBorderGradient
@@ -141,7 +141,7 @@ export default function Preloader({ onEnter, progress }: PreloaderProps) {
                             >
                                 Start the Adventure
                             </HoverBorderGradient>
-                        </motion.button>
+                        </motion.div>
                     )}
                 </div>
             </motion.div>

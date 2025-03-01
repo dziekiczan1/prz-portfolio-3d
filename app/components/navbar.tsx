@@ -7,6 +7,7 @@ import {HoverBorderGradient} from '@/components/ui/button';
 import {navigationMenuData} from "@/constants/navigation";
 import {MenuButton} from "@/components/ui/menu-button";
 import { motion } from 'framer-motion';
+import {Chevron} from "@/components/ui/chevron";
 
 export default function Navbar() {
     const [activeSection, setActiveSection] = useState('');
@@ -98,11 +99,13 @@ export default function Navbar() {
                 />
             )}
 
-            <MenuButton
-                isOpen={isMobileMenuOpen}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="z-40 absolute right-4 lg:hidden"
-            />
+            <div className="flex flex-col items-center z-40 absolute right-4 lg:hidden">
+                <MenuButton
+                    isOpen={isMobileMenuOpen}
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                />
+                <p className={`text-[8px] uppercase mt-1 text-gray-300 tracking-widest`}>{isMobileMenuOpen ? 'Close' : 'Menu'}</p>
+            </div>
 
             <div
                 className={`fixed inset-y-0 right-0 w-4/5 bg-gradient-to-br from-slate-700 to-slate-900 transform ${
@@ -116,22 +119,17 @@ export default function Navbar() {
                             initial={{opacity: 0, x: 20}}
                             animate={{opacity: 1, x: 0}}
                             transition={{duration: 0.3, delay: index * 0.1}}
-                            className="w-full border-b border-slate-700 pb-2"
+                            className={`w-full pb-2 border-b ${
+                                activeSection === item.name ? 'border-fuchsia-500' : 'border-slate-700'
+                            }`}
                         >
                             <Link
                                 href={item.link}
-                                className="relative group text-lg font-medium flex items-center gap-2 transition-colors hover:text-fuchsia-500"
+                                className={`relative group text-lg font-medium flex items-center gap-2 transition-colors hover:text-fuchsia-500`}
                                 onClick={toggleMobileMenu}
                             >
-                                <motion.span
-                                    initial={{x: -5, opacity: 0}}
-                                    animate={{x: 0, opacity: 1}}
-                                    transition={{duration: 0.3, delay: index * 0.1}}
-                                    className={`opacity-70 group-hover:opacity-100 ${
-                                        activeSection === item.name ? 'text-fuchsia-500' : 'text-gray-100'}`}
-                                >
-                                    →
-                                </motion.span>
+                                <Chevron className={`h-4 w-4 group-hover:text-fuchsia-500 ${
+                                    activeSection === item.name ? 'text-fuchsia-500 animate-bounce' : 'text-gray-100'}`}/>
                                 {item.sectionName}
                             </Link>
                         </motion.div>
@@ -144,7 +142,7 @@ export default function Navbar() {
                         className="w-full"
                     >
                         <Link href="#contact" onClick={toggleMobileMenu}>
-                        <HoverBorderGradient
+                            <HoverBorderGradient
                                 containerClassName="w-full"
                                 as="button"
                             >

@@ -19,15 +19,15 @@ const SLIDE_TRANSITION = {
 const SlideButton = ({direction, onClick}: SlideButtonProps) => (
     <button
         onClick={onClick}
-        className={`absolute ${direction === "prev" ? "-left-16" : "-right-16"} top-1/2 transform -translate-y-1/2
-      bg-fuchsia-800/20 text-gray-400 p-3 rounded-full hover:bg-fuchsia-800/30
+        className={`absolute ${direction === "prev" ? "right-12 lg:right-auto lg:-left-16" : "right-0 lg:-right-16"} -bottom-10 lg:bottom-auto lg:top-1/2 transform lg:-translate-y-1/2
+      bg-fuchsia-800/20 text-gray-400 p-2 lg:p-3 rounded-full hover:bg-fuchsia-800/30
       backdrop-blur-sm border border-fuchsia-800/30 hover:border-fuchsia-800/50 group`}
         aria-label={`${direction} project`}
     >
         {direction === "prev" ? (
-            <Chevron className="h-6 w-6 group-hover:text-gray-100 transition-colors animate-pulse -rotate-180"/>
+            <Chevron className="h-4 lg:h-6 w-4 lg:w-6 group-hover:text-gray-100 transition-colors animate-pulse -rotate-180"/>
         ) : (
-            <Chevron className="h-6 w-6 group-hover:text-gray-100 transition-colors animate-pulse"/>
+            <Chevron className="h-4 lg:h-6 w-4 lg:w-6 group-hover:text-gray-100 transition-colors animate-pulse"/>
         )}
     </button>
 );
@@ -123,7 +123,7 @@ export default function Projects() {
     };
 
     return (
-        <section id="projects" className="h-screen flex flex-col items-center justify-center">
+        <section id="projects" className="h-screen flex flex-col items-center justify-center mb-10 lg:mb-0">
             <div className="relative max-w-5xl mx-auto text-center">
                 <BlurIn className="section-heading">
                     {projectsSection.heading}
