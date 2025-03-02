@@ -1,24 +1,29 @@
 'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import {useEffect, useState} from "react";
-
-import {HoverBorderGradient} from '@/components/ui/button';
-import {navigationMenuData} from "@/constants/navigation";
-import {MenuButton} from "@/components/ui/menu-button";
 import { motion } from 'framer-motion';
+
+import {navigationMenuData} from "@/constants/navigation";
+
+import SocialMedia from "@/app/components/social";
+import {HoverBorderGradient} from '@/components/ui/button';
+import {MenuButton} from "@/components/ui/menu-button";
 import {Chevron} from "@/components/ui/chevron";
+import {useDeviceType} from "@/app/hooks/useDeviceType";
 
 export default function Navbar() {
     const [activeSection, setActiveSection] = useState('');
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+    const { isMobile } = useDeviceType();
 
     useEffect(() => {
         const sections = document.querySelectorAll('section');
         const options = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.1,
+            threshold: isMobile ? 0.1 : 0.5,
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -38,7 +43,7 @@ export default function Navbar() {
                 observer.unobserve(section);
             });
         };
-    }, []);
+    }, [isMobile]);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -146,10 +151,11 @@ export default function Navbar() {
                                 containerClassName="w-full"
                                 as="button"
                             >
-                                Contact Me
+                                Contact
                             </HoverBorderGradient>
                         </Link>
                     </motion.div>
+                    <SocialMedia isMobileNavbar />
                 </nav>
             </div>
         </header>
