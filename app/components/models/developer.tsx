@@ -48,6 +48,10 @@ export default function Developer() {
         return [phoneAnimation[0], sittingAnimation[0], pointingAnimation[0]];
     }, [phoneAnimation, sittingAnimation, pointingAnimation]);
 
+    animations.forEach(clip => {
+        clip.tracks = clip.tracks.filter(track => !track.name.includes("Armature"));
+    });
+
     const { actions } = useAnimations(animations, group);
     const actionsRef = useRef(actions);
     const previousAnimationRef = useRef<string>('');

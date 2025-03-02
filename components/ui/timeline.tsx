@@ -95,12 +95,14 @@ export const Timeline = ({data}: { data: TimelineEntry[] }) => {
                                 hover:bg-[rgba(15,23,42,0.6)] border border-[rgba(255,255,255,0.2)] shadow-[0_0_10px_2px_rgba(99,102,241,0.3)]
                                 hover:shadow-[0_0_10px_2px_rgba(99,102,241,0.9)] transition-all duration-300"
                             >
+                                <div className="relative h-10 w-10">
                                 <Image
                                     src={item.icon}
                                     alt={item.title}
-                                    width={40}
-                                    height={40}
+                                    sizes={'40px'}
+                                    fill
                                 />
+                                </div>
                             </div>
                         </Link>
                     </div>

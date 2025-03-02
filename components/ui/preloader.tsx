@@ -112,6 +112,7 @@ export default function Preloader({ onEnter, progress }: PreloaderProps) {
                                 alt={status}
                                 width={96}
                                 height={96}
+                                priority
                                 className={`${currentStatus.className} ${currentStatus.color}`}
                             />
                         </motion.div>
