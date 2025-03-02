@@ -12,11 +12,26 @@ import {HoverBorderGradient} from '@/components/ui/button';
 import {MenuButton} from "@/components/ui/menu-button";
 import {Chevron} from "@/components/ui/chevron";
 import {useDeviceType} from "@/app/hooks/useDeviceType";
+import {useScrollAnimation} from "@/app/hooks/useScrollAnimation";
 
 export default function Navbar() {
+    const scrollOffset = useScrollAnimation();
     const [activeSection, setActiveSection] = useState('');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
     const { isMobile } = useDeviceType();
+
+    const [isScrolling, setIsScrolling] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (!isMobile) {
+            return;
+        }
+        if (scrollOffset > 0.001) {
+            setIsScrolling(true);
+        } else {
+            setIsScrolling(false);
+        }
+    }, [scrollOffset]);
 
     useEffect(() => {
         const sections = document.querySelectorAll('section');
@@ -50,7 +65,7 @@ export default function Navbar() {
     };
 
     return (
-        <header className="flex items-center justify-between fixed z-20 w-full py-4 px-4 lg:px-8">
+        <header className={`flex items-center justify-between fixed z-20 w-full py-4 px-4 lg:px-8 ${isScrolling && 'bg-gradient-to-br from-slate-700 to-slate-900'}`}>
             <Link
                 href="/"
                 className="flex items-center justify-center font-bold gap-4"
