@@ -78,7 +78,7 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
                             `absolute left-3 transition-all duration-200 pointer-events-none
                              ${
                                 isFocused || hasValue
-                                    ? "-top-5 text-xs text-gray-400 font-semibold"
+                                    ? "top-2 lg:-top-5 text-xs text-gray-400 font-semibold"
                                     : !textarea
                                         ? "top-1/2 -translate-y-1/2 text-sm text-gray-400"
                                         : "top-3.5 text-sm text-gray-400"
@@ -93,7 +93,7 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
                     <textarea
                         className={cn(
                             `flex w-full rounded-md border border-[rgba(255,255,255,0.4)] bg-slate-900
-                             shadow-input px-3 py-2 text-gray-100 text-sm placeholder:text-transparent 
+                             shadow-input px-3 pt-8 pb-2 lg:pt-2 text-gray-100 text-sm placeholder:text-transparent 
                              focus-visible:outline-none focus-visible:ring-[1px] dark:focus-visible:ring-fuchsia-700
                              disabled:cursor-not-allowed disabled:opacity-50 transition duration-400
                              resize-none`,
@@ -113,8 +113,8 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
                         type={type}
                         name={name}
                         className={cn(
-                            `flex h-12 w-full rounded-md border border-[rgba(255,255,255,0.4)] bg-slate-900
-                             shadow-input px-3 py-2 text-gray-100 text-sm placeholder:text-transparent 
+                            `flex lg:h-12 w-full rounded-md border border-[rgba(255,255,255,0.4)] bg-slate-900
+                             shadow-input px-3 pt-8 pb-2 lg:pt-2 text-gray-100 text-sm placeholder:text-transparent 
                              focus-visible:outline-none focus-visible:ring-[1px] dark:focus-visible:ring-fuchsia-700
                              disabled:cursor-not-allowed disabled:opacity-50 transition duration-400`,
                             className

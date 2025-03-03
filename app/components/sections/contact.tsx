@@ -17,7 +17,7 @@ const FormField = ({children}: { children: React.ReactNode }) => (
         initial={{opacity: 0, y: 10}}
         whileInView={{opacity: 1, y: 0}}
         transition={{duration: 0.3}}
-        className="space-y-10 w-4/5 mx-auto"
+        className="space-y-6 lg:space-y-10 w-full lg:w-4/5 mx-auto"
     >
         {children}
     </motion.div>
@@ -27,8 +27,8 @@ export default function Contact() {
     const {formRef, status, handleSubmit} = useContactForm();
 
     return (
-        <section className="section-wrapper" id="contact">
-            <div className="max-w-5xl mx-auto">
+        <section className="section-wrapper pb-8 lg:pb-0" id="contact">
+            <div className="w-full lg:max-w-5xl mx-auto">
                 <BlurIn className="section-heading">
                     {contactSection.heading}
                 </BlurIn>
@@ -45,7 +45,7 @@ export default function Contact() {
             <form
                 ref={formRef}
                 onSubmit={handleSubmit}
-                className="relative p-8 max-w-5xl w-full glass-card"
+                className="relative px-4 py-6 lg:p-8 max-w-5xl w-full glass-card"
             >
                 <FormField>
                     {formFields.map((field) => (
@@ -64,9 +64,9 @@ export default function Contact() {
                     ))}
                 </FormField>
 
-                <div className="flex justify-center mt-8">
+                <div className="flex justify-center mt-6 lg:mt-8">
                     {status === "idle" ? (
-                        <HoverBorderGradient type="submit" containerClassName="w-2/5">
+                        <HoverBorderGradient type="submit" containerClassName="w-full lg:w-2/5">
                             Send Message
                         </HoverBorderGradient>
                     ) : (

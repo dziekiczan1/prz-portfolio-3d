@@ -35,17 +35,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-wrapper {
-    @apply min-h-screen lg:min-h-0 lg:h-screen flex items-center justify-center flex-col;
+    @apply min-h-screen lg:min-h-0 lg:h-screen flex items-center justify-center flex-col px-4 lg:px-0;
 }
 
 .section-heading {
-    @apply text-fuchsia-500 text-4xl font-semibold mb-8 text-center;
+    @apply text-fuchsia-500 text-3xl lg:text-4xl font-semibold mb-8 lg:text-center;
 }
 
 .section-paragraph {
-    @apply text-lg font-normal text-gray-300 leading-relaxed mb-8 text-center;
+    @apply text-base lg:text-lg font-normal text-gray-300 leading-relaxed mb-8 lg:text-center;
 }
 
 .glass-card {
-    @apply mx-auto rounded-xl border border-white/40 bg-gradient-to-b from-slate-700/60 to-slate-900/60 shadow-xl backdrop-blur-sm
+    @apply mx-auto rounded-md lg:rounded-xl border border-white/40 bg-gradient-to-b from-slate-700/60 to-slate-900/60 shadow-xl backdrop-blur-sm
 }
