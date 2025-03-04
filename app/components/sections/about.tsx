@@ -19,7 +19,7 @@ export default function About() {
     return (
         <section className="section-wrapper" id="about" ref={ref}>
             <motion.div
-                className="flex flex-col gap-6 max-w-5xl px-8"
+                className="flex flex-col gap-6 w-full lg:max-w-5xl lg:px-8"
                 style={{opacity, y}}
             >
                 <motion.div

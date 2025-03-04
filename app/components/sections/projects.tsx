@@ -40,14 +40,14 @@ const TechBadge = ({tech}: { tech: string }) => (
 
 const ProjectCard = ({project}: { project: Project }) => (
     <motion.div
-        className="flex gap-8 p-8"
+        className="flex flex-col lg:flex-row gap-4 lg:gap-8 p-4 lg:p-8"
         initial={{opacity: 0, y: 50}}
         whileInView={{opacity: 1, y: 0}}
         viewport={{amount: 0.2}}
         transition={{duration: 0.5}}
     >
         <div
-            className="w-3/5 h-auto overflow-hidden rounded-xl border-2 border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300">
+            className="w-full lg:w-3/5 h-auto overflow-hidden rounded-xl border-2 border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300">
             <Image
                 src={project.image}
                 alt={project.title}
@@ -58,7 +58,7 @@ const ProjectCard = ({project}: { project: Project }) => (
             />
         </div>
 
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col lg:flex-1">
             <div className="flex flex-col gap-4">
                 <h3 className="text-lg font-semibold text-gray-100">{project.title}</h3>
                 <div className="flex flex-wrap gap-2">
@@ -70,7 +70,7 @@ const ProjectCard = ({project}: { project: Project }) => (
 
             <div className="border-b border-white/20 my-4"/>
 
-            <p className="text-sm font-medium text-gray-300 mb-4 flex-1">
+            <p className="text-sm font-medium text-gray-300 mb-4 lg:flex-1">
                 {project.description}
             </p>
 
@@ -99,7 +99,7 @@ const ProjectCard = ({project}: { project: Project }) => (
 const SlideContainer = ({children}: { children: React.ReactNode }) => (
     <div className="w-full overflow-hidden glass-card">
         <motion.div
-            className="flex"
+            className="inline lg:flex"
             style={{width: "100%"}}
             initial={{x: 0, opacity: 0.7}}
             animate={{opacity: 1}}
@@ -124,7 +124,7 @@ export default function Projects() {
 
     return (
         <section id="projects" className="section-wrapper mb-10 lg:mb-0">
-            <div className="relative max-w-5xl mx-auto text-center">
+            <div className="relative max-w-5xl mx-auto lg:text-center">
                 <BlurIn className="section-heading">
                     {projectsSection.heading}
                 </BlurIn>
@@ -138,7 +138,7 @@ export default function Projects() {
                 </AnimatedDiv>
             </div>
 
-            <div className="flex w-full max-w-5xl relative">
+            <div className="flex w-full lg:max-w-5xl relative">
                 <SlideContainer>
                     <AnimatedDiv
                         className="flex"
