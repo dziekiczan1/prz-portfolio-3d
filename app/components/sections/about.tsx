@@ -19,7 +19,7 @@ export default function About() {
     return (
         <section className="section-wrapper" id="about" ref={ref}>
             <motion.div
-                className="flex flex-col gap-6 w-full lg:max-w-5xl lg:px-8"
+                className="flex flex-col lg:gap-6 w-full lg:max-w-5xl lg:px-8"
                 style={{opacity, y}}
             >
                 <motion.div
@@ -32,9 +32,7 @@ export default function About() {
                         {aboutSection.heading}
                     </BlurIn>
                 </motion.div>
-
                 <motion.div
-                    className="space-y-6"
                     initial={{opacity: 0}}
                     whileInView={{opacity: 1}}
                     transition={{staggerChildren: 0.2, delayChildren: 0.3}}

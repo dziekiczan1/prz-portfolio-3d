@@ -19,8 +19,8 @@ const SLIDE_TRANSITION = {
 const SlideButton = ({direction, onClick}: SlideButtonProps) => (
     <button
         onClick={onClick}
-        className={`absolute ${direction === "prev" ? "right-12 lg:right-auto lg:-left-16" : "right-0 lg:-right-16"} -bottom-10 lg:bottom-auto lg:top-1/2 transform lg:-translate-y-1/2
-      bg-fuchsia-800/20 text-gray-400 p-2 lg:p-3 rounded-full hover:bg-fuchsia-800/30
+        className={`absolute ${direction === "prev" ? "right-14 lg:right-auto lg:-left-16" : "right-0 lg:-right-16"} -bottom-14 lg:bottom-auto lg:top-1/2 transform lg:-translate-y-1/2
+      bg-fuchsia-800/20 text-gray-400 p-3 rounded-full hover:bg-fuchsia-800/30
       backdrop-blur-sm border border-fuchsia-800/30 hover:border-fuchsia-800/50 group`}
         aria-label={`${direction} project`}
     >
@@ -47,7 +47,7 @@ const ProjectCard = ({project}: { project: Project }) => (
         transition={{duration: 0.5}}
     >
         <div
-            className="w-full lg:w-3/5 h-auto overflow-hidden rounded-xl border-2 border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300">
+            className="w-full lg:w-3/5 h-auto overflow-hidden rounded-md lg:rounded-xl border-2 border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300">
             <Image
                 src={project.image}
                 alt={project.title}
@@ -123,7 +123,7 @@ export default function Projects() {
     };
 
     return (
-        <section id="projects" className="section-wrapper mb-10 lg:mb-0">
+        <section id="projects" className="section-wrapper">
             <div className="relative max-w-5xl mx-auto lg:text-center">
                 <BlurIn className="section-heading">
                     {projectsSection.heading}
