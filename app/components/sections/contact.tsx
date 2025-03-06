@@ -27,7 +27,7 @@ export default function Contact() {
     const {formRef, status, handleSubmit} = useContactForm();
 
     return (
-        <section className="section-wrapper pb-8 lg:pb-0" id="contact">
+        <section className="section-wrapper pb-14 lg:pb-0" id="contact">
             <div className="w-full lg:max-w-5xl mx-auto">
                 <BlurIn className="section-heading">
                     {contactSection.heading}
