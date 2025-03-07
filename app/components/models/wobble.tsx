@@ -7,10 +7,12 @@ import CustomShaderMaterial from "three-custom-shader-material";
 import wobbleVertexShader from "@/app/shaders/wobble/vertex.glsl";
 import wobbleFragmentShader from "@/app/shaders/wobble/fragment.glsl";
 import {useScrollAnimation} from "@/app/hooks/useScrollAnimation";
+import {useDeviceType} from "@/app/hooks/useDeviceType";
 
 export default function Wobble() {
     const scrollOffset = useScrollAnimation();
     const wobbleRef = useRef<THREE.Mesh>(null);
+    const {isMobile} = useDeviceType();
 
     // Create icosahedron geometry
     const icosahedronGeometry = useMemo(() => {
@@ -41,11 +43,31 @@ export default function Wobble() {
         if (wobbleRef.current) {
             // Wobble section positions
             const sections = [
-                { start: 0, end: 0.025, position: new THREE.Vector3(-1, 0, 0), scale: 0.35 }, // Hero section
-                { start: 0.025, end: 0.20, position: new THREE.Vector3(0.2, 0, 0), scale: 0.8 }, // About section
-                { start: 0.20, end: 0.78, position: new THREE.Vector3(2, 0.5, 0), scale: 0.28 }, // Projects section
-                { start: 0.78, end: 0.95, position: new THREE.Vector3(-2, 0, 0), scale: 0.45 }, // Resume section
-                { start: 0.95, end: 1, position: new THREE.Vector3(0, 0, 0), scale: 0.38 }, // Contact section
+                {
+                    start: 0, end: 0.025,
+                    position: isMobile ? new THREE.Vector3(0, -0.35, 0) : new THREE.Vector3(-1, 0, 0),
+                    scale: isMobile ? 0.15 : 0.35
+                }, // Hero
+                {
+                    start: 0.025, end: 0.20,
+                    position: isMobile ? new THREE.Vector3(0.1, 0.1, 0) : new THREE.Vector3(0.2, 0, 0),
+                    scale: isMobile ? 0.6 : 0.8
+                }, // About
+                {
+                    start: 0.20, end: 0.78,
+                    position: isMobile ? new THREE.Vector3(0.8, 0.3, 0) : new THREE.Vector3(2, 0.5, 0),
+                    scale: isMobile ? 0.2 : 0.28
+                }, // Projects
+                {
+                    start: 0.78, end: 0.95,
+                    position: isMobile ? new THREE.Vector3(-1.2, 0, 0) : new THREE.Vector3(-2, 0, 0),
+                    scale: isMobile ? 0.4 : 0.45
+                }, // Resume
+                {
+                    start: 0.95, end: 1,
+                    position: isMobile ? new THREE.Vector3(0, -0.15, 0) : new THREE.Vector3(0, 0, 0),
+                    scale: isMobile ? 0.32 : 0.38
+                }, // Contact
             ];
 
             // Find current and next section

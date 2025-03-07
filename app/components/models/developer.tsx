@@ -4,6 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 import { useScrollAnimation } from "@/app/hooks/useScrollAnimation";
+import {useDeviceType} from "@/app/hooks/useDeviceType";
 
 interface DeveloperGLTF extends GLTF {
     nodes: {
@@ -53,6 +54,7 @@ export default function Developer() {
     });
 
     const { actions } = useAnimations(animations, group);
+    const {isMobile} = useDeviceType();
     const actionsRef = useRef(actions);
     const previousAnimationRef = useRef<string>('');
 
@@ -136,11 +138,11 @@ export default function Developer() {
         const scrollShowStart = 0.45;
         const scrollShowEnd = 0.55;
 
-        let positionY = -0.1;
-        let positionX = 0.5;
+        let positionY = isMobile ? 0.02 : -0.05;
+        let positionX = isMobile ? 0.1 : 0.5;
         let positionZ = -4;
         let animationProgress = 0;
-        let scale = 1;
+        let scale = isMobile ? 0.8 : 1;
         let opacity = 1;
 
         if (scrollOffset >= scrollStartFade && scrollOffset < scrollShowStart) {
