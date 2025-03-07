@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {useEffect, useState} from "react";
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 
 import {navigationMenuData} from "@/constants/navigation";
 
@@ -18,7 +18,7 @@ export default function Navbar() {
     const scrollOffset = useScrollAnimation();
     const [activeSection, setActiveSection] = useState('');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-    const { isMobile } = useDeviceType();
+    const {isMobile} = useDeviceType();
 
     const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
@@ -65,7 +65,11 @@ export default function Navbar() {
     };
 
     return (
-        <header className={`flex items-center justify-between fixed z-20 w-full py-4 px-4 lg:px-8 ${isScrolling && 'bg-gradient-to-br from-slate-700 to-slate-900'}`}>
+        <header
+            className={`flex items-center justify-between fixed z-20 w-full py-4 px-4 lg:px-8 `}>
+            {isMobile && <div className={`absolute inset-0 -z-10 transition-opacity duration-500 ease-in-out 
+            ${isScrolling ? 'bg-gradient-to-br from-slate-700 to-slate-900 opacity-100' : 'bg-transparent opacity-0'}`}>
+            </div>}
             <Link
                 href="/"
                 className="flex items-center justify-center font-bold gap-4"
@@ -170,7 +174,7 @@ export default function Navbar() {
                             </HoverBorderGradient>
                         </Link>
                     </motion.div>
-                    <SocialMedia isMobileNavbar />
+                    <SocialMedia isMobileNavbar/>
                 </nav>
             </div>
         </header>
