@@ -25,7 +25,7 @@ export default function SocialMedia({ isMobileNavbar = false }: SocialMediaProps
         } else {
             setIsBarVisible(true);
         }
-    }, [scrollOffset]);
+    }, [scrollOffset, isMobile, isMobileNavbar]);
 
     return (
         <div className={`${isBarVisible ? 'fixed' : 'hidden'} left-4 right-4 lg:left-auto lg:right-10 bottom-4 lg:bottom-8 flex justify-between lg:justify-start items-center lg:gap-14 z-10`}>

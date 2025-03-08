@@ -33,7 +33,7 @@ export default function Navbar() {
         } else {
             setIsScrolling(false);
         }
-    }, [scrollOffset]);
+    }, [scrollOffset, isMobile]);
 
     useEffect(() => {
         const sections = document.querySelectorAll('section');

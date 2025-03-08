@@ -1,10 +1,11 @@
 export const technologiesData: {
     name: string;
     originPosition: [number, number, number];
-    mobileOriginPosition: [number, number, number];
+    mobileOriginPosition?: [number, number, number];
     finalPosition: [number, number, number];
-    mobileFinalPosition: [number, number, number];
+    mobileFinalPosition?: [number, number, number];
     scale: number;
+    mobileScale?: number;
     rotation: [number, number, number];
     decalScale?: number;
     decalPosition?: [number, number, number];
@@ -14,9 +15,7 @@ export const technologiesData: {
     {
         name: 'Asana',
         originPosition: [-1.5, -2.5, -1.7],
-        mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [-1, -0.65, 3],
-        mobileFinalPosition: [0.4, 0.4, -0.3],
         scale: 0.08,
         rotation: [0, -0.2, 0],
         texturePath: './technologies/asana.svg'
@@ -24,9 +23,7 @@ export const technologiesData: {
     {
         name: 'Docker',
         originPosition: [-2.5, -1.5, -1.7],
-        mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [-1.25, -0.35, -3],
-        mobileFinalPosition: [-4, 4, -3],
         scale: 0.08,
         rotation: [-0.2, 0.3, 0],
         texturePath: './technologies/docker.svg'
@@ -34,9 +31,7 @@ export const technologiesData: {
     {
         name: 'Framer Motion',
         originPosition: [-1.4, -2.4, -1.7],
-        mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [-0.4, -0.65, -3],
-        mobileFinalPosition: [4, -4, -3],
         scale: 0.08,
         rotation: [0.2, 0.2, 0],
         texturePath: './technologies/framer.svg'
@@ -44,9 +39,7 @@ export const technologiesData: {
     {
         name: 'GIT',
         originPosition: [-1.5, -0.5, -1.7],
-        mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [-1.3, 0.2, -3],
-        mobileFinalPosition: [-4, -4, -3],
         scale: 0.12,
         rotation: [0.1, 0.3, 0],
         texturePath: './technologies/git.svg'
@@ -54,9 +47,7 @@ export const technologiesData: {
     {
         name: 'Javascript',
         originPosition: [-1, 1.3, -1.7],
-        mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [-0.85, 0.8, -3],
-        mobileFinalPosition: [4, 0, -3],
         scale: 0.12,
         rotation: [0.2, 0.1, 0],
         decalScale: 1.2,
@@ -65,9 +56,7 @@ export const technologiesData: {
     {
         name: 'Linux',
         originPosition: [2.4, -1.5, -1.7],
-        mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [1.65, -0.35, 3],
-        mobileFinalPosition: [-4, 0, -3],
         scale: 0.1,
         rotation: [-0.2, -0.2, 0],
         texturePath: './technologies/linux.svg'
@@ -75,9 +64,7 @@ export const technologiesData: {
     {
         name: 'Magento',
         originPosition: [1.3, -1.5, -1.7],
-        mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [1.3, -0.5, -3],
-        mobileFinalPosition: [0, 4, -3],
         scale: 0.15,
         rotation: [-0.1, -0.2, 0],
         decalScale: 1.2,
@@ -86,9 +73,7 @@ export const technologiesData: {
     {
         name: 'MongoDB',
         originPosition: [-1.2, -1.5, -1.7],
-        mobileOriginPosition: [0, 0, -1.7],
         finalPosition: [-1.7, -0.7, -3],
-        mobileFinalPosition: [0, -4, -3],
         scale: 0.12,
         rotation: [0, 0.3, 0],
         texturePath: './technologies/mongo.svg'
@@ -96,12 +81,14 @@ export const technologiesData: {
     {
         name: 'Next.JS',
         originPosition: [-2.6, 1.6, -1.7],
-        mobileOriginPosition: [0, 0, -1.7],
+        mobileOriginPosition: [0, -0.35, -1.5],
         finalPosition: [-1.6, -0.35, -3],
-        mobileFinalPosition: [5, 5, -3],
+        mobileFinalPosition: [0, 0, 3.1],
         scale: 0.2,
+        mobileScale: 0.1,
         rotation: [0.1, 0.3, 0],
-        texturePath: './technologies/next.svg'
+        texturePath: './technologies/next.svg',
+        showOnMobile: true
     },
     {
         name: 'Node.JS',

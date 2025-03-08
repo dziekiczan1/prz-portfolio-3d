@@ -8,7 +8,7 @@ import Wobble from "@/app/components/models/wobble";
 import Technology from "@/app/components/models/technology";
 import Developer from "@/app/components/models/developer";
 import SparklesBackground from "@/app/components/models/sparkles";
-import Email from "@/app/components/models/email";
+// import Email from "@/app/components/models/email";
 
 export default function Experience() {
     // Performance monitor

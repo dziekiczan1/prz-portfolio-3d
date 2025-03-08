@@ -30,7 +30,7 @@ export const Timeline = ({data}: { data: TimelineEntry[] }) => {
             const rect = ref.current.getBoundingClientRect();
             setHeight(rect.height + (isMobile ? 100 : 50));
         }
-    }, [ref]);
+    }, [ref, isMobile]);
 
     const {scrollYProgress} = useScroll({
         target: containerRef,

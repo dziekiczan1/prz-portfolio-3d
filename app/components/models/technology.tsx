@@ -7,17 +7,19 @@ import {useScrollAnimation} from "@/app/hooks/useScrollAnimation";
 import {useDeviceType} from "@/app/hooks/useDeviceType";
 
 export default function Technology() {
-    // Load textures
-    const textures = useTexture(
-        technologiesData.map((data) => data.texturePath)
-    );
-
     // Filter technologies
     const { isMobile } = useDeviceType();
 
     const filteredTechnologies = isMobile
         ? technologiesData.filter((tech) => tech.showOnMobile === true)
         : technologiesData;
+
+    // Load textures
+    const textures = useTexture(
+        filteredTechnologies.map((data) => data.texturePath)
+    );
+
+    console.log(filteredTechnologies);
 
     // Create sphere geometry and material
     const {geometry, material} = useMemo(() => {
@@ -49,32 +51,33 @@ export default function Technology() {
 
         sphereRefs.current.forEach((mesh, index) => {
             const decalMaterial = decalMaterialRefs.current[index];
-            const {originPosition, finalPosition, scale: maxScale} = technologiesData[index];
+            const techData = filteredTechnologies[index];
 
             if (mesh && decalMaterial) {
-                const scrollStart = 0.085; // Sphere start appearing
-                const scrollEndAppear = 0.20; // Sphere start disappearing
-                const scrollEndDisappear = 0.31; // Sphere fully disappeared
+                const scrollStart = isMobile ? 0.009 : 0.085; // Sphere start appearing
+                const scrollEndAppear = isMobile ? 0.04 : 0.20; // Sphere start disappearing
+                const scrollEndDisappear = isMobile ? 0.08 : 0.31; // Sphere fully disappeared
 
                 let normalizedOffset;
 
                 if (scrollOffset < scrollStart) {
-                    // Before the sphere starts appearing
                     normalizedOffset = 0;
                 } else if (scrollOffset >= scrollStart && scrollOffset <= scrollEndAppear) {
-                    // Sphere is appearing (scale from 0 to maxScale)
                     normalizedOffset = (scrollOffset - scrollStart) / (scrollEndAppear - scrollStart);
                 } else if (scrollOffset > scrollEndAppear && scrollOffset <= scrollEndDisappear) {
-                    // Sphere is disappearing (scale from maxScale to 0)
                     normalizedOffset = 1 - (scrollOffset - scrollEndAppear) / (scrollEndDisappear - scrollEndAppear);
                 } else {
-                    // After the sphere has fully disappeared
                     normalizedOffset = 0;
                 }
 
                 normalizedOffset = Math.max(0, Math.min(1, normalizedOffset));
 
-                // Animate position, scale, and opacity
+                // Use mobile-specific values if they exist, otherwise fallback to desktop values
+                const originPosition = isMobile && techData.mobileOriginPosition ? techData.mobileOriginPosition : techData.originPosition;
+                const finalPosition = isMobile && techData.mobileFinalPosition ? techData.mobileFinalPosition : techData.finalPosition;
+                const maxScale = isMobile && techData.mobileScale ? techData.mobileScale : techData.scale;
+
+                // Animate position
                 mesh.position.lerp(
                     new THREE.Vector3(
                         originPosition[0] + (finalPosition[0] - originPosition[0]) * normalizedOffset,
@@ -96,10 +99,7 @@ export default function Technology() {
                 const rotationAmplitude = 0.1; // Oscillates between -0.1 and 0.1
                 const rotationSpeed = 1;
 
-                // Oscillate on the Y-axis
                 mesh.rotation.y = Math.sin(time.current * rotationSpeed) * rotationAmplitude;
-
-                // Oscillate on the X-axis
                 mesh.rotation.x = Math.sin(time.current * rotationSpeed + Math.PI / 2) * rotationAmplitude;
             }
         });
@@ -115,9 +115,9 @@ export default function Technology() {
                         }}
                         geometry={geometry}
                         material={material}
-                        position={data.originPosition}
+                        position={isMobile && data.mobileOriginPosition ? data.mobileOriginPosition : data.originPosition}
                         castShadow
-                        scale={data.scale}
+                        scale={isMobile && data.mobileScale ? data.mobileScale : data.scale}
                         rotation={data.rotation}
                     >
                         <Decal
