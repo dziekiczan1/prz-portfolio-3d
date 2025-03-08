@@ -45,12 +45,12 @@ export default function Wobble() {
             const sections = [
                 {
                     start: 0, end: 0.025,
-                    position: isMobile ? new THREE.Vector3(0, -0.35, 0) : new THREE.Vector3(-1, 0, 0),
-                    scale: isMobile ? 0.15 : 0.35
+                    position: isMobile ? new THREE.Vector3(-0.25, 0.65, 0) : new THREE.Vector3(-1, 0, 0),
+                    scale: isMobile ? 0.05 : 0.35
                 }, // Hero
                 {
                     start: 0.025, end: 0.20,
-                    position: isMobile ? new THREE.Vector3(0.1, 0.1, 0) : new THREE.Vector3(0.2, 0, 0),
+                    position: isMobile ? new THREE.Vector3(0.1, -0.2, 0) : new THREE.Vector3(0.2, 0, 0),
                     scale: isMobile ? 0.6 : 0.8
                 }, // About
                 {

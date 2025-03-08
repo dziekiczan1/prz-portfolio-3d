@@ -4,12 +4,20 @@ import * as THREE from "three";
 import {useFrame} from "@react-three/fiber";
 import {technologiesData} from "@/constants/technologies";
 import {useScrollAnimation} from "@/app/hooks/useScrollAnimation";
+import {useDeviceType} from "@/app/hooks/useDeviceType";
 
 export default function Technology() {
     // Load textures
     const textures = useTexture(
         technologiesData.map((data) => data.texturePath)
     );
+
+    // Filter technologies
+    const { isMobile } = useDeviceType();
+
+    const filteredTechnologies = isMobile
+        ? technologiesData.filter((tech) => tech.showOnMobile === true)
+        : technologiesData;
 
     // Create sphere geometry and material
     const {geometry, material} = useMemo(() => {
@@ -99,7 +107,7 @@ export default function Technology() {
 
     return (
         <>
-            {technologiesData.map((data, index) => (
+            {filteredTechnologies.map((data, index) => (
                 <Float key={index} rotationIntensity={0.15} floatIntensity={0.002} floatingRange={[-0.002, 0.002]}>
                     <mesh
                         ref={(el) => {

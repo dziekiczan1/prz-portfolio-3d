@@ -9,6 +9,7 @@ export const technologiesData: {
     decalScale?: number;
     decalPosition?: [number, number, number];
     texturePath: string;
+    showOnMobile?: boolean;
 }[] = [
     {
         name: 'Asana',
