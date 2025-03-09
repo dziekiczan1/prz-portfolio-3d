@@ -14,7 +14,7 @@ export interface InputProps
     errorMessage?: string;
 }
 
-export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
+const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
     ({ className, type, label, name, textarea = false, rows, required, pattern, errorMessage, ...props }, ref) => {
         const radius = 250;
         const [visible, setVisible] = React.useState(false);
@@ -142,3 +142,6 @@ export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, In
         );
     }
 );
+
+Input.displayName = "Input";
+export default Input;
