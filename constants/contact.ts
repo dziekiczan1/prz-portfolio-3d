@@ -15,7 +15,7 @@ export const formFields: FormFieldConfig[] = [
         type: "email",
         placeholder: "john.doe@example.com",
         required: true,
-        pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
+        pattern: "[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$",
         errorMessage: "Please enter a valid email address.",
     },
     {

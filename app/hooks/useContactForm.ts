@@ -10,6 +10,18 @@ export const useContactForm = () => {
         e.preventDefault();
         if (!formRef.current) return;
 
+        const formData = new FormData(formRef.current);
+        console.log(formData);
+        const email = formData.get("user_email") as string;
+
+        console.log(email, typeof email);
+
+        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+        if (!emailRegex.test(email)) {
+            console.log('Invalid email');
+            return;
+        }
+
         const serviceID = process.env.NEXT_PUBLIC_CONTACT_SERVICE;
         const publicKey = process.env.NEXT_PUBLIC_CONTACT_KEY;
 
