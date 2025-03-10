@@ -40,14 +40,15 @@ const TechBadge = ({tech}: { tech: string }) => (
 
 const ProjectCard = ({project}: { project: Project }) => (
     <motion.div
-        className="flex flex-col lg:flex-row gap-4 lg:gap-8 p-4 lg:p-8"
+        className="flex flex-col lg:flex-row gap-4 p-4 lg:p-8"
         initial={{opacity: 0, y: 50}}
         whileInView={{opacity: 1, y: 0}}
         viewport={{amount: 0.2}}
         transition={{duration: 0.5}}
     >
         <div
-            className="w-full lg:w-3/5 h-auto overflow-hidden rounded-md lg:rounded-xl border-2 border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300">
+            className="w-full lg:w-3/5 h-auto overflow-hidden rounded-md lg:rounded-xl border-2
+            border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300 max-h-[400px]">
             <Image
                 src={project.image}
                 alt={project.title}
@@ -70,11 +71,11 @@ const ProjectCard = ({project}: { project: Project }) => (
 
             <div className="border-b border-white/20 my-4"/>
 
-            <p className="text-sm font-medium text-gray-300 mb-4 lg:flex-1">
+            <p className="text-sm font-medium text-gray-300 mb-4 lg:flex-1 lg:overflow-y-auto max-h-[218px] scrollable-description pr-1">
                 {project.description}
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 mt-auto">
                 <a
                     href={project.live}
                     target="_blank"

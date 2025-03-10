@@ -57,3 +57,18 @@ h1, h2, h3, h4, h5, h6 {
 .glass-card {
     @apply mx-auto rounded-md lg:rounded-xl border border-white/40 bg-gradient-to-b from-slate-700/60 to-slate-900/60 shadow-xl backdrop-blur-sm
 }
+
+.scrollable-description {
+    scrollbar-width: thin;
+    scrollbar-color: #555 #222;
+}
+.scrollable-description::-webkit-scrollbar {
+    width: 8px;
+}
+.scrollable-description::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 3px;
+}
+.scrollable-description::-webkit-scrollbar-track {
+    background: #222;
+}
