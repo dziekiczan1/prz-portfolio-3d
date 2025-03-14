@@ -22,8 +22,6 @@ export default function Navbar() {
 
     const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
-    console.log(scrollOffset);
-
     useEffect(() => {
         if (!isMobile) {
             return;

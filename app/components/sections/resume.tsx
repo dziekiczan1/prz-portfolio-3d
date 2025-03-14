@@ -8,7 +8,7 @@ import {resumeSection} from "@/constants/sections";
 
 export default function Resume() {
     return (
-        <section id="resume" className="px-4 lg:px-0 min-h-screen mb-4 lg:mb-0">
+        <section id="resume" className="px-4 lg:px-0 min-h-screen mb-4 lg:mb-0 scroll-mt-20 lg:scroll-mt-0">
             <div className="max-w-5xl mx-auto">
                 <BlurIn className="section-heading">
                     {resumeSection.heading}
