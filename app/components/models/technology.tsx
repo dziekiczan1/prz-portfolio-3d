@@ -106,7 +106,12 @@ export default function Technology() {
     return (
         <>
             {filteredTechnologies.map((data, index) => (
-                <Float key={index} rotationIntensity={0.15} floatIntensity={0.002} floatingRange={[-0.002, 0.002]}>
+                <Float
+                    key={index}
+                    rotationIntensity={isMobile ? 0.05 : 0.15}
+                    floatIntensity={isMobile ? 0.01 : 0.002}
+                    floatingRange={isMobile ? [-0.01, 0.01] : [-0.002, 0.002]}
+                >
                     <mesh
                         ref={(el) => {
                             sphereRefs.current[index] = el as THREE.Mesh | null;

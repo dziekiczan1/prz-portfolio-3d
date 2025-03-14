@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import {BlurIn} from "@/components/ui/blur-in";
 
 import {aboutSection} from "@/constants/sections";
+import {useDeviceType} from "@/app/hooks/useDeviceType";
 
 export default function About() {
     const ref = useRef(null);
@@ -11,10 +12,19 @@ export default function About() {
         target: ref,
         offset: ["start end", "end start"],
     });
+    const { isMobile } = useDeviceType();
 
     // Animation values based on scroll progress
-    const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
-    const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+    const opacity = useTransform(
+        scrollYProgress,
+        [0, 0.5, 1],
+        isMobile ? [0.8, 1, 1] : [0, 1, 0]
+    );
+    const y = useTransform(
+        scrollYProgress,
+        [0, 1],
+        isMobile ? [20, -20] : [50, -50]
+    );
 
     return (
         <section className="section-wrapper" id="about" ref={ref}>
