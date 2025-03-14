@@ -14,7 +14,7 @@ const Experience = lazy(() => import("@/app/components/sections/experience"));
 const Projects = lazy(() => import("@/app/components/sections/projects"));
 const Contact = lazy(() => import("@/app/components/sections/contact"));
 
-const TOTAL_ASSETS = 44;
+const TOTAL_ASSETS = 45;
 
 function CameraSetup() {
     const { size, camera } = useThree();
@@ -36,7 +36,7 @@ function CameraSetup() {
 export default function Home() {
     const [showPreloader, setShowPreloader] = useState(true);
     const { loaded, total } = useProgress();
-    const progress = total > 0 ? (loaded / TOTAL_ASSETS) * 100 : 0;
+    const progress = total > 0 ? Math.min((loaded / TOTAL_ASSETS) * 100, 100) : 0;
 
     return (
         <div className="relative w-full h-screen">

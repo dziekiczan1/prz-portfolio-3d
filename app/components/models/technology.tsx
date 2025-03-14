@@ -19,8 +19,6 @@ export default function Technology() {
         filteredTechnologies.map((data) => data.texturePath)
     );
 
-    console.log(filteredTechnologies);
-
     // Create sphere geometry and material
     const {geometry, material} = useMemo(() => {
         const geometry = new THREE.SphereGeometry(1, 20, 20);
@@ -56,7 +54,7 @@ export default function Technology() {
             if (mesh && decalMaterial) {
                 const scrollStart = isMobile ? 0.009 : 0.085; // Sphere start appearing
                 const scrollEndAppear = isMobile ? 0.04 : 0.20; // Sphere start disappearing
-                const scrollEndDisappear = isMobile ? 0.08 : 0.31; // Sphere fully disappeared
+                const scrollEndDisappear = isMobile ? 0.1 : 0.31; // Sphere fully disappeared
 
                 let normalizedOffset;
 
