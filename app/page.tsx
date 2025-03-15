@@ -14,7 +14,7 @@ const Experience = lazy(() => import("@/app/components/sections/experience"));
 const Projects = lazy(() => import("@/app/components/sections/projects"));
 const Contact = lazy(() => import("@/app/components/sections/contact"));
 
-const TOTAL_ASSETS = 45;
+const TOTAL_ASSETS = 44;
 
 function CameraSetup() {
     const { size, camera } = useThree();

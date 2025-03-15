@@ -5,6 +5,8 @@
 html,
 body {
     @apply w-full h-full text-gray-100 relative;
+    touch-action: manipulation;
+    overscroll-behavior: none;
 }
 
 html {
