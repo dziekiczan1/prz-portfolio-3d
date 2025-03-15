@@ -1,31 +1,43 @@
 "use client";
-import React, {useState, useEffect, useCallback} from "react";
+import React, {
+    useState,
+    useEffect,
+    useCallback,
+    forwardRef,
+    ForwardedRef
+} from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
 type Variant = "primary" | "secondary";
 
-export function HoverBorderGradient({
-                                        children,
-                                        containerClassName,
-                                        className,
-                                        variant = "primary",
-                                        as: Tag = "button",
-                                        duration = 1,
-                                        clockwise = true,
-                                        ...props
-                                    }: React.PropsWithChildren<
+interface HoverBorderGradientProps extends React.HTMLAttributes<HTMLElement> {
+    as?: React.ElementType;
+    containerClassName?: string;
+    className?: string;
+    variant?: Variant;
+    duration?: number;
+    clockwise?: boolean;
+    type?: "button" | "submit" | "reset";
+}
+
+export const HoverBorderGradient = forwardRef<
+    HTMLElement,
+    React.PropsWithChildren<HoverBorderGradientProps>
+>(function HoverBorderGradient(
     {
-        as?: React.ElementType;
-        containerClassName?: string;
-        className?: string;
-        variant?: Variant;
-        duration?: number;
-        clockwise?: boolean;
-        type?: "button" | "submit" | "reset";
-    } & React.HTMLAttributes<HTMLElement>
->) {
+        children,
+        containerClassName,
+        className,
+        variant = "primary",
+        as: Tag = "button",
+        duration = 1,
+        clockwise = true,
+        ...props
+    }: React.PropsWithChildren<HoverBorderGradientProps>,
+    ref: ForwardedRef<HTMLElement>
+) {
     const [hovered, setHovered] = useState<boolean>(false);
     const [direction, setDirection] = useState<Direction>("TOP");
     const [gradientAngle, setGradientAngle] = useState<number>(45);
@@ -81,6 +93,7 @@ export function HoverBorderGradient({
                 variant === "primary" ? "border-fuchsia-800 hover:bg-slate-800" : "border-slate-400 hover:bg-fuchsia-800",
                 containerClassName
             )}
+            ref={ref}
             {...props}
         >
             <div
@@ -125,4 +138,4 @@ export function HoverBorderGradient({
             />
         </Tag>
     );
-}
+});
