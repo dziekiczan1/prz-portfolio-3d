@@ -7,6 +7,8 @@ body {
     @apply w-full h-full text-gray-100 relative;
     touch-action: manipulation;
     overscroll-behavior: none;
+    height: -webkit-fill-available;
+    min-height: 100vh;
 }
 
 html {
@@ -64,13 +66,15 @@ h1, h2, h3, h4, h5, h6 {
     scrollbar-width: thin;
     scrollbar-color: #555 #222;
 }
+
 .scrollable-description::-webkit-scrollbar {
-    width: 8px;
+    @apply w-2;
 }
+
 .scrollable-description::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 3px;
+    @apply bg-gray-500 rounded;
 }
+
 .scrollable-description::-webkit-scrollbar-track {
-    background: #222;
+    @apply bg-gray-800;
 }

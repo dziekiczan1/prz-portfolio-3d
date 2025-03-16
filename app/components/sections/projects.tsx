@@ -71,7 +71,7 @@ const ProjectCard = ({project}: { project: Project }) => (
 
             <div className="border-b border-white/20 my-4"/>
 
-            <p className="text-sm font-medium text-gray-300 mb-4 lg:flex-1 lg:overflow-y-auto max-h-[218px] scrollable-description pr-1">
+            <p className="text-sm font-medium text-gray-300 mb-4 lg:flex-1 overflow-y-auto max-h-[218px] scrollable-description pr-1">
                 {project.description}
             </p>
 
