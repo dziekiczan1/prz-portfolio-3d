@@ -6,15 +6,19 @@ html,
 body {
     @apply w-full h-full text-gray-100 relative;
     touch-action: manipulation;
-    overscroll-behavior: none;
-    height: -webkit-fill-available;
-    min-height: 100vh;
+    overscroll-behavior-y: contain;
+}
+
+body {
+    min-height: -webkit-fill-available;
+    min-height: 100dvh;
 }
 
 html {
     scrollbar-width: none;
     overflow-y: scroll;
     -ms-overflow-style: none;
+    height: -webkit-fill-available;
 }
 
 ::-webkit-scrollbar {

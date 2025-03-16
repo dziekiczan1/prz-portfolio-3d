@@ -33,6 +33,7 @@ export default function SocialMedia({ isMobileNavbar = false }: SocialMediaProps
             className={`fixed left-4 right-4 lg:left-auto lg:right-10 bottom-4 lg:bottom-8 flex justify-between lg:justify-start items-center lg:gap-14 z-10`}
             variants={{
                 hidden: {
+                    pointerEvents: "none",
                     transition: {
                         delayChildren: 0.2,
                         staggerChildren: 0.1,
@@ -40,6 +41,7 @@ export default function SocialMedia({ isMobileNavbar = false }: SocialMediaProps
                     }
                 },
                 visible: {
+                    pointerEvents: "auto",
                     transition: {
                         staggerChildren: 0.1,
                         delayChildren: 0.2
@@ -56,6 +58,7 @@ export default function SocialMedia({ isMobileNavbar = false }: SocialMediaProps
                         visible: {
                             opacity: 1,
                             y: 0,
+                            pointerEvents: "auto",
                             transition: {
                                 duration: 0.3,
                                 delay: i * 0.1
@@ -64,6 +67,7 @@ export default function SocialMedia({ isMobileNavbar = false }: SocialMediaProps
                         hidden: {
                             opacity: 0,
                             y: 20,
+                            pointerEvents: "none",
                             transition: {
                                 duration: 0.3,
                                 delay: (socialMediaData.length - i - 1) * 0.1
