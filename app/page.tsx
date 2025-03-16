@@ -39,7 +39,7 @@ export default function Home() {
     const progress = total > 0 ? Math.min((loaded / TOTAL_ASSETS) * 100, 100) : 0;
 
     return (
-        <div className="relative w-full h-screen">
+        <div className="relative w-full h-screen min-h-screen">
             {showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress} />}
 
             <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-700 to-slate-900">
