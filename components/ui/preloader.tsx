@@ -59,7 +59,7 @@ export default function Preloader({ onEnter, progress }: PreloaderProps) {
     };
 
     return (
-        <div className="fixed inset-0 bg-gradient-to-br from-slate-700 to-slate-900 z-50">
+        <div className="fixed inset-0 min-h-screen bg-gradient-to-br from-slate-700 to-slate-900 z-50">
             <div className="flex fixed z-50 w-full py-4 px-4 lg:px-8">
                 <Link href="/" className="flex items-center justify-center font-bold gap-4">
                     <div className="flex items-center justify-center border-2 border-fuchsia-800 w-10 h-10 rounded-lg">
