@@ -27,7 +27,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         <html lang="en">
         <body className={`${dmSans.variable} ${dmSans.className} ${orbitron.variable} antialiased`}>
             <Navbar/>
-            <main>
+            <main className="main-class">
                 {children}
             </main>
             <SocialMedia/>

@@ -11,6 +11,11 @@ body {
     height: 100dvh;
 }
 
+.main-class {
+    height: 100vh;
+    height: 100dvh;
+}
+
 body {
     min-height: -webkit-fill-available;
     min-height: 100dvh;
