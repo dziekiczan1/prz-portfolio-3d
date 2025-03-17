@@ -7,13 +7,13 @@ body {
     @apply w-full h-full text-gray-100 relative;
     touch-action: manipulation;
     overscroll-behavior-y: contain;
-    height: 100vh;
-    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 .main-class, .my-class-test {
-    height: 100vh;
-    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 body {
