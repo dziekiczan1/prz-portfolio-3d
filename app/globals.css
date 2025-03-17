@@ -11,7 +11,7 @@ body {
     height: 100dvh;
 }
 
-.main-class {
+.main-class, .my-class-test {
     height: 100vh;
     height: 100dvh;
 }
