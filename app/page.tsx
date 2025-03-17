@@ -34,18 +34,6 @@ function CameraSetup() {
 }
 
 export default function Home() {
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-            document.body.setAttribute(
-                'style',
-                `height: calc(var(--vh, 1vh) * 100);`
-            );
-        }
-    }, []);
-
     const [showPreloader, setShowPreloader] = useState(true);
     const { loaded, total } = useProgress();
     const progress = total > 0 ? Math.min((loaded / TOTAL_ASSETS) * 100, 100) : 0;
@@ -54,7 +42,7 @@ export default function Home() {
         <div className="relative w-full h-screen min-h-screen">
             {showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress} />}
 
-            <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-700 to-slate-900">
+            <div className="fixed inset-0 -bottom-8 lg:bottom-0 z-0 bg-gradient-to-br from-slate-700 to-slate-900">
                 <GridPattern
                     width={20}
                     height={20}
