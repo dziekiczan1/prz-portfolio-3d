@@ -42,7 +42,7 @@ export default function Home() {
         <div className="relative w-full h-screen min-h-screen">
             {showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress} />}
 
-            <div className="fixed inset-0 -bottom-14 lg:bottom-0 z-0 bg-gradient-to-br from-slate-700 to-slate-900">
+            <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-700 to-slate-900 min-h-dvh">
                 <GridPattern
                     width={20}
                     height={20}
