@@ -37,7 +37,12 @@ export default function Home() {
     const [showPreloader, setShowPreloader] = useState(true);
     const { loaded, total } = useProgress();
     const progress = total > 0 ? Math.min((loaded / TOTAL_ASSETS) * 100, 100) : 0;
-
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    document.body.setAttribute(
+        'style',
+        `height: calc(var(--vh, 1vh) * 100);`
+    );
     return (
         <div className="relative w-full h-screen min-h-screen">
             {showPreloader && <Preloader onEnter={() => setShowPreloader(false)} progress={progress} />}
