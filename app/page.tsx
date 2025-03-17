@@ -34,9 +34,6 @@ function CameraSetup() {
 }
 
 export default function Home() {
-    const [showPreloader, setShowPreloader] = useState(true);
-    const { loaded, total } = useProgress();
-    const progress = total > 0 ? Math.min((loaded / TOTAL_ASSETS) * 100, 100) : 0;
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -48,6 +45,10 @@ export default function Home() {
             );
         }
     }, []);
+
+    const [showPreloader, setShowPreloader] = useState(true);
+    const { loaded, total } = useProgress();
+    const progress = total > 0 ? Math.min((loaded / TOTAL_ASSETS) * 100, 100) : 0;
 
     return (
         <div className="relative w-full h-screen min-h-screen">
