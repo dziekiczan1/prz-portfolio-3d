@@ -36,6 +36,7 @@ interface DeveloperGLTF extends GLTF {
 export default function Developer() {
     const group = useRef<THREE.Group>(null);
     const { nodes, materials } = useGLTF('./models/developer.glb') as DeveloperGLTF;
+    const {isMobile} = useDeviceType();
 
     const { animations: phoneAnimation } = useFBX('./models/phone.fbx');
     const { animations: sittingAnimation } = useFBX('./models/sitting.fbx');
@@ -54,7 +55,6 @@ export default function Developer() {
     });
 
     const { actions } = useAnimations(animations, group);
-    const {isMobile} = useDeviceType();
     const actionsRef = useRef(actions);
     const previousAnimationRef = useRef<string>('');
 
@@ -68,6 +68,11 @@ export default function Developer() {
     const [currentAnimation, setCurrentAnimation] = useState<string>('sitting');
 
     useEffect(() => {
+        if (isMobile) {
+            setCurrentAnimation('sitting');
+            return;
+        }
+
         if (scrollOffset < 0.45) {
             setCurrentAnimation('sitting');
         } else if (scrollOffset < 0.75) {
