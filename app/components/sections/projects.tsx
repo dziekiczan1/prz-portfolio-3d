@@ -8,6 +8,7 @@ import {Chevron} from "@/components/ui/chevron";
 import {projectsSection} from "@/constants/sections";
 import {projectsData} from "@/constants/projects";
 import {Project, SlideButtonProps} from "@/types/projects";
+import {useDeviceType} from "@/app/hooks/useDeviceType";
 
 const SLIDE_TRANSITION = {
     type: "spring",
@@ -15,6 +16,12 @@ const SLIDE_TRANSITION = {
     damping: 40,
     opacity: {duration: 0.5},
 } as const;
+
+interface SlideContainerProps {
+    children: React.ReactNode;
+    onTouchStart?: (e: React.TouchEvent) => void;
+    onTouchEnd?: (e: React.TouchEvent) => void;
+}
 
 const SlideButton = ({direction, onClick}: SlideButtonProps) => (
     <button
@@ -38,67 +45,90 @@ const TechBadge = ({tech}: { tech: string }) => (
   </span>
 );
 
-const ProjectCard = ({project}: { project: Project }) => (
-    <motion.div
-        className="flex flex-col lg:flex-row gap-4 p-4 lg:p-8"
-        initial={{opacity: 0, y: 50}}
-        whileInView={{opacity: 1, y: 0}}
-        viewport={{amount: 0.2}}
-        transition={{duration: 0.5}}
-    >
-        <div
-            className="w-full lg:w-3/5 h-auto overflow-hidden rounded-md lg:rounded-xl border-2
-            border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300 max-h-[400px]">
-            <Image
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                width={800}
-                height={500}
-            />
-        </div>
+const ProjectCard = ({ project }: { project: Project }) => {
+    const { isMobile } = useDeviceType();
 
-        <div className="flex flex-col lg:flex-1">
-            <div className="flex flex-col gap-4">
-                <h3 className="text-lg font-semibold text-gray-100">{project.title}</h3>
-                <div className="flex flex-wrap gap-2">
-                    {project.stack.map((tech) => (
-                        <TechBadge key={tech} tech={tech}/>
-                    ))}
+    return (
+        <motion.div
+            className="flex flex-col lg:flex-row gap-4 p-4 lg:p-8"
+            initial={{
+                opacity: 0,
+                y: isMobile ? 20 : 50,
+                x: isMobile ? 0 : 0
+            }}
+            whileInView={{
+                opacity: 1,
+                y: 0,
+                x: 0
+            }}
+            viewport={{
+                amount: 0.2,
+                margin: isMobile ? "0px 0px -50px 0px" : "0px"
+            }}
+            transition={{
+                duration: 0.5,
+                delay: isMobile ? 0.1 : 0
+            }}
+        >
+            <div
+                className="w-full lg:w-3/5 h-auto overflow-hidden rounded-md lg:rounded-xl border-2
+            border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300 max-h-[400px]"
+            >
+                <Image
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    width={800}
+                    height={500}
+                />
+            </div>
+
+            <div className="flex flex-col lg:flex-1">
+                <div className="flex flex-col gap-4">
+                    <h3 className="text-lg font-semibold text-gray-100">{project.title}</h3>
+                    <div className="flex flex-wrap gap-2">
+                        {project.stack.map((tech) => (
+                            <TechBadge key={tech} tech={tech}/>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="border-b border-white/20 my-4"/>
+
+                <p className="text-sm font-medium text-gray-300 mb-4 lg:flex-1 overflow-y-auto max-h-[218px] scrollable-description pr-1">
+                    {project.description}
+                </p>
+
+                <div className="flex gap-4 mt-auto">
+                    <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary"
+                    >
+                        Live
+                    </a>
+                    <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-secondary"
+                    >
+                        GitHub
+                    </a>
                 </div>
             </div>
+        </motion.div>
+    );
+};
 
-            <div className="border-b border-white/20 my-4"/>
-
-            <p className="text-sm font-medium text-gray-300 mb-4 lg:flex-1 overflow-y-auto max-h-[218px] scrollable-description pr-1">
-                {project.description}
-            </p>
-
-            <div className="flex gap-4 mt-auto">
-                <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary"
-                >
-                    Live
-                </a>
-                <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-secondary"
-                >
-                    GitHub
-                </a>
-            </div>
-        </div>
-    </motion.div>
-);
-
-const SlideContainer = ({children}: { children: React.ReactNode }) => (
-    <div className="w-full overflow-hidden glass-card">
+const SlideContainer = ({children, onTouchStart, onTouchEnd}: SlideContainerProps) => (
+    <div
+        className="w-full overflow-hidden glass-card"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+    >
         <motion.div
             className="inline lg:flex"
             style={{width: "100%"}}
@@ -115,12 +145,43 @@ const AnimatedDiv = motion.div;
 
 export default function Projects() {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [touchStart, setTouchStart] = useState<{x: number; y: number} | null>(null);
 
     const handleSlideChange = (direction: "next" | "prev") => {
         setCurrentSlide((prev) => {
             const delta = direction === "next" ? 1 : -1;
             return (prev + delta + projectsData.length) % projectsData.length;
         });
+    };
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        const touch = e.touches[0];
+        setTouchStart({
+            x: touch.clientX,
+            y: touch.clientY,
+        });
+    };
+
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        if (!touchStart) return;
+
+        const touch = e.changedTouches[0];
+        const endX = touch.clientX;
+        const endY = touch.clientY;
+
+        const deltaX = endX - touchStart.x;
+        const deltaY = endY - touchStart.y;
+
+        // Check if horizontal swipe and exceeds threshold (50px)
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+            if (deltaX > 0) {
+                handleSlideChange("prev");
+            } else {
+                handleSlideChange("next");
+            }
+        }
+
+        setTouchStart(null);
     };
 
     return (
@@ -140,7 +201,10 @@ export default function Projects() {
             </div>
 
             <div className="flex w-full lg:max-w-5xl relative">
-                <SlideContainer>
+                <SlideContainer
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
+                >
                     <AnimatedDiv
                         className="flex"
                         animate={{x: `-${currentSlide * 100}%`}}
