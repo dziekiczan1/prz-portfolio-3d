@@ -50,10 +50,10 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
     return (
         <motion.div
-            className="flex flex-col lg:flex-row gap-4 p-4 lg:p-8"
+            className="flex flex-col lg:flex-row gap-4 p-4 lg:p-8 h-full"
             initial={{
                 opacity: 0,
-                y: isMobile ? 20 : 50,
+                y: isMobile ? -20 : 50,
                 x: isMobile ? 0 : 0
             }}
             whileInView={{
@@ -71,7 +71,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
             }}
         >
             <div
-                className="w-full lg:w-3/5 h-auto overflow-hidden rounded-md lg:rounded-xl border-2
+                className="w-full lg:w-1/2 h-auto lg:h-full overflow-hidden rounded-md lg:rounded-xl border-2
             border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300 max-h-[400px]"
             >
                 <Image
@@ -84,7 +84,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
                 />
             </div>
 
-            <div className="flex flex-col lg:flex-1">
+            <div className="flex flex-col flex-1">
                 <div className="flex flex-col gap-4">
                     <h3 className="text-lg font-semibold text-gray-100">{project.title}</h3>
                     <div className="flex flex-wrap gap-2">
@@ -105,17 +105,39 @@ const ProjectCard = ({ project }: { project: Project }) => {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-primary"
+                        className="group inline-flex items-center gap-2 px-4 py-2.5 lg:px-6 bg-gradient-to-r from-purple-600 to-pink-500
+                   rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-300
+                   border border-purple-500/30 hover:border-purple-500/50 shadow-lg shadow-purple-500/20"
                     >
-                        Live
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                             className="lucide lucide-sparkles">
+                            <path
+                                d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                            <path d="M5 3v4"/>
+                            <path d="M19 17v4"/>
+                            <path d="M3 5h4"/>
+                            <path d="M17 19h4"/>
+                        </svg>
+                        <span className="text-sm font-medium text-gray-100 tracking-wide">Live Demo</span>
                     </a>
+
                     <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-secondary"
+                        className="group inline-flex items-center gap-2 px-4 py-2.5 lg:px-6 bg-gray-800/70
+                   rounded-lg hover:bg-gray-700/80 transition-all duration-300
+                   border border-gray-700/50 hover:border-gray-600/60 backdrop-blur-sm"
                     >
-                        GitHub
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                             className="lucide lucide-github">
+                            <path
+                                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                            <path d="M9 18c-4.51 2-5-2-7-2"/>
+                        </svg>
+                        <span className="text-sm font-medium text-gray-100 tracking-wide">GitHub</span>
                     </a>
                 </div>
             </div>
@@ -130,7 +152,7 @@ const SlideContainer = ({children, onTouchStart, onTouchEnd}: SlideContainerProp
         onTouchEnd={onTouchEnd}
     >
         <motion.div
-            className="inline lg:flex"
+            className="inline lg:block"
             style={{width: "100%"}}
             initial={{x: 0, opacity: 0.7}}
             animate={{opacity: 1}}
@@ -145,7 +167,7 @@ const AnimatedDiv = motion.div;
 
 export default function Projects() {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [touchStart, setTouchStart] = useState<{x: number; y: number} | null>(null);
+    const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
 
     const handleSlideChange = (direction: "next" | "prev") => {
         setCurrentSlide((prev) => {
