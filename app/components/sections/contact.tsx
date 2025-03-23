@@ -17,7 +17,7 @@ const FormField = ({children}: { children: React.ReactNode }) => (
         initial={{opacity: 0, y: 10}}
         whileInView={{opacity: 1, y: 0}}
         transition={{duration: 0.3}}
-        className="space-y-6 lg:space-y-10 w-full lg:w-4/5 mx-auto"
+        className="space-y-6 lg:space-y-10 w-full xl:w-4/5 mx-auto"
     >
         {children}
     </motion.div>
@@ -45,7 +45,7 @@ export default function Contact() {
             <form
                 ref={formRef}
                 onSubmit={handleSubmit}
-                className="relative px-4 py-6 lg:p-8 max-w-5xl w-full glass-card"
+                className="relative px-4 py-6 lg:p-8 lg:max-w-3xl xl:max-w-5xl w-full glass-card"
             >
                 <FormField>
                     {formFields.map((field) => (

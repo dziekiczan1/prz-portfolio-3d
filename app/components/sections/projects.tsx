@@ -70,9 +70,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
                 delay: isMobile ? 0.1 : 0
             }}
         >
-            <div
+            <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full lg:w-1/2 h-auto lg:h-full overflow-hidden rounded-md lg:rounded-xl border-2
-            border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300 max-h-[400px] lg:max-h-none"
+        border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300 max-h-[400px] lg:max-h-none"
             >
                 <Image
                     src={project.image}
@@ -82,7 +85,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
                     width={800}
                     height={500}
                 />
-            </div>
+            </a>
 
             <div className="flex flex-col flex-1">
                 <div className="flex flex-col gap-4">

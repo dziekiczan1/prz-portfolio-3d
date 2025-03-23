@@ -142,6 +142,7 @@ export default function Developer() {
         const scrollStartFade = 0.01;
         const scrollShowStart = 0.45;
         const scrollShowEnd = 0.55;
+        const width = window.innerWidth;
 
         let positionY = isMobile ? 0.02 : -0.05;
         let positionX = isMobile ? 0.1 : 0.5;
@@ -155,16 +156,28 @@ export default function Developer() {
             scale = 0;
         } else if (scrollOffset >= scrollShowStart && scrollOffset <= scrollShowEnd) {
             animationProgress = (scrollOffset - scrollShowStart) / (scrollShowEnd - scrollShowStart);
+            if (width >= 1024 && width <= 1440) {
+                positionX = lerp(1, 1.5, (width - 1024) / (1440 - 1024));
+            } else if (width < 1024) {
+                positionX = 5;
+            } else {
+                positionX = 1.5;
+            }
             positionY = -1;
-            positionX = 1.5;
             positionZ = 2;
             scale = lerp(0, 0.6, animationProgress);
             opacity = lerp(0, 1, animationProgress);
         } else if (scrollOffset > scrollShowEnd) {
+            if (width >= 1024 && width <= 1440) {
+                positionX = lerp(1, 1.5, (width - 1024) / (1440 - 1024));
+            } else if (width < 1024) {
+                positionX = 5;
+            } else {
+                positionX = 1.5;
+            }
             scale = 0.6;
             opacity = 1;
             positionY = -1;
-            positionX = 1.5;
             positionZ = 2;
         }
 
