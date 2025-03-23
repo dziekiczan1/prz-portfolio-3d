@@ -6,7 +6,7 @@ export const projectsData = [
         link: "#",
         description: "Syndicate Crime is an immersive and thrilling mafia-themed game that lets you step into the shoes of a rising mobster. Navigate the dark underbelly of a sprawling city filled with corruption, intrigue, and danger as you climb the ranks of organized crime.",
         stack: ["NextJS", "Node.js", "MongoDB", "Websockets"],
-        live: "https://example.com",
+        live: "http://152.70.166.180:3001/",
         github: "https://github.com/dziekiczan1/syndicateCrime",
     },
     {
@@ -16,8 +16,8 @@ export const projectsData = [
         link: "#",
         description: "eRZet is a web design company that creates tailored websites for various industries. From the very beginning, we have been committed to delivering top-quality services that meet the unique needs of our clients. Our team consists of experienced specialists with extensive knowledge of website development. Their dedication and professionalism allow us to provide the best solutions to help businesses grow. Our mission is to create websites that not only meet our clients’ expectations but also support their success. We believe that a well-designed website is a key factor in today’s digital world, which is why we approach each project individually, ensuring the best possible results.",
         stack: ["React", "TailwindCSS", "Framer Motion"],
-        live: "https://example.com",
-        github: "https://github.com/dziekiczan1/syndicateCrime",
+        live: "https://erzet.dev/",
+        github: "https://github.com/dziekiczan1/eRZet",
     },
     {
         id: 2,
@@ -26,7 +26,7 @@ export const projectsData = [
         link: "#",
         description: "Peter's Portfolio was a personal website designed to showcase my work, skills, and projects as a web developer. The site provided an overview of my experience, technologies I worked with, and examples of my previous work. Built with a clean and modern design, the portfolio featured dedicated sections for my skills, projects, and contact information. The goal was to create an interactive and engaging experience that effectively represented my expertise and growth in web development. This project served as both a resume and a platform to demonstrate my ability to build responsive, well-structured websites.",
         stack: ["React", "Typescript", "SCSS", "Framer Motion", "GSAP"],
-        live: "https://example.com",
+        live: "https://piotr.rzadkowolski.dev/",
         github: "https://github.com/dziekiczan1/portfolio",
     },
     {
@@ -36,7 +36,7 @@ export const projectsData = [
         link: "#",
         description: "Where To? DIVE – a platform for discovering and sharing the best diving spots worldwide. Whether you're looking for wrecks, caves, or stunning coral reefs, our website helps you find the perfect dive sites—both near you and across the globe—regardless of your skill level. Planning a holiday trip? Or maybe a quick weekend getaway? Explore the best diving locations with us. Have you discovered an amazing dive site yourself? Share it with the community and help others experience incredible underwater adventures!",
         stack: ["React", "Redux", "MongoDB", "Express", "Node.js"],
-        live: "https://example.com",
+        live: "https://dive.erzet.dev/",
         github: "https://github.com/dziekiczan1/dive",
     },
     {
@@ -46,7 +46,7 @@ export const projectsData = [
         link: "#",
         description: "I Got So High That... is a MERN stack web application where users can share and comment on funny stories about their experiences while high. The platform encourages community engagement by allowing users to post, read, and interact with entertaining anecdotes. The frontend is built with React and Redux for state management, while the backend is powered by Node.js and Express, with MongoDB handling data storage. The UI is styled using Material-UI (MUI) and Bootstrap, providing a clean and responsive design. This project showcases my ability to develop full-stack applications with user authentication, interactive features, and modern UI frameworks.",
         stack: ["React", "Redux", "MongoDB", "Express", "Node.js", "MUI"],
-        live: "https://example.com",
+        live: "https://sohigh.erzet.dev/",
         github: "https://github.com/dziekiczan1/igotsohigh",
     },
 ];

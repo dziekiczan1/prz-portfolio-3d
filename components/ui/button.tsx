@@ -98,7 +98,7 @@ export const HoverBorderGradient = forwardRef<
         >
             <div
                 className={cn(
-                    "w-auto text-gray-100 z-10 px-4 py-2 rounded-[inherit]",
+                    "w-auto text-gray-100 z-10 px-4 py-2 rounded-[inherit] flex items-center gap-2",
                     className
                 )}
             >

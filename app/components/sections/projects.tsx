@@ -9,6 +9,8 @@ import {projectsSection} from "@/constants/sections";
 import {projectsData} from "@/constants/projects";
 import {Project, SlideButtonProps} from "@/types/projects";
 import {useDeviceType} from "@/app/hooks/useDeviceType";
+import Link from "next/link";
+import {HoverBorderGradient} from "@/components/ui/button";
 
 const SLIDE_TRANSITION = {
     type: "spring",
@@ -40,7 +42,7 @@ const SlideButton = ({direction, onClick}: SlideButtonProps) => (
 );
 
 const TechBadge = ({tech}: { tech: string }) => (
-    <span className="px-3 py-1 bg-gray-700 rounded-full text-sm text-gray-200">
+    <span className="px-2 lg:px-3 py-0.5 lg:py-1 bg-gray-700 rounded-full text-xs lg:text-sm text-gray-200">
     {tech}
   </span>
 );
@@ -103,44 +105,51 @@ const ProjectCard = ({ project }: { project: Project }) => {
                     {project.description}
                 </p>
 
-                <div className="flex gap-4 mt-auto">
-                    <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group inline-flex items-center gap-2 px-4 py-2.5 lg:px-6 bg-gradient-to-r from-purple-600 to-pink-500
-                   rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-300
-                   border border-purple-500/30 hover:border-purple-500/50 shadow-lg shadow-purple-500/20"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                             className="lucide lucide-sparkles">
-                            <path
-                                d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
-                            <path d="M5 3v4"/>
-                            <path d="M19 17v4"/>
-                            <path d="M3 5h4"/>
-                            <path d="M17 19h4"/>
-                        </svg>
-                        <span className="text-sm font-medium text-gray-100 tracking-wide">Live Demo</span>
+                <div className="flex flex-col lg:flex-row gap-4 mt-auto">
+                    <a href={project.live}
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       className="flex-1 project-slide-link">
+                        <HoverBorderGradient
+                            containerClassName="rounded-md"
+                            as="button"
+                            variant="secondary"
+                            className="px-8 py-2 text-m font-medium"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                 className="lucide lucide-sparkles">
+                                <path
+                                    d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                                <path d="M5 3v4"/>
+                                <path d="M19 17v4"/>
+                                <path d="M3 5h4"/>
+                                <path d="M17 19h4"/>
+                            </svg>
+                            <span className="text-sm font-medium text-gray-100 tracking-wide">Live Demo</span>
+                        </HoverBorderGradient>
                     </a>
 
-                    <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group inline-flex items-center gap-2 px-4 py-2.5 lg:px-6 bg-gray-800/70
-                   rounded-lg hover:bg-gray-700/80 transition-all duration-300
-                   border border-gray-700/50 hover:border-gray-600/60 backdrop-blur-sm"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                             className="lucide lucide-github">
-                            <path
-                                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
-                            <path d="M9 18c-4.51 2-5-2-7-2"/>
-                        </svg>
-                        <span className="text-sm font-medium text-gray-100 tracking-wide">GitHub</span>
+                    <a href={project.github}
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       className="flex-1 project-slide-link">
+                        <HoverBorderGradient
+                            containerClassName="rounded-md"
+                            as="button"
+                            className="px-8 py-2 text-m font-medium"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                 className="lucide lucide-github">
+                                <path
+                                    d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                                <path d="M9 18c-4.51 2-5-2-7-2"/>
+                            </svg>
+                            <span className="text-sm font-medium text-gray-100 tracking-wide">GitHub</span>
+                        </HoverBorderGradient>
                     </a>
                 </div>
             </div>
