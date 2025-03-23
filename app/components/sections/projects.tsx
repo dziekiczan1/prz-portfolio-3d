@@ -9,7 +9,6 @@ import {projectsSection} from "@/constants/sections";
 import {projectsData} from "@/constants/projects";
 import {Project, SlideButtonProps} from "@/types/projects";
 import {useDeviceType} from "@/app/hooks/useDeviceType";
-import Link from "next/link";
 import {HoverBorderGradient} from "@/components/ui/button";
 
 const SLIDE_TRANSITION = {
