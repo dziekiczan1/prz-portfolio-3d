@@ -72,7 +72,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
         >
             <div
                 className="w-full lg:w-1/2 h-auto lg:h-full overflow-hidden rounded-md lg:rounded-xl border-2
-            border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300 max-h-[400px]"
+            border-white/40 hover:shadow-[0_0_20px_rgba(159,68,217,0.8)] transition-shadow duration-300 max-h-[400px] lg:max-h-none"
             >
                 <Image
                     src={project.image}
@@ -222,7 +222,7 @@ export default function Projects() {
                 </AnimatedDiv>
             </div>
 
-            <div className="flex w-full lg:max-w-5xl relative">
+            <div className="flex w-full lg:max-w-3xl xl:max-w-5xl relative">
                 <SlideContainer
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}

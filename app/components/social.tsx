@@ -87,7 +87,7 @@ export default function SocialMedia({ isMobileNavbar = false }: SocialMediaProps
                                 alt={social.name}
                                 width={24}
                                 height={24}
-                                className="w-6 h-6 md:-rotate-45 transition-transform duration-300 group-hover:scale-110"
+                                className="w-6 h-6 lg:-rotate-45 transition-transform duration-300 group-hover:scale-110"
                             />
                         </HoverBorderGradient>
                     </Link>
