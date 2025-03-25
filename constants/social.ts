@@ -15,7 +15,7 @@ export const socialMediaData: {
     },
     {
         name: 'Resume',
-        link: 'https://www.linkedin.com/in/piotr-rzadkowolski-a0a44411b/',
+        link: 'https://www.piotr.rzadkowolski.dev/Piotr Rzadkowolski.pdf',
         logo: './social/resume.svg',
     },
 ];
