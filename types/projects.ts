@@ -4,7 +4,7 @@ export interface Project {
     description: string;
     image: string;
     stack: string[];
-    live: string;
+    live?: string;
     github: string;
 }
 

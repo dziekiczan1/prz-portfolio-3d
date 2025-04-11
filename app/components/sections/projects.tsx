@@ -72,7 +72,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
             }}
         >
             <a
-                href={project.live}
+                href={project.live || project.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full lg:w-1/2 h-auto lg:h-full overflow-hidden rounded-md lg:rounded-xl border-2
@@ -105,7 +105,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
                 </p>
 
                 <div className="flex flex-col lg:flex-row gap-4 mt-auto">
-                    <a href={project.live}
+                    {project.live &&
+                        (<a href={project.live}
                        target="_blank"
                        rel="noopener noreferrer"
                        className="flex-1 project-slide-link">
@@ -128,7 +129,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
                             </svg>
                             <span className="text-sm font-medium text-gray-100 tracking-wide">Live Demo</span>
                         </HoverBorderGradient>
-                    </a>
+                    </a>)}
 
                     <a href={project.github}
                        target="_blank"
